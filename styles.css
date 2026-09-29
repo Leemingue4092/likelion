@@ -1,0 +1,242 @@
+:root {
+  color-scheme: light;
+  --ink: #1c1915;
+  --muted: #5c564c;
+  --line: #e4ddd2;
+  --paper: #f6f3ee;
+  --card: #fffcf8;
+  --semester: #1f6b4a;
+  --break: #9a4d12;
+  --accent: #1c1915;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.55;
+}
+
+a { color: inherit; }
+
+.top, .profile, .now, .controls, .count, .list, .cut, footer {
+  width: min(980px, calc(100% - 32px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.top { padding: 48px 0 12px; }
+
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(32px, 5vw, 48px);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.lede {
+  max-width: 42rem;
+  margin: 14px 0 0;
+  font-size: 17px;
+  color: var(--muted);
+}
+
+.profile, .now, .cut {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px 22px;
+}
+
+.profile { margin-top: 28px; }
+
+.profile h2, .now h2, .cut h2 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.profile ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.profile li {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 14px;
+  background: #f3efe8;
+}
+
+.profile-note, .now li, .cut p, .cut li, footer p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.profile-note { margin: 12px 0 0; }
+
+.now { margin-top: 12px; }
+
+.now ul, .open-wrap { margin-top: 12px; }
+.open-wrap {
+  width: min(980px, calc(100% - 32px));
+  margin: 22px auto 0;
+}
+.open-wrap h2 { margin: 0 0 10px; font-size: 18px; }
+.checked { margin: 0; padding-left: 18px; }
+
+.now a { font-weight: 650; }
+
+.controls { margin-top: 28px; }
+
+.seasons, .fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fields { margin-top: 10px; }
+
+button {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button.is-on {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.count {
+  margin: 18px auto 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+  padding-bottom: 12px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px 22px 18px;
+  border-top: 4px solid var(--semester);
+}
+
+.card[data-season="break"] { border-top-color: var(--break); }
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.badge, .status {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.badge {
+  font-weight: 700;
+  color: var(--semester);
+}
+
+.card[data-season="break"] .badge { color: var(--break); }
+
+.status { color: var(--muted); }
+
+.card h3 {
+  margin: 8px 0 6px;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+}
+
+.summary { margin: 0 0 14px; }
+
+dl { margin: 0; }
+
+dl div {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 10px;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+}
+
+dt { color: var(--muted); }
+
+dd { margin: 0; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.tags span {
+  background: #f3efe8;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+.note {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.go {
+  display: inline-block;
+  margin-top: 14px;
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
+.extra {
+  display: flex;
+  gap: 14px;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.cut { margin-top: 8px; }
+
+.cut ul { margin: 0; padding-left: 18px; }
+
+.cut li { margin: 8px 0; }
+
+.cut strong { color: var(--ink); }
+
+footer {
+  padding: 22px 0 48px;
+}
+
+@media (max-width: 640px) {
+  dl div { grid-template-columns: 1fr; gap: 2px; }
+  .card-top { align-items: flex-start; flex-direction: column; }
+}
