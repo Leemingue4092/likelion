@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>재학생 활동 노선</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <p class="eyebrow">2026.09.29 기준 · 수업 듣는 재학생</p>
+    <h1>할 수 있는 활동만 골랐습니다</h1>
+    <p class="lede">졸업예정자, 휴학생, 평일 전일 출근이 필요한 과정은 빼 두었습니다. 학기 중에는 수업과 겹치지 않는 것만, 방학에는 그 기간에 출근하는 것만 올립니다.</p>
+  </header>
+
+  <section class="profile" aria-label="적용한 조건">
+    <h2>이 조건으로 걸렀습니다</h2>
+    <ul>
+      <li>대학교 재학생</li>
+      <li>졸업예정 아님</li>
+      <li>휴학 아님</li>
+      <li>학기 중에는 수업을 유지</li>
+      <li>주 30시간 이상 고용보험 가입 아님</li>
+      <li>만 34세 이하, 대한민국 국적</li>
+    </ul>
+    <p class="profile-note">학년, 학교, 전공은 모릅니다. 학교 현장실습은 소속 대학 공지를 보는 칸으로 넣었습니다. 휴학하거나 졸업예정자가 되면 빠져 있던 K-뉴딜, LG AX SCHOOL이 다시 열립니다.</p>
+  </section>
+
+  <section class="now">
+    <h2>지금 손댈 곳</h2>
+    <ol>
+      <li><a href="https://yw.work24.go.kr" target="_blank" rel="noopener">청년일경험 포털</a>에 가입하고, 프로젝트형 공고가 열려 있는지 확인합니다.</li>
+      <li>학교 현장실습지원센터에서 <strong>동계 현장실습</strong> 모집 공지를 찾습니다. 많은 학교가 10~11월에 받습니다.</li>
+      <li>대외활동은 <a href="https://linkareer.com" target="_blank" rel="noopener">링커리어</a>에서 주당 시간이 짧은 것만 고릅니다.</li>
+    </ol>
+  </section>
+
+  <div class="controls">
+    <div class="seasons" role="tablist" aria-label="시기">
+      <button type="button" class="season is-on" data-season="all">전체</button>
+      <button type="button" class="season" data-season="semester">학기 중</button>
+      <button type="button" class="season" data-season="break">방학</button>
+    </div>
+    <div class="fields" role="group" aria-label="분야">
+      <button type="button" class="field is-on" data-field="all">모든 분야</button>
+      <button type="button" class="field" data-field="it">IT·AI·데이터</button>
+      <button type="button" class="field" data-field="marketing">마케팅·콘텐츠</button>
+      <button type="button" class="field" data-field="office">경영·사무</button>
+      <button type="button" class="field" data-field="make">제조·생산</button>
+      <button type="button" class="field" data-field="design">디자인·미디어</button>
+      <button type="button" class="field" data-field="public">공공·행정</button>
+      <button type="button" class="field" data-field="research">연구·전공실습</button>
+    </div>
+  </div>
+
+  <p class="count" id="count"></p>
+  <main id="list" class="list"></main>
+
+  <section class="cut">
+    <h2>이번 노선에서 뺀 것</h2>
+    <p>앞에서 물어본 공고 중, 지금 조건으로는 지원서가 안 열리거나 수업이랑 시간이 겹칩니다.</p>
+    <ul id="cut-list"></ul>
+  </section>
+
+  <footer>
+    <p>금액과 자격은 고용24·청년일경험 포털 제도 안내(2026년 7월 수정본)와 각 공고를 기준으로 적었습니다. 차수 일정은 포털이 우선입니다.</p>
+    <p>문의 1811-8447 (일경험) · 1350 (고용노동상담)</p>
+  </footer>
+
+  <template id="card">
+    <article class="card">
+      <div class="card-top">
+        <span class="badge"></span>
+        <span class="status"></span>
+      </div>
+      <h3></h3>
+      <p class="summary"></p>
+      <dl>
+        <div><dt>시간</dt><dd class="time"></dd></div>
+        <div><dt>돈</dt><dd class="pay"></dd></div>
+        <div><dt>분야</dt><dd class="tags"></dd></div>
+        <div><dt>조건</dt><dd class="who"></dd></div>
+      </dl>
+      <p class="note"></p>
+      <a class="go" target="_blank" rel="noopener"></a>
+    </article>
+  </template>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
