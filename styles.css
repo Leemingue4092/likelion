@@ -91,7 +91,13 @@ h1 {
 
 .now { margin-top: 12px; }
 
-.now ol { margin: 0; padding-left: 18px; }
+.now ul, .open-wrap { margin-top: 12px; }
+.open-wrap {
+  width: min(980px, calc(100% - 32px));
+  margin: 22px auto 0;
+}
+.open-wrap h2 { margin: 0 0 10px; font-size: 18px; }
+.checked { margin: 0; padding-left: 18px; }
 
 .now a { font-weight: 650; }
 

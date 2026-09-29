@@ -1,4 +1,5 @@
 const list = document.querySelector("#list");
+const openList = document.querySelector("#open-list");
 const count = document.querySelector("#count");
 const template = document.querySelector("#card");
 const cutList = document.querySelector("#cut-list");
@@ -83,6 +84,30 @@ document.querySelectorAll(".field").forEach((button) => {
     render();
   });
 });
+
+for (const item of OPEN_NOW) {
+  const article = document.createElement("article");
+  article.className = "card";
+  article.dataset.season = "semester";
+  article.innerHTML = `
+    <div class="card-top"><span class="badge">접수 중</span><span class="status">마감 ${item.deadline}</span></div>
+    <h3></h3>
+    <p class="summary"></p>
+    <dl>
+      <div><dt>기간</dt><dd class="when"></dd></div>
+      <div><dt>분야</dt><dd class="field"></dd></div>
+    </dl>
+    <a class="go" target="_blank" rel="noopener"></a>
+  `;
+  article.querySelector("h3").textContent = item.name;
+  article.querySelector(".summary").textContent = item.summary;
+  article.querySelector(".when").textContent = item.when;
+  article.querySelector(".field").textContent = item.field;
+  const link = article.querySelector(".go");
+  link.href = item.href;
+  link.textContent = item.hrefLabel;
+  openList.append(article);
+}
 
 for (const item of CUT) {
   const li = document.createElement("li");
