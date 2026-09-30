@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>제7장 정자계 · 전자기학</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=Song+Myung&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="topnav">
+  <div class="wrap inner">
+    <a class="brand" href="index.html">전자<span>기학</span></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">홈</a></li>
+        <li><a href="overview.html">한눈에</a></li>
+        <li><a href="ch7.html">7장</a></li>
+        <li><a href="ch8.html">8장</a></li>
+        <li><a href="problems.html">연습문제</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<main class="wrap">
+  <header class="page-head">
+    <h1>제7장 정자계</h1>
+    <p>시간에 따라 변하지 않는 자계. 이 장에서는 주로 자석을 다룹니다.</p>
+  </header>
+
+  <section class="section">
+    <h2>7.1 자석</h2>
+    <ul>
+      <li>자극: N(+)극 / S(−)극. 작용이 강한 양 끝</li>
+      <li>자기력: 동종 반발, 이종 흡인</li>
+      <li>자하 m: 단위 [Wb]. 항상 N·S가 쌍으로 존재</li>
+      <li>자석을 잘라도 작은 자석 두 개가 됨 (고립자극 없음)</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>7.2 쿨롱의 법칙</h2>
+    <div class="formula">
+      <div class="eq">
+        <span>F =</span>
+        <span class="frac"><span class="num">m₁ m₂</span><span class="den">4π μ₀ r²</span></span>
+        <span class="unit">[N]</span>
+      </div>
+    </div>
+    <p>μ₀ = 4π × 10⁻⁷ H/m. 전기 쿨롱에서 Q→m, ε₀→μ₀.</p>
+  </section>
+
+  <section class="section">
+    <h2>7.3 자계의 세기 H</h2>
+    <div class="formula">
+      <div class="eq">
+        <span>H =</span>
+        <span class="frac"><span class="num">m</span><span class="den">4π μ₀ r²</span></span>
+        <span class="unit">[A/m]</span>
+      </div>
+    </div>
+    <div class="formula">
+      <div class="eq"><span>F = mH</span><span class="unit">[N]</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>7.4 자위</h2>
+    <p>단위 자하를 무한대에서 그 점까지 가져오는 데 드는 일.</p>
+    <div class="formula">
+      <div class="eq"><span>U = −∫_∞^P H · dℓ</span></div>
+    </div>
+    <div class="formula">
+      <div class="eq">
+        <span>U =</span>
+        <span class="frac"><span class="num">m</span><span class="den">4π μ₀ r</span></span>
+        <span class="unit">[A]</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>7.5 자기력선</h2>
+    <ul>
+      <li>N에서 나와 S로 들어감 (안에서는 S→N, 폐회로)</li>
+      <li>서로 교차하지 않음</li>
+      <li>빽빽하면 셈 / 성기면 약함</li>
+      <li>접선 방향 = 그 점의 자계 방향</li>
+    </ul>
+    <div class="formula">
+      <div class="eq">
+        <span>N = HS cosθ</span>
+        <span>,&nbsp; N =</span>
+        <span class="frac"><span class="num">m</span><span class="den">μ₀</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>7.6 자속과 자속밀도</h2>
+    <div class="formula">
+      <div class="eq">
+        <span>φ = BS cosθ</span>
+        <span>,&nbsp; B =</span>
+        <span class="frac"><span class="num">φ</span><span class="den">S</span></span>
+        <span class="unit">[T]</span>
+      </div>
+    </div>
+    <div class="formula">
+      <div class="eq"><span>B = μ₀ H</span></div>
+    </div>
+    <h3>가우스 정리</h3>
+    <div class="formula">
+      <div class="eq"><span>∮_S B · dS = 0</span><span>,&nbsp; ∇ · B = 0</span></div>
+    </div>
+    <p class="note">고립자극은 없다. 전기의 ∮ D · dS = Q 와 가장 다른 점.</p>
+  </section>
+
+  <section class="section">
+    <h2>대응 핵심</h2>
+    <div class="formula">
+      <div class="eq"><span>E = −∇V</span><span>,&nbsp; H = −∇U</span></div>
+    </div>
+    <ul class="checklist">
+      <li>자석은 왜 항상 N·S 쌍인가?</li>
+      <li>F, H 공식을 분수로 쓸 수 있는가?</li>
+      <li>∮ B · dS = 0 을 설명할 수 있는가?</li>
+    </ul>
+  </section>
+</main>
+
+
+<footer class="footer wrap">
+  전자기학 수업 정리 · 제7장 정자계 · 제8장 전류에 의한 자계
+</footer>
+<script src="main.js"></script>
+
+</body>
+</html>
