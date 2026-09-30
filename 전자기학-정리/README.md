@@ -20,7 +20,8 @@ python3 -m http.server 8080
 
 이후 브라우저에서 `http://localhost:8080` 접속
 
-- 홈 / 한눈에 / 7장 / 8장 / 연습문제(해설 토글)
+- 홈 / 한눈에 / 7장 / 8장 / 연습문제
+- `problems-ch7.html`, `problems-ch8.html` 에서 정답 확인(맞/틀림) 채점
 - 분수는 화면에서 분수선(over) 형태로 표시됩니다.
 
 
