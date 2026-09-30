@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>제8장 전류에 의한 자계 · 전자기학</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=Song+Myung&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="topnav">
+  <div class="wrap inner">
+    <a class="brand" href="index.html">전자<span>기학</span></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">홈</a></li>
+        <li><a href="overview.html">한눈에</a></li>
+        <li><a href="ch7.html">7장</a></li>
+        <li><a href="ch8.html">8장</a></li>
+        <li><a href="problems.html">연습문제</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<main class="wrap">
+  <header class="page-head">
+    <h1>제8장 전류에 의한 자계</h1>
+    <p>전류가 만드는 자계, 그리고 자계가 전류·전하에 가하는 힘.</p>
+  </header>
+
+  <section class="section">
+    <h2>8.2~8.3 방향과 암페어 법칙</h2>
+    <ul>
+      <li>오른손: 엄지=전류, 감는 방향=자계</li>
+      <li>⊙ 나옴 / ⊗ 들어감</li>
+      <li>왕복전류: 사이는 보강, 바깥은 상쇄</li>
+    </ul>
+    <div class="formula">
+      <div class="eq"><span>∮_c H · dℓ = I</span><span class="unit">(또는 NI)</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>8.4 자계 계산</h2>
+    <h3>무한장 직선</h3>
+    <div class="formula">
+      <div class="eq">
+        <span>H =</span>
+        <span class="frac"><span class="num">I</span><span class="den">2π r</span></span>
+        <span class="unit">[A/m]</span>
+      </div>
+    </div>
+
+    <h3>원주도체 (반지름 a)</h3>
+    <div class="grid-2">
+      <div class="formula">
+        <div class="label">외부 / 표면</div>
+        <div class="eq">
+          <span>H =</span>
+          <span class="frac"><span class="num">I</span><span class="den">2π r</span></span>
+        </div>
+      </div>
+      <div class="formula">
+        <div class="label">내부 (균일)</div>
+        <div class="eq">
+          <span>H =</span>
+          <span class="frac"><span class="num">r I</span><span class="den">2π a²</span></span>
+        </div>
+      </div>
+    </div>
+    <p class="note">외부는 ∝ 1/r (반비례). 이차함수가 아닙니다. 표면전류만이면 내부 H = 0.</p>
+
+    <h3>무한장 솔레노이드</h3>
+    <div class="formula">
+      <div class="eq">
+        <span>Hᵢ = nI =</span>
+        <span class="frac"><span class="num">N I</span><span class="den">ℓ</span></span>
+        <span class="unit">, 외부 H = 0</span>
+      </div>
+    </div>
+
+    <h3>환상 솔레노이드</h3>
+    <div class="formula">
+      <div class="eq">
+        <span>H =</span>
+        <span class="frac"><span class="num">N I</span><span class="den">2π r</span></span>
+        <span class="unit">= NI / ℓ</span>
+      </div>
+    </div>
+    <p>H는 공심·철심 동일. B와 φ만 μ에 따라 변함.</p>
+  </section>
+
+  <section class="section">
+    <h2>8.5 비오–사바르</h2>
+    <div class="formula">
+      <div class="eq">
+        <span>dH =</span>
+        <span class="frac"><span class="num">I dℓ sinθ</span><span class="den">4π r²</span></span>
+      </div>
+    </div>
+    <div class="formula">
+      <div class="eq">
+        <span>H =</span>
+        <span class="frac"><span class="num">I</span><span class="den">4π a</span></span>
+        <span>(sinφ₁ + sinφ₂)</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>8.6 회전과 스토크스</h2>
+    <table>
+      <thead><tr><th></th><th>정전계 E</th><th>정자계 H</th></tr></thead>
+      <tbody>
+        <tr><td>선적분</td><td>∮ E · dℓ = 0</td><td>∮ H · dℓ = I</td></tr>
+        <tr><td>회전</td><td>∇ × E = 0</td><td>∇ × H = J</td></tr>
+      </tbody>
+    </table>
+    <div class="formula">
+      <div class="eq"><span>∮_c H · dℓ = ∬_S (∇ × H) · dS</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>8.7 전자력 · 로렌츠 힘</h2>
+    <div class="formula">
+      <div class="eq"><span>F = I ℓ × B</span><span>,&nbsp; F = BIl sinθ</span></div>
+    </div>
+    <div class="formula">
+      <div class="eq"><span>F = q (v × B)</span><span>,&nbsp; F = Bqv sinθ</span></div>
+    </div>
+    <div class="formula">
+      <div class="eq"><span>F = q (E + v × B)</span></div>
+    </div>
+    <div class="formula">
+      <div class="label">평행도선</div>
+      <div class="eq">
+        <span>F =</span>
+        <span class="frac"><span class="num">μ₀ I₁ I₂ ℓ</span><span class="den">2π d</span></span>
+      </div>
+    </div>
+    <p>같은 방향 → 흡인 / 반대 방향 → 반발</p>
+  </section>
+</main>
+
+
+<footer class="footer wrap">
+  전자기학 수업 정리 · 제7장 정자계 · 제8장 전류에 의한 자계
+</footer>
+<script src="main.js"></script>
+
+</body>
+</html>

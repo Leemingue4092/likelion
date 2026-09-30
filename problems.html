@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>연습문제 · 전자기학</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=Song+Myung&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="topnav">
+  <div class="wrap inner">
+    <a class="brand" href="index.html">전자<span>기학</span></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">홈</a></li>
+        <li><a href="overview.html">한눈에</a></li>
+        <li><a href="ch7.html">7장</a></li>
+        <li><a href="ch8.html">8장</a></li>
+        <li><a href="problems.html">연습문제</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<main class="wrap">
+  <header class="page-head">
+    <h1>연습문제 + 해설</h1>
+    <p>먼저 풀어보고, 필요할 때 해설 버튼을 눌러 확인하세요.</p>
+  </header>
+
+  <section class="section">
+    <h2>A. 제7장</h2>
+    
+<div class="problem">
+  <h3>A1. 자석을 잘랐을 때</h3>
+  <p>막대자석을 가운데서 자르면?</p><ol><li>N만 / S만</li><li>각각 N·S를 가진 작은 자석 둘</li><li>자극 없는 철조각</li></ol>
+  <button class="answer-toggle" type="button">해설 보기</button>
+  <div class="answer"><p><strong>정답 2.</strong> 자하는 홀로 존재할 수 없어, 잘라도 작은 자석 두 개가 됩니다.</p></div>
+</div>
+
+    
+<div class="problem">
+  <h3>A2. 가우스 정리</h3>
+  <p>∮_S B · dS 의 값은?</p><ol><li>m에 비례하는 양수</li><li>항상 0</li><li>자석 길이에 비례</li></ol>
+  <button class="answer-toggle" type="button">해설 보기</button>
+  <div class="answer"><p><strong>정답 2.</strong></p>
+      <div class="formula"><div class="eq"><span>∇ · B = 0</span><span>,&nbsp; ∮ B · dS = 0</span></div></div>
+      <p>고립자극이 없으므로 알짜 자속은 항상 0.</p></div>
+</div>
+
+    
+<div class="problem">
+  <h3>A3. 쿨롱 자기력</h3>
+  <p>m₁ = m₂ = 2×10⁻⁴ Wb, r = 0.1 m (동종). 힘의 크기는?</p>
+  <button class="answer-toggle" type="button">해설 보기</button>
+  <div class="answer"><div class="formula"><div class="eq">
+        <span>F =</span>
+        <span class="frac"><span class="num">m₁ m₂</span><span class="den">4π μ₀ r²</span></span>
+      </div></div>
+      <p>계산하면 F ≈ 0.253 N (반발).</p></div>
+</div>
+
+    
+<div class="problem">
+  <h3>A5. B와 φ</h3>
+  <p>H = 200 A/m, S = 0.05 m² (수직, 진공). B와 φ는?</p>
+  <button class="answer-toggle" type="button">해설 보기</button>
+  <div class="answer"><p>B = μ₀H = 8π×10⁻⁵ ≈ 2.51×10⁻⁴ T<br/>φ = BS = 4π×10⁻⁶ ≈ 1.26×10⁻⁵ Wb</p></div>
+</div>
+
+  </section>
+
+  <section class="section">
+    <h2>B. 제8장</h2>
+    
+<div class="problem">
+  <h3>B1. 오른손 법칙</h3>
+  <p>전류 ⊙일 때, 도선 오른쪽에서 H 방향은? (위/아래/왼쪽/오른쪽)</p>
+  <button class="answer-toggle" type="button">해설 보기</button>
+  <div class="answer"><p><strong>위쪽.</strong> 나오는 전류는 반시계 방향 자계.</p></div>
+</div>
+
+    
+<div class="problem">
+  <h3>B3. 알짜 전류</h3>
+  <p>I₁=3A(⊙), I₂=5A(⊗), I₃=2A(⊙). ∮ H · dℓ = ?</p>
+  <button class="answer-toggle" type="button">해설 보기</button>
+  <div class="answer"><p>I_encl = 3 − 5 + 2 = 0 → ∮ H · dℓ = 0</p></div>
+</div>
+
+    
+<div class="problem">
+  <h3>B4. 무한장 직선</h3>
+  <p>I = 10 A, r = 0.05 m. H와 B(진공)는?</p>
+  <button class="answer-toggle" type="button">해설 보기</button>
+  <div class="answer"><div class="formula"><div class="eq">
+        <span>H =</span>
+        <span class="frac"><span class="num">I</span><span class="den">2π r</span></span>
+        <span>= 100/π ≈ 31.8 A/m</span>
+      </div></div>
+      <p>B = μ₀H = 4×10⁻⁵ T</p></div>
+</div>
+
+    
+<div class="problem">
+  <h3>B5. 원주도체</h3>
+  <p>a = 0.02 m, I = 20 A 균일. r = 1, 2, 4 cm에서 H는?</p>
+  <button class="answer-toggle" type="button">해설 보기</button>
+  <div class="answer"><p>내부 r=1cm: H = rI/(2πa²) ≈ 79.6 A/m<br/>
+      표면 r=2cm: H = I/(2πa) ≈ 159 A/m<br/>
+      외부 r=4cm: H = I/(2πr) ≈ 79.6 A/m</p>
+      <p class="note">내부 ∝ r, 외부 ∝ 1/r</p></div>
+</div>
+
+    
+<div class="problem">
+  <h3>B7. 솔레노이드</h3>
+  <p>ℓ=0.5 m, N=1000, I=2 A. 내부·외부 H와 내부 B는?</p>
+  <button class="answer-toggle" type="button">해설 보기</button>
+  <div class="answer"><div class="formula"><div class="eq">
+        <span>H =</span>
+        <span class="frac"><span class="num">N I</span><span class="den">ℓ</span></span>
+        <span>= 4000 A/m</span>
+      </div></div>
+      <p>외부 H = 0, B = μ₀H ≈ 5.03×10⁻³ T</p></div>
+</div>
+
+    
+<div class="problem">
+  <h3>B8. 환상 솔레노이드</h3>
+  <p>r=0.1 m, N=500, I=4 A, S=4×10⁻⁴ m². 공심/철심(μ=2000μ₀)에서 H,B,φ?</p>
+  <button class="answer-toggle" type="button">해설 보기</button>
+  <div class="answer"><div class="formula"><div class="eq">
+        <span>H =</span>
+        <span class="frac"><span class="num">N I</span><span class="den">2π r</span></span>
+        <span>≈ 3183 A/m (공심·철심 동일)</span>
+      </div></div>
+      <p>공심: B=4×10⁻³ T, φ=1.6×10⁻⁶ Wb<br/>
+      철심: B=8 T, φ=3.2×10⁻³ Wb</p></div>
+</div>
+
+    
+<div class="problem">
+  <h3>B10. 전자력</h3>
+  <p>B=0.5 T, ℓ=0.2 m, θ=30°, I=10 A. F는?</p>
+  <button class="answer-toggle" type="button">해설 보기</button>
+  <div class="answer"><p>F = BIl sinθ = 0.5·10·0.2·0.5 = 0.5 N</p></div>
+</div>
+
+    
+<div class="problem">
+  <h3>B14. H vs B 함정</h3>
+  <p>“철심을 넣으면 H가 커진다”를 고치시오.</p>
+  <button class="answer-toggle" type="button">해설 보기</button>
+  <div class="answer"><p>철심을 넣어도</p>
+      <div class="formula"><div class="eq">
+        <span>H =</span>
+        <span class="frac"><span class="num">N I</span><span class="den">2π r</span></span>
+      </div></div>
+      <p>는 그대로이고, <strong>B와 φ가 커진다</strong>.</p></div>
+</div>
+
+  </section>
+</main>
+
+
+<footer class="footer wrap">
+  전자기학 수업 정리 · 제7장 정자계 · 제8장 전류에 의한 자계
+</footer>
+<script src="main.js"></script>
+
+</body>
+</html>
