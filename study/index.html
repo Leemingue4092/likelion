@@ -231,9 +231,9 @@
         <p class="lede">이름 "동차"가 두 가지라서 여기서 갈라 둔다. 과제2에서 푼 동차·비동차는 아래 표의 선형 동차·비동차다. \( v=y/x \) 로 푸는 동차형은 제출한 과제에는 없다.</p>
         <div class="grid">
           <article class="rule">
-            <div class="ask">\( \dfrac{dy}{dx} = f(x)\, g(y) \)</div>
+            <div class="ask">\( {dy \over dx} = f(x)\, g(y) \)</div>
             <div class="name">변수분리</div>
-            <p class="first">첫 손: \( \dfrac{dy}{g(y)} = f(x)\, dx \)</p>
+            <p class="first">첫 손: \( {dy \over g(y)} = f(x)\, dx \)</p>
           </article>
           <article class="rule">
             <div class="ask">\( y' + P(x) y = 0 \)</div>
@@ -277,8 +277,8 @@
         <div class="grid cards">
           <article class="formula">
             <span class="tag">변수분리</span>
-            <h3>\( \dfrac{dy}{dx} = f(x)\, g(y) \)</h3>
-            \[ \int \frac{dy}{g(y)} = \int f(x)\, dx \]
+            <h3>\( {dy \over dx} = f(x)\, g(y) \)</h3>
+            \[ \int {dy \over g(y)} = \int f(x)\, dx \]
             <p>\( g(y)=0 \) 을 만드는 상수해는 나누기 전에 한 번 본다.</p>
           </article>
           <article class="formula">
@@ -289,12 +289,12 @@
           </article>
           <article class="formula">
             <span class="tag">선형 비동차 · 적분인자</span>
-            <h3>\( \dfrac{dy}{dx} + P(x) y = Q(x) \)</h3>
+            <h3>\( {dy \over dx} + P(x) y = Q(x) \)</h3>
             \[ \mu(x) = \exp\left(\int P(x)\, dx\right) \]
-            \[ \frac{d}{dx}(\mu y) = \mu Q \]
-            \[ y = \frac{1}{\mu}\left(\int \mu Q\, dx + C\right) \]
+            \[ {d \over dx}(\mu y) = \mu Q \]
+            \[ y = {1 \over \mu}\left(\int \mu Q\, dx + C\right) \]
             <p>손 순서: 표준형으로 맞추고, \( \mu = \exp(\int P\, dx) \), \( \int \mu Q\, dx \) 를 부분적분한 뒤 \( \mu \) 로 나눈다.</p>
-            <p>\( y' + 2y = 2x \) 에서는 \( \mu = e^{2x} \), \( \int 2x e^{2x}\, dx = x e^{2x} - \dfrac{1}{2} e^{2x} \).</p>
+            <p>\( y' + 2y = 2x \) 에서는 \( \mu = e^{2x} \), \( \int 2x e^{2x}\, dx = x e^{2x} - {1 \over 2} e^{2x} \).</p>
           </article>
           <article class="formula">
             <span class="tag">베르누이</span>
@@ -312,7 +312,7 @@
           <article class="formula">
             <span class="tag">완전미분</span>
             <h3>\( M(x,y)\, dx + N(x,y)\, dy = 0 \)</h3>
-            \[ \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x} \quad \text{이면 완전} \]
+            \[ {\partial M \over \partial y} = {\partial N \over \partial x} \quad \text{이면 완전} \]
             <p>\( M_y = N_x \) 를 <strong>먼저</strong> 계산한다. 같다는 결론을 미리 적지 않는다.</p>
             <ol class="hand">
               <li>\( y \) 를 상수로 보고 \( \int M\, dx = f \) 의 뼈대를 만든다. 적분상수는 \( h(y) \).</li>
@@ -332,7 +332,7 @@
           <article class="formula">
             <span class="tag">치환 적분</span>
             <h3>\( u = x^{2}+a^{2} \), \( du = 2x\, dx \)</h3>
-            \[ \int x \sqrt{x^{2}+a^{2}}\, dx = \frac{1}{3}(x^{2}+a^{2})^{3/2} + C \]
+            \[ \int x \sqrt{x^{2}+a^{2}}\, dx = {1 \over 3}(x^{2}+a^{2})^{3/2} + C \]
             \[ (a^{2})^{3/2} = a^{3} \]
             \[ (2a^{2})^{3/2} = (2a^{2})\cdot a\sqrt{2} = 2\sqrt{2}\, a^{3} \]
             <p>\( a^{3/2} \) 와 \( a^{3} \) 은 다르다.</p>
@@ -340,11 +340,11 @@
           <article class="formula">
             <span class="tag">부분분수</span>
             <h3>일차인수에는 상수, 기약 이차인수에는 1차 분자</h3>
-            \[ \frac{1}{(x-a)(x-b)} = \frac{A}{x-a} + \frac{B}{x-b} \]
-            \[ \frac{Bx+C}{x^{2}+a^{2}} \]
-            \[ \int \frac{dx}{x^{2}+a^{2}} = \frac{1}{a}\arctan\frac{x}{a} \]
-            \[ \int \frac{2x}{x^{2}+a^{2}}\, dx = \ln(x^{2}+a^{2}) \]
-            \[ A\ln p - A\ln q = A\ln\frac{p}{q}, \qquad 2\ln\frac{3}{2} = \ln\frac{9}{4} \]
+            \[ {1 \over (x-a)(x-b)} = {A \over x-a} + {B \over x-b} \]
+            \[ {Bx+C \over x^{2}+a^{2}} \]
+            \[ \int {dx \over x^{2}+a^{2}} = {1 \over a}\arctan{x \over a} \]
+            \[ \int {2x \over x^{2}+a^{2}}\, dx = \ln(x^{2}+a^{2}) \]
+            \[ A\ln p - A\ln q = A\ln{p \over q}, \qquad 2\ln{3 \over 2} = \ln{9 \over 4} \]
             <ol class="hand">
               <li>분모를 인수분해한다. \( 1-x^{4}=(1-x)(1+x)(1+x^{2}) \).</li>
               <li>일차인수에는 상수, 이차인수에는 \( Cx+D \).</li>
@@ -363,53 +363,53 @@
           <article class="card">
             <span class="tag warn">지수만 수정 · 최종 답은 맞음</span>
             <h3>4주차 (1) \( \displaystyle \int_{0}^{a} x\sqrt{x^{2}+a^{2}}\, dx \) \( (a&gt;0) \)</h3>
-            \[ \frac{a^{3}}{3}(2\sqrt{2}-1) \]
+            \[ {a^{3} \over 3}(2\sqrt{2}-1) \]
             <p>\( u = x^{2}+a^{2} \). \( x=0 \to a^{2} \), \( x=a \to 2a^{2} \).</p>
-            \[ \frac{1}{2}\int_{a^{2}}^{2a^{2}} \sqrt{u}\, du = \frac{1}{3}\left[(2a^{2})^{3/2} - (a^{2})^{3/2}\right] = \frac{1}{3}(2\sqrt{2}\, a^{3} - a^{3}) \]
+            \[ {1 \over 2}\int_{a^{2}}^{2a^{2}} \sqrt{u}\, du = {1 \over 3}\left[(2a^{2})^{3/2} - (a^{2})^{3/2}\right] = {1 \over 3}(2\sqrt{2}\, a^{3} - a^{3}) \]
             <p>노트에는 \( (2a^{2})^{3/2} \) 를 \( 2^{3/2} a^{3/2} \) 처럼 적었다. \( (a^{2})^{3/2} = a^{3} \) 이라서 지수는 \( a^{3} \) 이어야 한다. \( (2a^{2})^{3/2} = 2\sqrt{2}\, a^{3} \). 마지막 줄의 \( a^{3} \) 은 맞다.</p>
           </article>
           <article class="card">
             <span class="tag ok">맞음</span>
-            <h3>4주차 (2) \( \displaystyle \int_{0}^{1} \dfrac{2}{2x^{2}+3x+1}\, dx \)</h3>
-            \[ \frac{2}{(2x+1)(x+1)} = \frac{4}{2x+1} - \frac{2}{x+1} \]
-            \[ \bigl[2\ln(2x+1) - 2\ln(x+1)\bigr]_{0}^{1} = 2\ln 3 - 2\ln 2 = 2\ln\frac{3}{2} = \ln\frac{9}{4} \]
+            <h3>4주차 (2) \( \displaystyle \int_{0}^{1} {2 \over 2x^{2}+3x+1}\, dx \)</h3>
+            \[ {2 \over (2x+1)(x+1)} = {4 \over 2x+1} - {2 \over x+1} \]
+            \[ \bigl[2\ln(2x+1) - 2\ln(x+1)\bigr]_{0}^{1} = 2\ln 3 - 2\ln 2 = 2\ln{3 \over 2} = \ln{9 \over 4} \]
             <p>\( 2\ln(3/2) \) 와 \( \ln(9/4) \) 는 같은 수다.</p>
           </article>
           <article class="card">
             <span class="tag ok">맞음</span>
-            <h3>과제1 (1) \( \displaystyle \int \dfrac{dx}{1-x^{4}} \)</h3>
+            <h3>과제1 (1) \( \displaystyle \int {dx \over 1-x^{4}} \)</h3>
             \[ 1-x^{4} = (1-x)(1+x)(1+x^{2}) \]
-            \[ \frac{1}{1-x^{4}} = \frac{1/4}{1-x} + \frac{1/4}{1+x} + \frac{1/2}{1+x^{2}} \]
-            \[ \frac{1}{4}\ln\left|\frac{1+x}{1-x}\right| + \frac{1}{2}\arctan x + C \]
+            \[ {1 \over 1-x^{4}} = {1/4 \over 1-x} + {1/4 \over 1+x} + {1/2 \over 1+x^{2}} \]
+            \[ {1 \over 4}\ln\left|{1+x \over 1-x}\right| + {1 \over 2}\arctan x + C \]
             <p>\( x=1 \) 에서 \( A(1+1)(1+1)=1 \) 이므로 \( A=1/4 \). \( x=-1 \) 에서 \( B=1/4 \). 남은 식에서 \( x^{3} \) 계수가 \( -C \) 라서 \( C=0 \), 상수항에서 \( D=1/2 \).</p>
           </article>
           <article class="card">
             <span class="tag ok">맞음</span>
-            <h3>과제1 (2) \( \displaystyle \int \dfrac{2x+1}{(x^{2}+1)(x^{2}+4)}\, dx \)</h3>
-            \[ \frac{2x+1}{3(x^{2}+1)} - \frac{2x+1}{3(x^{2}+4)} \]
-            \[ \frac{1}{3}\ln\left|\frac{x^{2}+1}{x^{2}+4}\right| + \frac{1}{3}\arctan x - \frac{1}{6}\arctan\frac{x}{2} + C \]
-            <p>\( \int dx/(x^{2}+4) = \dfrac{1}{2}\arctan(x/2) \) 라서 앞의 \( 1/3 \) 과 만나 \( 1/6 \) 이 된다.</p>
+            <h3>과제1 (2) \( \displaystyle \int {2x+1 \over (x^{2}+1)(x^{2}+4)}\, dx \)</h3>
+            \[ {2x+1 \over 3(x^{2}+1)} - {2x+1 \over 3(x^{2}+4)} \]
+            \[ {1 \over 3}\ln\left|{x^{2}+1 \over x^{2}+4}\right| + {1 \over 3}\arctan x - {1 \over 6}\arctan{x \over 2} + C \]
+            <p>\( \int dx/(x^{2}+4) = {1 \over 2}\arctan(x/2) \) 라서 앞의 \( 1/3 \) 과 만나 \( 1/6 \) 이 된다.</p>
           </article>
           <article class="card">
             <span class="tag ok">맞음</span>
-            <h3>과제2 변수분리 \( \dfrac{dy}{dx} + (x+1) y^{2} = 0 \)</h3>
-            \[ \frac{dy}{y^{2}} = -(x+1)\, dx, \qquad \frac{1}{y} = \frac{x^{2}}{2} + x + C \]
-            \[ y = \frac{2}{x^{2}+2x+K} \]
+            <h3>과제2 변수분리 \( {dy \over dx} + (x+1) y^{2} = 0 \)</h3>
+            \[ {dy \over y^{2}} = -(x+1)\, dx, \qquad {1 \over y} = {x^{2} \over 2} + x + C \]
+            \[ y = {2 \over x^{2}+2x+K} \]
             <p>상수 쓰는 방식만 다르고 같은 해다.</p>
           </article>
           <article class="card">
             <span class="tag ok">맞음</span>
-            <h3>과제2 변수분리, 초기조건 \( \dfrac{1}{x}\dfrac{dy}{dx} = y^{2}-y \), \( y(1)=2 \)</h3>
-            \[ y = \frac{2}{2 - \exp((x^{2}-1)/2)} \]
+            <h3>과제2 변수분리, 초기조건 \( {1 \over x}{dy \over dx} = y^{2}-y \), \( y(1)=2 \)</h3>
+            \[ y = {2 \over 2 - \exp((x^{2}-1)/2)} \]
             <p>확인: \( x=1 \) 이면 분모가 \( 2-1=1 \) 이라 \( y=2 \).</p>
-            \[ \frac{dy}{y(y-1)} = x\, dx, \qquad \frac{1}{y(y-1)} = \frac{1}{y-1} - \frac{1}{y} \]
-            \[ \ln\left|\frac{y-1}{y}\right| = \frac{x^{2}}{2} + C \]
-            <p>\( (1,2) \) 를 넣으면 \( C = \ln(1/2) - 1/2 \). \( (y-1)/y = \dfrac{1}{2}\exp((x^{2}-1)/2) \) 를 \( y \) 에 대해 풀면 위 식이 된다.</p>
+            \[ {dy \over y(y-1)} = x\, dx, \qquad {1 \over y(y-1)} = {1 \over y-1} - {1 \over y} \]
+            \[ \ln\left|{y-1 \over y}\right| = {x^{2} \over 2} + C \]
+            <p>\( (1,2) \) 를 넣으면 \( C = \ln(1/2) - 1/2 \). \( (y-1)/y = {1 \over 2}\exp((x^{2}-1)/2) \) 를 \( y \) 에 대해 풀면 위 식이 된다.</p>
           </article>
           <article class="card">
             <span class="tag ok">맞음</span>
             <h3>선형 비동차 \( y' + 2y = 2x \)</h3>
-            \[ \mu = e^{2x}, \qquad y = x - \frac{1}{2} + C e^{-2x} \]
+            \[ \mu = e^{2x}, \qquad y = x - {1 \over 2} + C e^{-2x} \]
           </article>
           <article class="card">
             <span class="tag ok">맞음</span>
@@ -424,22 +424,22 @@
           <article class="card">
             <span class="tag ok">맞음</span>
             <h3>선형 비동차 \( y' + y = \cos x \)</h3>
-            \[ \int e^{x}\cos x\, dx = \frac{1}{2} e^{x}(\sin x + \cos x) \]
-            \[ y = \frac{1}{2}(\sin x + \cos x) + C e^{-x} \]
+            \[ \int e^{x}\cos x\, dx = {1 \over 2} e^{x}(\sin x + \cos x) \]
+            \[ y = {1 \over 2}(\sin x + \cos x) + C e^{-x} \]
           </article>
           <article class="card">
             <span class="tag ok">맞음</span>
             <h3>베르누이 \( y' + y = e^{-x} y^{2} \)</h3>
             <p>\( n=2 \), \( u=1/y \).</p>
-            \[ u' - u = -e^{-x}, \qquad u = \frac{1}{2} e^{-x} + C e^{x} \]
-            \[ y = \frac{2}{e^{-x} + 2C e^{x}} \]
+            \[ u' - u = -e^{-x}, \qquad u = {1 \over 2} e^{-x} + C e^{x} \]
+            \[ y = {2 \over e^{-x} + 2C e^{x}} \]
             <p>같은 해를 \( y = 2e^{x}/(1 + K e^{2x}) \) 로 적어도 된다. 분자·분모에 \( e^{x} \) 를 곱한 것이다.</p>
           </article>
           <article class="card">
             <span class="tag note">완전미분 · 원문의 \( N \) 만 대조</span>
             <h3>\( (2xy+y)\, dx + (x^{2}+x)\, dy = 0 \) 으로 읽히면 답이 맞다</h3>
-            \[ \frac{\partial M}{\partial y} = 2x+1 = \frac{\partial N}{\partial x} \]
-            \[ f = x^{2} y + xy, \qquad y = \frac{C}{x(x+1)} \]
+            \[ {\partial M \over \partial y} = 2x+1 = {\partial N \over \partial x} \]
+            \[ f = x^{2} y + xy, \qquad y = {C \over x(x+1)} \]
             \[ d\bigl[x(x+1)y\bigr] = (2x+1)y\, dx + x(x+1)\, dy = (2xy+y)\, dx + (x^{2}+x)\, dy \]
             <p>\( y = C/(x(x+1)) \) 은 \( N = x^{2}+x \) 일 때 맞다. 노트에 \( dy \) 계수를 \( x^{2}+2x \) 로 적어 두었다면 그 식은 완전이 아니다. 그때 \( \partial N/\partial x = 2x+2 \) 라서 \( \partial M/\partial y = 2x+1 \) 과 다르다. 원 문제의 \( N \) 이 \( x^{2}+x \) 인지 \( x^{2}+2x \) 인지만 원문과 한 번 대조하면 된다.</p>
           </article>
@@ -478,11 +478,11 @@
 
   <template id="quiz-data">
     <article data-id="q1" data-accept="lin-h,sep" data-preferred="lin-h" data-alt-note="맞다. 변수분리로도 된다. 더 짧은 이름은 선형 동차.">
-      <div class="ask">\[ y' + \frac{3}{x} y = 0 \]</div>
+      <div class="ask">\[ y' + {3 \over x} y = 0 \]</div>
       <p class="why">선형 동차. 변수분리로도 된다.</p>
     </article>
     <article data-id="q2" data-accept="lin-n" data-preferred="lin-n">
-      <div class="ask">\[ y' + \frac{3}{x} y = x^{2} \]</div>
+      <div class="ask">\[ y' + {3 \over x} y = x^{2} \]</div>
       <p class="why">선형 비동차.</p>
     </article>
     <article data-id="q3" data-accept="bern" data-preferred="bern">
@@ -494,7 +494,7 @@
       <p class="why">완전미분. \( M_y = 2x = N_x \).</p>
     </article>
     <article data-id="q5" data-accept="hom" data-preferred="hom">
-      <div class="ask">\[ y' = \frac{x^{2}+y^{2}}{xy} \]</div>
+      <div class="ask">\[ y' = {x^{2}+y^{2} \over xy} \]</div>
       <p class="why">동차형 \( v=y/x \). \( f(tx,ty)=f(x,y) \).</p>
     </article>
     <article data-id="q6" data-accept="sep" data-preferred="sep">
@@ -516,57 +516,57 @@
       <div class="ask">\[ \int_{0}^{4} x\sqrt{x^{2}+9}\, dx \]</div>
       <div class="sol">
         <p>\( u = x^{2}+9 \). \( x: 0\to 4 \) 이면 \( u: 9\to 25 \), \( x\, dx = du/2 \).</p>
-        \[ \frac{1}{2}\int_{9}^{25} u^{1/2}\, du = \frac{1}{3}\bigl[u^{3/2}\bigr]_{9}^{25} = \frac{1}{3}(125-27) = \frac{98}{3} \]
+        \[ {1 \over 2}\int_{9}^{25} u^{1/2}\, du = {1 \over 3}\bigl[u^{3/2}\bigr]_{9}^{25} = {1 \over 3}(125-27) = {98 \over 3} \]
         <p>\( 25^{3/2}=125 \), \( 9^{3/2}=27 \).</p>
-        <p class="ans">답: \( \dfrac{98}{3} \) (98/3)</p>
+        <p class="ans">답: \( {98 \over 3} \) (98/3)</p>
       </div>
     </article>
     <article data-id="b2" data-tag="B2 · 적분" data-title="부분분수">
-      <div class="ask">\[ \int_{0}^{1} \frac{dx}{x^{2}+3x+2} \]</div>
+      <div class="ask">\[ \int_{0}^{1} {dx \over x^{2}+3x+2} \]</div>
       <div class="sol">
-        \[ x^{2}+3x+2 = (x+1)(x+2), \qquad \frac{1}{(x+1)(x+2)} = \frac{1}{x+1} - \frac{1}{x+2} \]
-        \[ \bigl[\ln(x+1)-\ln(x+2)\bigr]_{0}^{1} = (\ln 2 - \ln 3) - (0 - \ln 2) = \ln 4 - \ln 3 = \ln\frac{4}{3} \]
-        <p class="ans">답: \( \ln\dfrac{4}{3} \)</p>
+        \[ x^{2}+3x+2 = (x+1)(x+2), \qquad {1 \over (x+1)(x+2)} = {1 \over x+1} - {1 \over x+2} \]
+        \[ \bigl[\ln(x+1)-\ln(x+2)\bigr]_{0}^{1} = (\ln 2 - \ln 3) - (0 - \ln 2) = \ln 4 - \ln 3 = \ln{4 \over 3} \]
+        <p class="ans">답: \( \ln{4 \over 3} \)</p>
       </div>
     </article>
     <article data-id="b3" data-tag="B3 · 적분" data-title="치환 후 부분분수">
-      <div class="ask">\[ \int \frac{x}{1-x^{4}}\, dx \]</div>
+      <div class="ask">\[ \int {x \over 1-x^{4}}\, dx \]</div>
       <div class="sol">
         <p>\( u=x^{2} \) 이면 \( du = 2x\, dx \).</p>
-        \[ \frac{1}{2}\int \frac{du}{1-u^{2}} = \frac{1}{4}\ln\left|\frac{1+u}{1-u}\right| + C = \frac{1}{4}\ln\left|\frac{1+x^{2}}{1-x^{2}}\right| + C \]
-        <p>\( 1/(1-u^{2}) = \dfrac{1}{2}\bigl[1/(1-u) + 1/(1+u)\bigr] \) 로 부분분수해도 같다. 절댓값 안에서는 \( (1+x^{2})/(1-x^{2}) \) 와 \( (x^{2}+1)/(x^{2}-1) \) 이 부호만 다르다.</p>
-        <p class="ans">답: \( \dfrac{1}{4}\ln\left|\dfrac{1+x^{2}}{1-x^{2}}\right| + C \)</p>
+        \[ {1 \over 2}\int {du \over 1-u^{2}} = {1 \over 4}\ln\left|{1+u \over 1-u}\right| + C = {1 \over 4}\ln\left|{1+x^{2} \over 1-x^{2}}\right| + C \]
+        <p>\( 1/(1-u^{2}) = {1 \over 2}\bigl[1/(1-u) + 1/(1+u)\bigr] \) 로 부분분수해도 같다. 절댓값 안에서는 \( (1+x^{2})/(1-x^{2}) \) 와 \( (x^{2}+1)/(x^{2}-1) \) 이 부호만 다르다.</p>
+        <p class="ans">답: \( {1 \over 4}\ln\left|{1+x^{2} \over 1-x^{2}}\right| + C \)</p>
       </div>
     </article>
     <article data-id="b4" data-tag="B4 · 적분" data-title="이차인수">
-      <div class="ask">\[ \int \frac{4x+2}{(x^{2}+1)(x^{2}+4)}\, dx \]</div>
+      <div class="ask">\[ \int {4x+2 \over (x^{2}+1)(x^{2}+4)}\, dx \]</div>
       <div class="sol">
-        \[ \frac{4x+2}{(x^{2}+1)(x^{2}+4)} = \frac{2}{3}\frac{2x+1}{x^{2}+1} - \frac{2}{3}\frac{2x+1}{x^{2}+4} \]
+        \[ {4x+2 \over (x^{2}+1)(x^{2}+4)} = {2 \over 3}{2x+1 \over x^{2}+1} - {2 \over 3}{2x+1 \over x^{2}+4} \]
         <p>각 항을 \( 2x \) 와 상수로 나눈다.</p>
-        \[ \frac{2}{3}\int \frac{2x}{x^{2}+1}\, dx = \frac{2}{3}\ln(x^{2}+1) \]
-        \[ \frac{2}{3}\int \frac{1}{x^{2}+1}\, dx = \frac{2}{3}\arctan x \]
-        \[ \frac{2}{3}\int \frac{2x}{x^{2}+4}\, dx = \frac{2}{3}\ln(x^{2}+4) \]
-        \[ \frac{2}{3}\int \frac{1}{x^{2}+4}\, dx = \frac{2}{3}\cdot\frac{1}{2}\arctan\frac{x}{2} = \frac{1}{3}\arctan\frac{x}{2} \]
-        \[ \frac{2}{3}\ln\left|\frac{x^{2}+1}{x^{2}+4}\right| + \frac{2}{3}\arctan x - \frac{1}{3}\arctan\frac{x}{2} + C \]
-        <p class="ans">답: \( \dfrac{2}{3}\ln\left|\dfrac{x^{2}+1}{x^{2}+4}\right| + \dfrac{2}{3}\arctan x - \dfrac{1}{3}\arctan\dfrac{x}{2} + C \)</p>
+        \[ {2 \over 3}\int {2x \over x^{2}+1}\, dx = {2 \over 3}\ln(x^{2}+1) \]
+        \[ {2 \over 3}\int {1 \over x^{2}+1}\, dx = {2 \over 3}\arctan x \]
+        \[ {2 \over 3}\int {2x \over x^{2}+4}\, dx = {2 \over 3}\ln(x^{2}+4) \]
+        \[ {2 \over 3}\int {1 \over x^{2}+4}\, dx = {2 \over 3}\cdot{1 \over 2}\arctan{x \over 2} = {1 \over 3}\arctan{x \over 2} \]
+        \[ {2 \over 3}\ln\left|{x^{2}+1 \over x^{2}+4}\right| + {2 \over 3}\arctan x - {1 \over 3}\arctan{x \over 2} + C \]
+        <p class="ans">답: \( {2 \over 3}\ln\left|{x^{2}+1 \over x^{2}+4}\right| + {2 \over 3}\arctan x - {1 \over 3}\arctan{x \over 2} + C \)</p>
       </div>
     </article>
     <article data-id="c1" data-tag="C1 · 변수분리" data-title="일반해">
-      <div class="ask">\[ \frac{dy}{dx} = (x+2) y^{2} \]</div>
+      <div class="ask">\[ {dy \over dx} = (x+2) y^{2} \]</div>
       <div class="sol">
-        \[ \frac{dy}{y^{2}} = (x+2)\, dx, \qquad -\frac{1}{y} = \frac{x^{2}}{2} + 2x + C \]
-        \[ y = \frac{-2}{x^{2}+4x+K} \]
+        \[ {dy \over y^{2}} = (x+2)\, dx, \qquad -{1 \over y} = {x^{2} \over 2} + 2x + C \]
+        \[ y = {-2 \over x^{2}+4x+K} \]
         <p>\( y=0 \) 도 해다. 일반해 식에는 \( K\to\infty \) 처럼만 들어간다.</p>
         <p class="ans">답: \( y = -2/(x^{2}+4x+K) \), 그리고 \( y=0 \)</p>
       </div>
     </article>
     <article data-id="c2" data-tag="C2 · 변수분리" data-title="초기조건">
-      <div class="ask">\[ \frac{dy}{dx} = 2xy(y-1), \quad y(0)=2 \]</div>
+      <div class="ask">\[ {dy \over dx} = 2xy(y-1), \quad y(0)=2 \]</div>
       <div class="sol">
-        \[ \frac{dy}{y(y-1)} = 2x\, dx, \qquad \frac{1}{y(y-1)} = \frac{1}{y-1} - \frac{1}{y} \]
-        \[ \ln\left|\frac{y-1}{y}\right| = x^{2} + C \]
+        \[ {dy \over y(y-1)} = 2x\, dx, \qquad {1 \over y(y-1)} = {1 \over y-1} - {1 \over y} \]
+        \[ \ln\left|{y-1 \over y}\right| = x^{2} + C \]
         <p>\( y(0)=2 \) 이면 \( \ln(1/2) = C \).</p>
-        \[ \frac{y-1}{y} = \frac{1}{2} e^{x^{2}}, \qquad \frac{1}{y} = 1 - \frac{1}{2} e^{x^{2}}, \qquad y = \frac{2}{2 - e^{x^{2}}} \]
+        \[ {y-1 \over y} = {1 \over 2} e^{x^{2}}, \qquad {1 \over y} = 1 - {1 \over 2} e^{x^{2}}, \qquad y = {2 \over 2 - e^{x^{2}}} \]
         <p>\( x=0 \) 에서 \( y=2 \). 분모가 0이 되는 \( x = \pm\sqrt{\ln 2} \) 근처에서는 이 해가 끊긴다.</p>
         <p class="ans">답: \( y = 2/(2 - e^{x^{2}}) \)</p>
       </div>
@@ -574,7 +574,7 @@
     <article data-id="c3" data-tag="C3 · 선형 동차" data-title="초기조건">
       <div class="ask">\[ y' + 2xy = 0, \quad y(0)=5 \]</div>
       <div class="sol">
-        \[ \frac{dy}{y} = -2x\, dx, \qquad \ln|y| = -x^{2} + C, \qquad y = K e^{-x^{2}} \]
+        \[ {dy \over y} = -2x\, dx, \qquad \ln|y| = -x^{2} + C, \qquad y = K e^{-x^{2}} \]
         <p>\( y(0)=5 \) 이면 \( K=5 \).</p>
         \[ y = 5 e^{-x^{2}} \]
         <p class="ans">답: \( y = 5e^{-x^{2}} \)</p>
@@ -583,7 +583,7 @@
     <article data-id="c4" data-tag="C4 · 선형 동차" data-title="초기조건">
       <div class="ask">\[ y' - y\sin x = 0, \quad y(0)=2 \]</div>
       <div class="sol">
-        \[ \frac{dy}{y} = \sin x\, dx, \qquad \ln|y| = -\cos x + C, \qquad y = K e^{-\cos x} \]
+        \[ {dy \over y} = \sin x\, dx, \qquad \ln|y| = -\cos x + C, \qquad y = K e^{-\cos x} \]
         <p>\( y(0)=2 \) 이면 \( K e^{-1} = 2 \), \( K = 2e \).</p>
         \[ y = 2 e^{1-\cos x} \]
         <p class="ans">답: \( y = 2e^{1-\cos x} \)</p>
@@ -593,7 +593,7 @@
       <div class="ask">\[ y' + 2y = 4x \]</div>
       <div class="sol">
         <p>\( P=2 \), \( \mu = e^{2x} \).</p>
-        \[ \frac{d}{dx}(y e^{2x}) = 4x e^{2x} \]
+        \[ {d \over dx}(y e^{2x}) = 4x e^{2x} \]
         \[ \int 4x e^{2x}\, dx = 2x e^{2x} - e^{2x} \]
         \[ y = 2x - 1 + C e^{-2x} \]
         <p>부분적분: \( u=x \), \( dv = 4e^{2x}\, dx \), \( v = 2e^{2x} \).</p>
@@ -604,7 +604,7 @@
       <div class="ask">\[ y' - y = e^{2x}, \quad y(0)=1 \]</div>
       <div class="sol">
         <p>\( P=-1 \), \( \mu = e^{-x} \).</p>
-        \[ \frac{d}{dx}(y e^{-x}) = e^{x}, \qquad y e^{-x} = e^{x} + C, \qquad y = e^{2x} + C e^{x} \]
+        \[ {d \over dx}(y e^{-x}) = e^{x}, \qquad y e^{-x} = e^{x} + C, \qquad y = e^{2x} + C e^{x} \]
         <p>\( y(0)=1 \) 이면 \( 1+C=1 \), \( C=0 \).</p>
         \[ y = e^{2x} \]
         <p>검산: \( y' - y = 2e^{2x} - e^{2x} = e^{2x} \), \( y(0)=1 \).</p>
@@ -616,9 +616,9 @@
       <div class="sol">
         <p>\( \mu = e^{x} \). \( I = \int e^{x}\sin x\, dx \).</p>
         \[ I = e^{x}\sin x - \int e^{x}\cos x\, dx = e^{x}\sin x - e^{x}\cos x - \int e^{x}\sin x\, dx \]
-        \[ 2I = e^{x}(\sin x - \cos x), \qquad I = \frac{1}{2} e^{x}(\sin x - \cos x) \]
-        \[ y = \frac{1}{2}(\sin x - \cos x) + C e^{-x} \]
-        <p class="ans">답: \( y = \dfrac{1}{2}(\sin x - \cos x) + Ce^{-x} \)</p>
+        \[ 2I = e^{x}(\sin x - \cos x), \qquad I = {1 \over 2} e^{x}(\sin x - \cos x) \]
+        \[ y = {1 \over 2}(\sin x - \cos x) + C e^{-x} \]
+        <p class="ans">답: \( y = {1 \over 2}(\sin x - \cos x) + Ce^{-x} \)</p>
       </div>
     </article>
     <article data-id="c8" data-tag="C8 · 베르누이" data-title="\( n=2 \)">
@@ -627,8 +627,8 @@
         <p>\( n=2 \), \( u = y^{-1} \), \( u' = -y^{-2} y' \). \( y^{2} \) 으로 나누면</p>
         \[ y^{-2} y' + y^{-1} = e^{x}, \qquad -u' + u = e^{x}, \qquad u' - u = -e^{x} \]
         <p>\( \mu = e^{-x} \).</p>
-        \[ \frac{d}{dx}(u e^{-x}) = -1, \qquad u e^{-x} = -x + C, \qquad u = (C-x)e^{x} \]
-        \[ y = \frac{e^{-x}}{C-x} \]
+        \[ {d \over dx}(u e^{-x}) = -1, \qquad u e^{-x} = -x + C, \qquad u = (C-x)e^{x} \]
+        \[ y = {e^{-x} \over C-x} \]
         <p>\( y=0 \) 도 원래 식을 만족한다.</p>
         <p class="ans">답: \( y = e^{-x}/(C-x) \), 그리고 \( y=0 \)</p>
       </div>
@@ -639,8 +639,8 @@
         <p>\( n=2 \), \( u=1/y \).</p>
         \[ y^{-2} y' + 2 y^{-1} = 2, \qquad -u' + 2u = 2, \qquad u' - 2u = -2 \]
         <p>\( \mu = e^{-2x} \).</p>
-        \[ \frac{d}{dx}(u e^{-2x}) = -2 e^{-2x}, \qquad u e^{-2x} = e^{-2x} + C, \qquad u = 1 + C e^{2x} \]
-        \[ y = \frac{1}{1 + C e^{2x}} \]
+        \[ {d \over dx}(u e^{-2x}) = -2 e^{-2x}, \qquad u e^{-2x} = e^{-2x} + C, \qquad u = 1 + C e^{2x} \]
+        \[ y = {1 \over 1 + C e^{2x}} \]
         <p>\( y=0 \) 도 해다. \( C=0 \) 이면 평형해 \( y=1 \).</p>
         <p class="ans">답: \( y = 1/(1+Ce^{2x}) \). \( y=0 \) 도 해, \( C=0 \) 이면 \( y=1 \)</p>
       </div>
@@ -651,7 +651,7 @@
         <p>\( M=2xy+3 \), \( N=x^{2} \). \( M_y = 2x = N_x \).</p>
         \[ f = \int (2xy+3)\, dx = x^{2} y + 3x + h(y) \]
         \[ f_y = x^{2} + h' = x^{2}, \qquad h' = 0, \qquad x^{2} y + 3x = C \]
-        \[ y = \frac{C-3x}{x^{2}} \]
+        \[ y = {C-3x \over x^{2}} \]
         <p class="ans">답: \( y = (C-3x)/x^{2} \)</p>
       </div>
     </article>
@@ -666,11 +666,11 @@
       </div>
     </article>
     <article data-id="c12" data-tag="C12 · 동차형" data-title="\( v=y/x \), 과제에는 없었음">
-      <div class="ask">\[ y' = 1 + \frac{y}{x} \]</div>
+      <div class="ask">\[ y' = 1 + {y \over x} \]</div>
       <p class="before">이건 과제에 없던 동차형이다. \( v=y/x \) 로 푼다.</p>
       <div class="sol">
         <p>\( y' = 1 + y/x \). \( y = vx \), \( y' = v + x v' \).</p>
-        \[ v + x v' = 1 + v, \qquad x \frac{dv}{dx} = 1 \]
+        \[ v + x v' = 1 + v, \qquad x {dv \over dx} = 1 \]
         \[ v = \ln|x| + C, \qquad y = x\ln|x| + Cx \]
         <p class="ans">답: \( y = x\ln|x| + Cx \)</p>
       </div>
