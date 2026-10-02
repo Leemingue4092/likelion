@@ -29,7 +29,7 @@
       --shadow: 0 14px 36px rgba(72, 42, 16, 0.1);
     }
     * { box-sizing: border-box; }
-    html { color-scheme: light; scroll-behavior: smooth; }
+    html { color-scheme: light; }
     html.booting main { visibility: hidden; }
     body {
       margin: 0;
@@ -45,7 +45,7 @@
       position: sticky;
       top: 0;
       z-index: 4;
-      background: rgba(255, 248, 236, 0.94);
+      background: #fff8ec;
       border-bottom: 1px solid var(--line);
     }
     .wrap { width: min(860px, calc(100% - 28px)); margin: 0 auto; }
@@ -721,7 +721,7 @@
       let n = 0;
       items.forEach((q) => {
         const accept = q.dataset.accept.split(",");
-        if (accept.includes(s.answers[q.id])) n += 1;
+        if (accept.includes(s.answers[q.dataset.id])) n += 1;
       });
       return n + "/8";
     }
@@ -742,6 +742,7 @@
       });
       const view = document.getElementById("view-" + name);
       if (view) typeset(view);
+      window.scrollTo(0, 0);
       paintScore();
       if (updateHash && location.hash !== "#" + name) history.pushState(null, "", "#" + name);
     }
