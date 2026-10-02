@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>공업수학3 복습</title>
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <style>
+    :root {
+      --bg: #f3efe6;
+      --paper: #fffdf8;
+      --ink: #1c2430;
+      --muted: #5e6872;
+      --line: #e3dcd0;
+      --accent: #0e6b63;
+      --accent-soft: #e4f3f1;
+      --ok: #1d6b3a;
+      --ok-soft: #e7f5ec;
+      --also: #1d4e89;
+      --also-soft: #e7f1fb;
+      --bad: #8d2f2f;
+      --bad-soft: #f8e8e6;
+      --warn: #8a4b12;
+      --warn-soft: #f8efe4;
+      --shadow: 0 10px 30px rgba(40, 32, 20, 0.06);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 400px at 10% -10%, #efe6d4 0%, transparent 55%),
+        var(--bg);
+      font-family: "Noto Sans KR", "WenQuanYi Micro Hei", "Malgun Gothic", sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+    }
+    header.top {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(243, 239, 230, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .wrap { width: min(980px, calc(100% - 32px)); margin: 0 auto; }
+    .brand { padding: 16px 0 8px; }
+    .brand h1 { margin: 0; font-size: 1.45rem; letter-spacing: -0.03em; }
+    .brand p { margin: 4px 0 0; color: var(--muted); font-size: 0.95rem; }
+    nav { display: flex; gap: 8px; overflow-x: auto; padding: 0 0 12px; }
+    nav button, .btn, .choice {
+      font: inherit;
+      cursor: pointer;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+    }
+    nav button { padding: 8px 14px; white-space: nowrap; }
+    nav button[aria-current="page"] {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    main { padding: 22px 0 64px; }
+    .view[hidden] { display: none; }
+    h2 { margin: 0 0 8px; font-size: 1.45rem; letter-spacing: -0.03em; }
+    h3 { margin: 0 0 8px; font-size: 1.08rem; }
+    .lede { color: var(--muted); margin-top: 0; }
+    .grid { display: grid; gap: 14px; }
+    @media (min-width: 800px) {
+      .grid.two { grid-template-columns: 1fr 1fr; }
+    }
+    .card, .problem, .formula {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 16px 18px;
+    }
+    .steps { margin: 0; padding-left: 1.2rem; }
+    .steps li + li { margin-top: 6px; }
+    .linkish {
+      border: 0;
+      background: transparent;
+      color: var(--accent);
+      font: inherit;
+      padding: 0;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .formula .katex-display { margin: 0.4rem 0; }
+    .tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .tag.warn { background: var(--warn-soft); color: var(--warn); }
+    .tag.ok { background: var(--ok-soft); color: var(--ok); }
+    .ask { font-size: 1.05rem; }
+    .choices { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+    .choice { padding: 8px 12px; border-radius: 12px; }
+    .choice[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+    .feedback { border-radius: 12px; padding: 10px 12px; margin-top: 8px; }
+    .feedback.ok { background: var(--ok-soft); color: var(--ok); }
+    .feedback.also { background: var(--also-soft); color: var(--also); }
+    .feedback.bad { background: var(--bad-soft); color: var(--bad); }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0 16px; }
+    .btn { padding: 8px 14px; border-radius: 12px; }
+    .btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
+    .score { margin-left: auto; color: var(--muted); }
+    label.memo { display: block; margin-top: 8px; color: var(--muted); font-size: 0.92rem; }
+    textarea {
+      width: 100%;
+      min-height: 72px;
+      margin-top: 4px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font: inherit;
+      padding: 10px 12px;
+      resize: vertical;
+      color: var(--ink);
+    }
+    .solution { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); }
+    .solution[hidden] { display: none; }
+    .solution ol { margin: 8px 0 0; padding-left: 1.2rem; }
+    .callout {
+      background: var(--warn-soft);
+      border-radius: 14px;
+      padding: 12px 14px;
+      color: var(--warn);
+    }
+    table { width: 100%; border-collapse: collapse; background: var(--paper); border-radius: 16px; overflow: hidden; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { background: #f7f3ea; font-weight: 650; }
+    .katex { font-size: 1.05em; }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">
+        <h1>공업수학3 복습</h1>
+        <p>적분, 선형 동차·비동차, 베르누이, 완전미분</p>
+      </div>
+      <nav>
+        <button type="button" data-nav="start" aria-current="page">시작</button>
+        <button type="button" data-nav="formula">공식</button>
+        <button type="button" data-nav="audit">과제 검산</button>
+        <button type="button" data-nav="quiz">유형 연습</button>
+        <button type="button" data-nav="solve">문제 풀이</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="view" id="view-start">
+      <h2>오늘 순서</h2>
+      <p class="lede">문제와 해설은 수식으로 적혀 있다. 손으로 한 줄 적은 뒤 풀이를 연다.</p>
+      <ol class="steps">
+        <li><button class="linkish" type="button" data-nav="formula">공식</button>에서 유형 이름과 첫 줄을 확인한다.</li>
+        <li><button class="linkish" type="button" data-nav="audit">과제 검산</button>에서 제출한 답을 다시 본다. 고칠 곳은 4주차 1번의 지수 한 줄이다.</li>
+        <li><button class="linkish" type="button" data-nav="quiz">유형 연습</button>은 계산 전에 방법만 고른다.</li>
+        <li><button class="linkish" type="button" data-nav="solve">문제 풀이</button>는 손으로 푼 뒤 풀이를 연다. 메모는 이 브라우저에 남는다.</li>
+      </ol>
+      <div class="callout" style="margin-top:16px">
+        <strong>동차라는 말.</strong>
+        과제에서 푼 동차는
+        \( y' + P(x)y = 0 \)
+        이다.
+        \( y' = F\!\left({y \over x}\right) \)
+        는 이름이 같고 풀이가 다르다. 연습 마지막 문제에만 들어 있다.
+      </div>
+    </section>
+
+    <section class="view" id="view-formula" hidden>
+      <h2>공식</h2>
+      <p class="lede">표준형으로 맞춘 다음 아래 첫 줄을 적는다.</p>
+      <div class="grid">
+        <article class="formula">
+          <span class="tag">변수분리</span>
+          <h3>\( \displaystyle {dy \over dx} = f(x)\,g(y) \)</h3>
+          \[ \int {dy \over g(y)} = \int f(x)\,dx \]
+          <p>\( g(y)=0 \) 인 상수해는 나누기 전에 확인한다.</p>
+        </article>
+        <article class="formula">
+          <span class="tag">선형 동차</span>
+          <h3>\( y' + P(x)y = 0 \)</h3>
+          \[ y = C \exp\!\left(-\int P(x)\,dx\right) \]
+        </article>
+        <article class="formula">
+          <span class="tag">선형 비동차</span>
+          <h3>\( y' + P(x)y = Q(x) \)</h3>
+          \[ \mu = \exp\!\left(\int P\,dx\right) \]
+          \[ {d \over dx}(\mu y) = \mu Q \]
+          \[ y = {1 \over \mu}\left(\int \mu Q\,dx + C\right) \]
+        </article>
+        <article class="formula">
+          <span class="tag">베르누이</span>
+          <h3>\( y' + P y = Q y^{n} \quad (n \neq 0,1) \)</h3>
+          \[ u = y^{1-n} \]
+          \[ u' + (1-n) P u = (1-n) Q \]
+          <p>\( (1-n) \) 은 \( P \) 와 \( Q \) 양쪽에 곱한다. \( n>1 \) 이면 \( y=0 \) 도 해인지 따로 본다.</p>
+        </article>
+        <article class="formula">
+          <span class="tag">완전미분</span>
+          <h3>\( M\,dx + N\,dy = 0 \)</h3>
+          \[ {\partial M \over \partial y} = {\partial N \over \partial x} \]
+          <p>\( y \) 를 고정하고 \( \int M\,dx \) 를 구한 뒤 \( h(y) \) 를 \( {\partial f \over \partial y} = N \) 으로 정한다. 해는 \( f(x,y)=C \).</p>
+        </article>
+        <article class="formula">
+          <span class="tag">동차형</span>
+          <h3>\( \displaystyle {dy \over dx} = F\!\left({y \over x}\right) \)</h3>
+          \[ y = vx, \qquad {dy \over dx} = v + x {dv \over dx} \]
+          <p>예 \( \displaystyle {dy \over dx} = 1 + {y \over x} \) 의 해는 \( y = x\ln|x| + Cx \).</p>
+        </article>
+        <article class="formula">
+          <span class="tag">치환 적분</span>
+          <h3>\( u = x^{2}+a^{2},\ du = 2x\,dx \)</h3>
+          \[ \int x\sqrt{x^{2}+a^{2}}\,dx = {1 \over 3}(x^{2}+a^{2})^{3/2} + C \]
+          \[ (a^{2})^{3/2} = a^{3}, \qquad (2a^{2})^{3/2} = 2\sqrt{2}\,a^{3} \]
+        </article>
+        <article class="formula">
+          <span class="tag">부분분수</span>
+          <h3>일차인수는 상수, \( x^{2}+a^{2} \) 는 1차 분자</h3>
+          \[ {1 \over (x-a)(x-b)} = {A \over x-a} + {B \over x-b} \]
+          \[ {Bx+C \over x^{2}+a^{2}} \]
+          \[ \int {dx \over x^{2}+a^{2}} = {1 \over a}\arctan{x \over a} \]
+          \[ \int {2x \over x^{2}+a^{2}}\,dx = \ln(x^{2}+a^{2}) \]
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="view-audit" hidden>
+      <h2>과제 검산</h2>
+      <p class="lede">최종 답은 맞다. 손볼 중간 과정은 4주차 1번의 지수뿐이다.</p>
+      <div class="grid">
+        <article class="card">
+          <span class="tag warn">지수만 수정</span>
+          <h3>4주차 1</h3>
+          \[ \int_{0}^{a} x\sqrt{x^{2}+a^{2}}\,dx = {a^{3} \over 3}(2\sqrt{2}-1) \quad (a>0) \]
+          <p>\( u=x^{2}+a^{2} \) 이면 적분 구간은 \( a^{2} \) 에서 \( 2a^{2} \) 이다.</p>
+          \[ {1 \over 3}\left[(2a^{2})^{3/2} - (a^{2})^{3/2}\right] = {1 \over 3}(2\sqrt{2}\,a^{3} - a^{3}) \]
+          <p>\( (2a^{2})^{3/2} = 2\sqrt{2}\,a^{3} \) 이고 \( (a^{2})^{3/2} = a^{3} \) 이다.</p>
+        </article>
+        <article class="card">
+          <span class="tag ok">맞음</span>
+          <h3>4주차 2</h3>
+          \[ \int_{0}^{1} {2 \over 2x^{2}+3x+1}\,dx = 2\ln{3 \over 2} = \ln{9 \over 4} \]
+          \[ {2 \over (2x+1)(x+1)} = {4 \over 2x+1} - {2 \over x+1} \]
+        </article>
+        <article class="card">
+          <span class="tag ok">맞음</span>
+          <h3>과제1 부분분수</h3>
+          \[ \int {dx \over 1-x^{4}} = {1 \over 4}\ln\left|{1+x \over 1-x}\right| + {1 \over 2}\arctan x + C \]
+          \[ \int {2x+1 \over (x^{2}+1)(x^{2}+4)}\,dx = {1 \over 3}\ln\left|{x^{2}+1 \over x^{2}+4}\right| + {1 \over 3}\arctan x - {1 \over 6}\arctan{x \over 2} + C \]
+        </article>
+        <article class="card">
+          <span class="tag ok">맞음</span>
+          <h3>변수분리</h3>
+          \[ {dy \over dx} + (x+1)y^{2} = 0 \Rightarrow y = {2 \over x^{2}+2x+K} \]
+          \[ {1 \over x}{dy \over dx} = y^{2}-y,\quad y(1)=2 \]
+          \[ y = {2 \over 2 - e^{(x^{2}-1)/2}} \]
+        </article>
+        <article class="card">
+          <span class="tag ok">맞음</span>
+          <h3>선형</h3>
+          \[ y' + 2y = 2x \Rightarrow y = x - {1 \over 2} + Ce^{-2x} \]
+          \[ y' - y\cos x = 0,\ y(0)=1 \Rightarrow y = e^{\sin x} \]
+          \[ y' + {y \over x^{2}} = 0,\ y(-1)=e^{-1} \Rightarrow y = e^{1/x} \]
+          \[ y' + y = \cos x \Rightarrow y = {1 \over 2}(\sin x + \cos x) + Ce^{-x} \]
+        </article>
+        <article class="card">
+          <span class="tag ok">맞음</span>
+          <h3>베르누이 \( n=2 \)</h3>
+          \[ y' + y = e^{-x} y^{2} \]
+          \[ y = {2 \over e^{-x} + 2Ce^{x}} \]
+        </article>
+        <article class="card">
+          <span class="tag">완전미분 대조</span>
+          <h3>\( y = {C \over x(x+1)} \)</h3>
+          \[ d\bigl[x(x+1)y\bigr] = (2xy+y)\,dx + (x^{2}+x)\,dy \]
+          <p>이 해는 \( N = x^{2}+x \) 일 때 맞다. 노트에 \( x^{2}+2x \) 로 적혀 있으면 \( {\partial N \over \partial x} = 2x+2 \) 라서 완전이 아니다. 원문의 \( N \) 만 대조하면 된다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="view-quiz" hidden>
+      <h2>유형 연습</h2>
+      <p class="lede">계산은 하지 않는다. 방법 이름을 고른다.</p>
+      <div class="toolbar">
+        <button type="button" class="btn" id="reset-quiz">유형 선택 지우기</button>
+        <span class="score" id="quiz-score">0 / 8</span>
+      </div>
+      <div class="grid" id="quiz-list"></div>
+    </section>
+
+    <section class="view" id="view-solve" hidden>
+      <h2>문제 풀이</h2>
+      <p class="lede">메모를 적고, 다 푼 뒤에 풀이를 연다.</p>
+      <div class="toolbar">
+        <button type="button" class="btn" id="hide-all">풀이 모두 닫기</button>
+        <button type="button" class="btn" id="reset-all">메모와 진도 지우기</button>
+      </div>
+      <div class="grid" id="solve-list"></div>
+    </section>
+  </main>
+
+  <script src="vendor/katex/katex.min.js"></script>
+  <script src="vendor/katex/auto-render.min.js"></script>
+  <script>
+    const KEY = "engmath3-browser-v1";
+    const TYPES = [
+      ["lin-h", "선형 동차"],
+      ["lin-n", "선형 비동차"],
+      ["bern", "베르누이"],
+      ["sep", "변수분리"],
+      ["exact", "완전미분"],
+      ["hom", "동차형"]
+    ];
+    const TYPE_NAME = Object.fromEntries(TYPES);
+
+    const QUIZ = [
+      { id: "q1", tex: "{dy \\over dx}+{3 \\over x}y=0", accept: ["lin-h", "sep"], preferred: "lin-h",
+        why: "우변이 \\(0\\)이라 선형 동차다. \\({dy \\over y}=-{3 \\over x}\\,dx\\)로 쓰면 변수분리도 된다." },
+      { id: "q2", tex: "{dy \\over dx}+{3 \\over x}y=x^{2}", accept: ["lin-n"], preferred: "lin-n",
+        why: "표준형의 우변이 \\(x^{2}\\)이므로 선형 비동차다." },
+      { id: "q3", tex: "{dy \\over dx}+y=e^{-x}y^{2}", accept: ["bern"], preferred: "bern",
+        why: "\\(y^{2}\\)이 있으므로 베르누이다. \\(n=2\\), \\(u=y^{-1}\\)." },
+      { id: "q4", tex: "(2xy+3)\\,dx+x^{2}\\,dy=0", accept: ["exact"], preferred: "exact",
+        why: "\\({\\partial M \\over \\partial y}=2x={\\partial N \\over \\partial x}\\)이므로 완전미분이다." },
+      { id: "q5", tex: "{dy \\over dx}={x^{2}+y^{2} \\over xy}", accept: ["hom"], preferred: "hom",
+        why: "우변이 \\({y \\over x}\\)만의 식이므로 \\(v={y \\over x}\\) 동차형이다." },
+      { id: "q6", tex: "{dy \\over dx}=x(1-y^{2})", accept: ["sep"], preferred: "sep",
+        why: "\\(x\\) 부분과 \\(y\\) 부분이 곱으로 갈라져 변수분리이다." },
+      { id: "q7", tex: "{dy \\over dx}+2y=2y^{2}", accept: ["bern", "sep"], preferred: "bern",
+        why: "\\(y^{2}\\)이 있어 베르누이다. 우변이 \\(y\\)만의 함수라 변수분리도 된다." },
+      { id: "q8", tex: "(y\\cos x+2x)\\,dx+\\sin x\\,dy=0", accept: ["exact"], preferred: "exact",
+        why: "\\({\\partial M \\over \\partial y}=\\cos x={\\partial N \\over \\partial x}\\)이므로 완전미분이다." }
+    ];
+
+    const PROBLEMS = [
+      { id: "b1", tag: "적분", title: "치환",
+        ask: "\\displaystyle \\int_{0}^{4} x\\sqrt{x^{2}+9}\\,dx",
+        body: "<p>\\(u=x^{2}+9\\). \\(x:0\\to 4\\)이면 \\(u:9\\to 25\\), \\(x\\,dx={du \\over 2}\\).</p>\\[{1 \\over 2}\\int_{9}^{25} u^{1/2}\\,du = {1 \\over 3}\\bigl[u^{3/2}\\bigr]_{9}^{25} = {1 \\over 3}(125-27) = {98 \\over 3}\\]" },
+      { id: "b2", tag: "적분", title: "부분분수",
+        ask: "\\displaystyle \\int_{0}^{1} {dx \\over x^{2}+3x+2}",
+        body: "\\[x^{2}+3x+2=(x+1)(x+2),\\qquad {1 \\over (x+1)(x+2)}={1 \\over x+1}-{1 \\over x+2}\\]\\[\\Bigl[\\ln{x+1 \\over x+2}\\Bigr]_{0}^{1} = \\ln{2 \\over 3}-\\ln{1 \\over 2} = \\ln{4 \\over 3}\\]" },
+      { id: "b3", tag: "적분", title: "치환 후 부분분수",
+        ask: "\\displaystyle \\int {x \\over 1-x^{4}}\\,dx",
+        body: "<p>\\(u=x^{2}\\), \\(du=2x\\,dx\\).</p>\\[{1 \\over 2}\\int {du \\over 1-u^{2}} = {1 \\over 4}\\ln\\left|{1+x^{2} \\over 1-x^{2}}\\right|+C\\]" },
+      { id: "b4", tag: "적분", title: "이차인수",
+        ask: "\\displaystyle \\int {4x+2 \\over (x^{2}+1)(x^{2}+4)}\\,dx",
+        body: "\\[{4x+2 \\over (x^{2}+1)(x^{2}+4)} = {2 \\over 3}{2x+1 \\over x^{2}+1}-{2 \\over 3}{2x+1 \\over x^{2}+4}\\]\\[{2 \\over 3}\\ln\\left|{x^{2}+1 \\over x^{2}+4}\\right| + {2 \\over 3}\\arctan x - {1 \\over 3}\\arctan{x \\over 2}+C\\]" },
+      { id: "c1", tag: "변수분리", title: "일반해",
+        ask: "{dy \\over dx}=(x+2)y^{2}",
+        body: "\\[{dy \\over y^{2}}=(x+2)\\,dx,\\qquad -{1 \\over y}={x^{2} \\over 2}+2x+C\\]\\[y={-2 \\over x^{2}+4x+K}\\]<p>\\(y=0\\)도 해다.</p>" },
+      { id: "c2", tag: "변수분리", title: "초기조건",
+        ask: "{dy \\over dx}=2xy(y-1),\\quad y(0)=2",
+        body: "\\[{dy \\over y(y-1)}=2x\\,dx,\\qquad {1 \\over y(y-1)}={1 \\over y-1}-{1 \\over y}\\]\\[\\ln\\left|{y-1 \\over y}\\right|=x^{2}+C\\]<p>\\(y(0)=2\\)이면 \\(C=\\ln{1 \\over 2}\\).</p>\\[y={2 \\over 2-e^{x^{2}}}\\]<p>\\(x=0\\)에서 \\(y=2\\). 분모가 \\(0\\)이 되는 \\(x=\\pm\\sqrt{\\ln 2}\\) 근처에서 해가 끊긴다.</p>" },
+      { id: "c3", tag: "선형 동차", title: "초기조건",
+        ask: "y'+2xy=0,\\quad y(0)=5",
+        body: "\\[{dy \\over y}=-2x\\,dx,\\qquad y=Ke^{-x^{2}}\\]<p>\\(y(0)=5\\)이므로 \\(K=5\\).</p>\\[y=5e^{-x^{2}}\\]" },
+      { id: "c4", tag: "선형 동차", title: "초기조건",
+        ask: "y'-y\\sin x=0,\\quad y(0)=2",
+        body: "\\[{dy \\over y}=\\sin x\\,dx,\\qquad y=Ke^{-\\cos x}\\]<p>\\(y(0)=2\\)이면 \\(Ke^{-1}=2\\), \\(K=2e\\).</p>\\[y=2e^{1-\\cos x}\\]" },
+      { id: "c5", tag: "선형 비동차", title: "적분인자",
+        ask: "y'+2y=4x",
+        body: "<p>\\(\\mu=e^{2x}\\).</p>\\[{d \\over dx}(ye^{2x})=4xe^{2x}\\]\\[\\int 4xe^{2x}\\,dx=2xe^{2x}-e^{2x}\\]\\[y=2x-1+Ce^{-2x}\\]" },
+      { id: "c6", tag: "선형 비동차", title: "초기조건",
+        ask: "y'-y=e^{2x},\\quad y(0)=1",
+        body: "<p>\\(\\mu=e^{-x}\\).</p>\\[{d \\over dx}(ye^{-x})=e^{x},\\qquad y=e^{2x}+Ce^{x}\\]<p>\\(y(0)=1\\)이면 \\(C=0\\).</p>\\[y=e^{2x}\\]" },
+      { id: "c7", tag: "선형 비동차", title: "부분적분 두 번",
+        ask: "y'+y=\\sin x",
+        body: "<p>\\(\\mu=e^{x}\\), \\(I=\\int e^{x}\\sin x\\,dx\\).</p>\\[2I=e^{x}(\\sin x-\\cos x),\\qquad I={1 \\over 2}e^{x}(\\sin x-\\cos x)\\]\\[y={1 \\over 2}(\\sin x-\\cos x)+Ce^{-x}\\]" },
+      { id: "c8", tag: "베르누이", title: "\\(n=2\\)",
+        ask: "y'+y=e^{x}y^{2}",
+        body: "<p>\\(u=y^{-1}\\). \\(y^{2}\\)으로 나누면</p>\\[u'-u=-e^{x},\\qquad \\mu=e^{-x}\\]\\[u=(C-x)e^{x},\\qquad y={e^{-x} \\over C-x}\\]<p>\\(y=0\\)도 해다.</p>" },
+      { id: "c9", tag: "베르누이", title: "\\(n=2\\)",
+        ask: "y'+2y=2y^{2}",
+        body: "\\[u'-2u=-2,\\qquad \\mu=e^{-2x}\\]\\[u=1+Ce^{2x},\\qquad y={1 \\over 1+Ce^{2x}}\\]<p>\\(y=0\\)도 해다. \\(C=0\\)이면 \\(y=1\\).</p>" },
+      { id: "c10", tag: "완전미분", title: "\\(M_{y}=N_{x}\\)",
+        ask: "(2xy+3)\\,dx+x^{2}\\,dy=0",
+        body: "<p>\\({\\partial M \\over \\partial y}=2x={\\partial N \\over \\partial x}\\).</p>\\[f=x^{2}y+3x,\\qquad x^{2}y+3x=C\\]\\[y={C-3x \\over x^{2}}\\]" },
+      { id: "c11", tag: "완전미분", title: "\\(M_{y}=N_{x}\\)",
+        ask: "(y\\cos x+2x)\\,dx+\\sin x\\,dy=0",
+        body: "<p>\\({\\partial M \\over \\partial y}=\\cos x={\\partial N \\over \\partial x}\\).</p>\\[f=y\\sin x+x^{2}=C\\]" },
+      { id: "c12", tag: "동차형", title: "\\(v=y/x\\)",
+        ask: "{dy \\over dx}=1+{y \\over x}",
+        body: "<p>\\(y=vx\\), \\({dy \\over dx}=v+x{dv \\over dx}\\).</p>\\[v+x{dv \\over dx}=1+v,\\qquad x{dv \\over dx}=1\\]\\[v=\\ln|x|+C,\\qquad y=x\\ln|x|+Cx\\]" }
+    ];
+
+    function load() {
+      try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+      catch (e) { return {}; }
+    }
+    function save(state) { localStorage.setItem(KEY, JSON.stringify(state)); }
+    function state() {
+      const s = load();
+      s.answers = s.answers || {};
+      s.open = s.open || {};
+      s.notes = s.notes || {};
+      return s;
+    }
+
+    function typeset(el) {
+      if (!el || !window.renderMathInElement) return;
+      renderMathInElement(el, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false }
+        ],
+        throwOnError: false
+      });
+    }
+
+    function show(name) {
+      document.querySelectorAll(".view").forEach((view) => {
+        view.hidden = view.id !== "view-" + name;
+      });
+      document.querySelectorAll("nav [data-nav]").forEach((btn) => {
+        btn.setAttribute("aria-current", btn.dataset.nav === name ? "page" : "false");
+      });
+      const view = document.getElementById("view-" + name);
+      if (view) typeset(view);
+      if (location.hash !== "#" + name) history.replaceState(null, "", "#" + name);
+    }
+
+    function quizScore(s) {
+      const n = QUIZ.filter((q) => q.accept.includes(s.answers[q.id])).length;
+      document.getElementById("quiz-score").textContent = n + " / " + QUIZ.length;
+    }
+
+    function feedbackFor(q, choice) {
+      if (choice === q.preferred) return ["ok", "맞다. " + q.why];
+      if (q.accept.includes(choice)) return ["also", "이 방법으로도 풀린다. 더 먼저 고를 이름은 " + TYPE_NAME[q.preferred] + "이다. " + q.why];
+      return ["bad", q.why];
+    }
+
+    function renderQuiz() {
+      const s = state();
+      const root = document.getElementById("quiz-list");
+      root.innerHTML = "";
+      QUIZ.forEach((q, index) => {
+        const card = document.createElement("article");
+        card.className = "problem";
+        card.innerHTML = "<span class=\"tag\">" + (index + 1) + "</span><div class=\"ask\">\\[" + q.tex + "\\]</div><div class=\"choices\"></div><div class=\"feedback\" hidden></div>";
+        const choices = card.querySelector(".choices");
+        TYPES.forEach(([id, label]) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "choice";
+          btn.textContent = label;
+          btn.setAttribute("aria-pressed", s.answers[q.id] === id ? "true" : "false");
+          btn.addEventListener("click", () => {
+            const cur = state();
+            cur.answers[q.id] = id;
+            save(cur);
+            renderQuiz();
+          });
+          choices.appendChild(btn);
+        });
+        const box = card.querySelector(".feedback");
+        if (s.answers[q.id]) {
+          const [kind, text] = feedbackFor(q, s.answers[q.id]);
+          box.hidden = false;
+          box.className = "feedback " + kind;
+          box.innerHTML = text;
+        }
+        root.appendChild(card);
+      });
+      typeset(root);
+      quizScore(s);
+    }
+
+    function renderSolve() {
+      const s = state();
+      const root = document.getElementById("solve-list");
+      root.innerHTML = "";
+      PROBLEMS.forEach((p) => {
+        const card = document.createElement("article");
+        card.className = "problem";
+        card.dataset.id = p.id;
+        const open = !!s.open[p.id];
+        card.innerHTML =
+          "<span class=\"tag\">" + p.tag + "</span>" +
+          "<h3>" + p.title + "</h3>" +
+          "<div class=\"ask\">\\[" + p.ask + "\\]</div>" +
+          "<label class=\"memo\">내 풀이 메모<textarea data-note=\"" + p.id + "\"></textarea></label>" +
+          "<div class=\"toolbar\"><button type=\"button\" class=\"btn primary reveal\" aria-expanded=\"" + open + "\">" + (open ? "풀이 닫기" : "풀이 보기") + "</button></div>" +
+          "<div class=\"solution\"" + (open ? "" : " hidden") + ">" + p.body + "</div>";
+        card.querySelector("textarea").value = s.notes[p.id] || "";
+        card.querySelector("textarea").addEventListener("input", (event) => {
+          const cur = state();
+          cur.notes[p.id] = event.target.value;
+          save(cur);
+        });
+        card.querySelector(".reveal").addEventListener("click", () => {
+          const cur = state();
+          cur.open[p.id] = !cur.open[p.id];
+          save(cur);
+          const sol = card.querySelector(".solution");
+          const btn = card.querySelector(".reveal");
+          sol.hidden = !cur.open[p.id];
+          btn.setAttribute("aria-expanded", cur.open[p.id] ? "true" : "false");
+          btn.textContent = cur.open[p.id] ? "풀이 닫기" : "풀이 보기";
+          if (cur.open[p.id]) typeset(sol);
+        });
+        root.appendChild(card);
+      });
+      typeset(root);
+    }
+
+    document.querySelectorAll("[data-nav]").forEach((btn) => {
+      btn.addEventListener("click", () => show(btn.dataset.nav));
+    });
+    document.getElementById("reset-quiz").addEventListener("click", () => {
+      const cur = state();
+      cur.answers = {};
+      save(cur);
+      renderQuiz();
+    });
+    document.getElementById("hide-all").addEventListener("click", () => {
+      const cur = state();
+      cur.open = {};
+      save(cur);
+      renderSolve();
+    });
+    document.getElementById("reset-all").addEventListener("click", () => {
+      localStorage.removeItem(KEY);
+      renderQuiz();
+      renderSolve();
+    });
+
+    renderQuiz();
+    renderSolve();
+    const initial = (location.hash || "#start").slice(1);
+    show(["formula", "audit", "quiz", "solve"].includes(initial) ? initial : "start");
+  </script>
+</body>
+</html>
