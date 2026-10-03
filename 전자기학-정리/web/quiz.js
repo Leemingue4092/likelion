@@ -6,11 +6,11 @@ const QUIZZES = {
       title: '7-1. 자석을 잘랐을 때',
       question: '막대자석을 가운데서 자르면?',
       choices: [
-        'N극만 있는 조각과 S극만 있는 조각',
         '각각 N극·S극을 가진 작은 자석 두 개',
+        'N극만 있는 조각과 S극만 있는 조각',
         '자극이 모두 사라진 철조각 두 개'
       ],
-      answer: 1,
+      answer: 0,
       explain: '자하는 홀로 존재할 수 없습니다. 잘라도 작은 자석 두 개가 됩니다.'
     },
     {
@@ -20,10 +20,10 @@ const QUIZZES = {
       question: '임의의 폐곡면에 대한 자속 ∮ B · dS 의 값은?',
       choices: [
         '자극의 세기 m에 비례하는 양수',
-        '항상 0',
-        '자석 길이에 비례'
+        '자석 길이에 비례',
+        '항상 0'
       ],
-      answer: 1,
+      answer: 2,
       explain: '고립자극이 없으므로 ∮ B · dS = 0, ∇ · B = 0 입니다.'
     },
     {
@@ -41,12 +41,12 @@ const QUIZZES = {
       title: '7-4. B와 H의 관계',
       question: '진공에서 자속밀도 B와 자계의 세기 H의 관계식은?',
       choicesHtml: [
-        'B = ε₀ E',
         'B = μ₀ H',
+        'B = ε₀ E',
         'B = H / μ₀',
         'D = μ₀ H'
       ],
-      answer: 1,
+      answer: 0,
       explain: '진공에서는 B = μ₀ H 입니다. 매질이 있으면 B = μ H 입니다.'
     },
     {
@@ -56,11 +56,11 @@ const QUIZZES = {
       question: '균일한 자속밀도 B가 면적 S에 수직일 때 자속 Φ는?',
       choicesHtml: [
         'Φ = B + S',
-        'Φ = B S',
         'Φ = B / S',
-        'Φ = μ₀ B'
+        'Φ = μ₀ B',
+        'Φ = B S'
       ],
-      answer: 1,
+      answer: 3,
       explain: '면에 수직이면 Φ = B S 입니다.'
     },
     {
@@ -70,11 +70,11 @@ const QUIZZES = {
       question: '환상 솔레노이드에 철심을 넣으면 어떻게 되나?',
       choices: [
         '자계의 세기 H가 크게 증가한다',
-        '자속밀도 B와 자속 Φ가 커진다',
         '진공의 투자율 μ₀가 커진다',
+        '자속밀도 B와 자속 Φ가 커진다',
         '전류 I가 자동으로 커진다'
       ],
-      answer: 1,
+      answer: 2,
       explain: 'H는 전류·권수·기하에 의해 정해지고, 철심(μ 증가)으로 B와 Φ가 커집니다.'
     },
     {
