@@ -7,7 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=Song+Myung&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261003b" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="styles.css?v=20261003c" />
 </head>
 <body>
 
@@ -26,134 +27,209 @@
   </div>
 </header>
 
-
 <main class="wrap">
   <header class="page-head">
     <h1>제8장 전류에 의한 자계</h1>
-    <p>전류가 만드는 자계, 그리고 자계가 전류·전하에 가하는 힘.</p>
+    <p>7장이 자석이 만드는 장이라면, 8장은 전류가 만드는 장과 그 장이 전류·전하에 가하는 힘입니다.</p>
   </header>
   <p style="margin:-0.4rem 0 1.2rem;"><a class="btn btn-primary" href="problems-ch8.html">이 장 연습문제 풀기</a></p>
 
   <section class="section">
-    <h2>8.2~8.3 방향과 암페어 법칙</h2>
-    <ul>
-      <li>오른손: 엄지=전류, 감는 방향=자계</li>
-      <li>⊙ 나옴 / ⊗ 들어감</li>
-      <li>왕복전류: 사이는 보강, 바깥은 상쇄</li>
-    </ul>
-    <div class="formula">
-      <div class="eq"><span>∮ H · dl = I</span><span class="unit">(또는 NI)</span></div>
+    <h2>8.1 전류가 자계를 만든다</h2>
+    <p>도선에 전류가 흐르면 주변에 자침이 돌아갑니다(외르스테드). 직선 전류 주위의 자계는 도선을 중심으로 하는 <strong>동심원</strong>입니다. 전류 방향을 바꾸면 자계 방향도 반대로 바뀝니다.</p>
+    <p>7장의 점자극 공식 \(H=m/(4\pi\mu_0 r^{2})\)으로는 이 원형 장을 바로 쓸 수 없습니다. 원천이 “자극”이 아니라 “전류”이기 때문입니다. 그래서 이 장에서는 <strong>암페어 법칙</strong>과 <strong>비오–사바르 법칙</strong>을 씁니다.</p>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>7장 식을 8장에 그대로 못 쓰는 이유</h3>
+      <p>7장은 고립된 것처럼 보이는 자극 \(m\)을 가정한 번역입니다. 실제 전류가 만드는 장은 원형으로 감깁니다. 전하↔자극 대응만으로는 동심원 자계가 나오지 않으므로, 전류를 원천으로 하는 새 법칙이 필요합니다. 그래도 구하는 양은 같은 \(H\)이고, 진공에서 \(B=\mu_0 H\)인 관계도 그대로입니다.</p>
     </div>
   </section>
 
   <section class="section">
-    <h2>8.4 자계 계산</h2>
-    <h3>무한장 직선</h3>
-    <div class="formula">
-      <div class="eq">
-        <span>H =</span>
-        <span class="frac"><span class="num">I</span><span class="den">2π r</span></span>
-        <span class="unit">[A/m]</span>
-      </div>
+    <h2>8.2 방향: 오른손·오른나사</h2>
+    <ul>
+      <li>엄지 = 전류 \(I\), 나머지 손가락이 감는 방향 = 자계 \(H\)</li>
+      <li>⊙ : 지면에서 나옴 (화살촉) / ⊗ : 지면으로 들어감 (화살 꼬리)</li>
+      <li>왕복전류(평행, 반대 방향): 두 도선 사이는 보강, 바깥은 상쇄</li>
+    </ul>
+    <div class="fig" aria-hidden="true">
+      <svg viewBox="0 0 440 150" width="420" role="img">
+        <circle cx="90" cy="75" r="8" fill="#b86b2a"/>
+        <circle cx="90" cy="75" r="3" fill="#fff"/>
+        <circle cx="90" cy="75" r="28" fill="none" stroke="#2f6f7e" stroke-width="1.5"/>
+        <circle cx="90" cy="75" r="46" fill="none" stroke="#2f6f7e" stroke-width="1.2" opacity=".7"/>
+        <text x="90" y="130" font-size="12" text-anchor="middle" fill="#3a5560" font-family="IBM Plex Sans KR, sans-serif">⊙ 전류, 동심원 H</text>
+        <circle cx="240" cy="75" r="8" fill="#2f6f7e"/>
+        <path d="M232 67 L248 83 M248 67 L232 83" stroke="#fff" stroke-width="2"/>
+        <circle cx="240" cy="75" r="28" fill="none" stroke="#b86b2a" stroke-width="1.5"/>
+        <text x="240" y="130" font-size="12" text-anchor="middle" fill="#3a5560" font-family="IBM Plex Sans KR, sans-serif">⊗ 반대 전류</text>
+        <text x="355" y="48" font-size="13" fill="#12262f" font-family="IBM Plex Sans KR, sans-serif">사이: 같은 방향</text>
+        <text x="355" y="70" font-size="13" fill="#12262f" font-family="IBM Plex Sans KR, sans-serif">→ 합성 커짐</text>
+        <text x="355" y="100" font-size="13" fill="#12262f" font-family="IBM Plex Sans KR, sans-serif">바깥: 반대 방향</text>
+        <text x="355" y="122" font-size="13" fill="#12262f" font-family="IBM Plex Sans KR, sans-serif">→ 상쇄</text>
+      </svg>
+      <p class="cap">왕복전류는 두 원의 접선 방향을 각각 그린 뒤, 사이와 바깥에서 화살표가 같은지 다른지만 보면 됩니다.</p>
+    </div>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>사이는 더해지고 바깥은 0인 이유</h3>
+      <p>평행한 두 도선에 전류가 반대로 흐르면, 오른손으로 그린 접선이 <strong>두 도선 사이에서는 같은 방향</strong>을 가리킵니다. 같은 방향이면 크기를 더합니다. 바깥에서는 서로 반대라서, 전류 크기가 같으면 거의 상쇄됩니다. 같은 방향 전류면 이 관계가 뒤집히고, 그때는 서로 끌어당깁니다(8.7절).</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>8.3 암페어의 주회적분 법칙</h2>
+    <p>임의의 닫힌 길을 따라 자계 \(H\)를 한 바퀴 적분하면, 그 길이 감싸는 <strong>알짜 전류</strong>와 같습니다.</p>
+    <div class="eq-display">
+      $$\oint_{C} \mathbf{H}\cdot\mathrm{d}\boldsymbol{\ell} = I \quad (\text{코일이 }N\text{번 관통하면 }NI)$$
+    </div>
+    <p>적분 방향으로 오른나사를 돌릴 때, 나사가 진행하는 쪽 전류는 +, 반대는 −입니다.</p>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>선적분이 “한 바퀴 합”인 이유</h3>
+      <p>\(\mathbf{H}\cdot\mathrm{d}\boldsymbol{\ell}\)는 “그 작은 길이를 따라 \(H\)가 길을 얼마나 밀어 주는가”입니다. 원형 자계는 도선 주위를 한 바퀴 돕니다. 그 한 바퀴를 다 더하면, 가운데를 관통하는 전류에만 비례하고 반지름과는 무관한 값이 남습니다. 그래서 대칭이 좋은 문제에서는 이 한 줄로 \(H\)를 바로 구할 수 있습니다.</p>
+      <p>\(H\)를 쓰는 이유: 암페어 법칙의 오른편은 전류입니다. 매질 \(\mu\)가 들어가지 않습니다. 같은 전류면 공심·철심의 \(H\)가 같고, \(B=\mu H\)만 달라집니다.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>8.4 자계 계산 — 식이 모양마다 달라지는 이유</h2>
+    <p>대칭이 좋으면 암페어, 나쁘면 비오–사바르입니다. 암페어를 쓸 때는 \(H\)와 \(\mathrm{d}\boldsymbol{\ell}\)이 나란한 원(또는 직선)을 고릅니다. 그때 \(\mathbf{H}\cdot\mathrm{d}\boldsymbol{\ell}=H\,\mathrm{d}\ell\)이 되어 적분은 “둘레 길이 × \(H\)”가 됩니다.</p>
+
+    <h3>무한장 직선 전류</h3>
+    <p>적분로는 도선에서 거리 \(r\)인 원입니다. 이 원 위에서 \(H\)의 크기는 같고 접선 방향입니다. 둘레는 \(2\pi r\).</p>
+    <div class="derive">
+      <p class="step">\(\displaystyle \oint H\,\mathrm{d}\ell = H\cdot 2\pi r = I\)</p>
+      <p class="step">양변을 \(2\pi r\)로 나누면 \(\displaystyle H=\dfrac{I}{2\pi r}\quad [\mathrm{A/m}]\)</p>
+    </div>
+    <div class="eq-display">
+      $$H = \dfrac{I}{2\pi r}, \qquad B=\mu_0 H=\dfrac{\mu_0 I}{2\pi r}$$
+    </div>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>분모가 \(2\pi r\)인 이유</h3>
+      <p>7장의 점자극은 영향이 구면(\(4\pi r^{2}\))으로 퍼져 \(1/r^{2}\)이었습니다. 무한 직선 전류의 장은 원통처럼 퍼집니다. “한 바퀴 둘레”가 \(2\pi r\)이라서 \(H\propto 1/r\)입니다. \(r\)이 두 배가 되면 같은 전류가 두 배 긴 원에 나뉘므로 세기는 반이 됩니다. 이차함수(\(r^{2}\))가 아닙니다.</p>
     </div>
 
-    <h3>원주도체 (반지름 a)</h3>
+    <h3>원주도체 (반지름 \(a\), 전류 균일)</h3>
+    <p>외부는 모든 전류가 적분로 안에 있으므로 무한 직선과 같습니다. 내부는 적분로(반지름 \(r&lt;a\))가 감싸는 전류가 전체의 일부뿐입니다.</p>
     <div class="grid-2">
-      <div class="formula">
-        <div class="label">외부 / 표면</div>
-        <div class="eq">
-          <span>H =</span>
-          <span class="frac"><span class="num">I</span><span class="den">2π r</span></span>
-        </div>
+      <div class="eq-display">
+        $$r \ge a:\quad H=\dfrac{I}{2\pi r}$$
+        <span class="eq-caption">외부·표면</span>
       </div>
-      <div class="formula">
-        <div class="label">내부 (균일)</div>
-        <div class="eq">
-          <span>H =</span>
-          <span class="frac"><span class="num">r I</span><span class="den">2π a²</span></span>
-        </div>
+      <div class="eq-display">
+        $$r &lt; a:\quad H=\dfrac{r I}{2\pi a^{2}}$$
+        <span class="eq-caption">내부 (균일 전류)</span>
       </div>
     </div>
-    <p class="note">외부는 ∝ 1/r (반비례). 이차함수가 아닙니다. 표면전류만이면 내부 H = 0.</p>
+    <div class="derive">
+      <p class="step">균일이면 면적비로 내부 전류 \(\displaystyle I' = I\cdot\dfrac{\pi r^{2}}{\pi a^{2}}=I\dfrac{r^{2}}{a^{2}}\)</p>
+      <p class="step">암페어: \(2\pi r\, H = I'\)</p>
+      <p class="step">\(\displaystyle H=\dfrac{I r^{2}}{2\pi r\, a^{2}}=\dfrac{r I}{2\pi a^{2}}\)</p>
+      <p class="hint">분자에 \(r^{2}\), 분모에 둘레 \(r\)이 있어서 하나가 약분됩니다. 그래서 내부는 \(H\propto r\) (원점에서 0, 표면으로 갈수록 증가)입니다.</p>
+    </div>
+    <p class="note">전류가 표면에만 흐르면 내부 적분로가 감싸는 전류가 0이라 내부 \(H=0\)입니다. 외부 그래프를 이차함수로 그리면 오답입니다. 외부는 \(1/r\) 반비례입니다.</p>
 
     <h3>무한장 솔레노이드</h3>
-    <div class="formula">
-      <div class="eq">
-        <span>Hᵢ = nI =</span>
-        <span class="frac"><span class="num">N I</span><span class="den">l</span></span>
-        <span class="unit">, 외부 H = 0</span>
-      </div>
+    <p>원통에 빽빽히 감은 코일입니다. 이상적인 경우 내부는 균일 자계, 외부는 0입니다. 단위 길이당 권수 \(n=N/\ell\).</p>
+    <div class="eq-display">
+      $$H_{i}=nI=\dfrac{NI}{\ell}, \qquad \text{외부 }H=0$$
+    </div>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>솔레노이드 내부가 \(NI/\ell\)인 이유</h3>
+      <p>암페어 적분로를 “내부로 \(\ell\)만큼 갔다가 외부로 돌아오는 직사각”으로 잡습니다. 외부 \(H\approx 0\), 양쪽 짧은 변은 \(H\)와 길이 방향이 수직이라 기여가 0입니다. 남는 것은 내부 직선 \(\ell\)뿐이고, 그 길이 감싸는 전류는 “\(\ell\) 구간에 들어 있는 권선 수 \(n\ell\) × \(I\)”입니다.</p>
+      <p>\(H\cdot\ell = n\ell I\) 에서 \(\ell\)이 약분되어 \(H=nI\)가 됩니다. 반지름이 식에 없는 이유: 내부가 평등하다고 보았기 때문입니다.</p>
     </div>
 
-    <h3>환상 솔레노이드</h3>
-    <div class="formula">
-      <div class="eq">
-        <span>H =</span>
-        <span class="frac"><span class="num">N I</span><span class="den">2π r</span></span>
-        <span class="unit">= NI / l</span>
-      </div>
+    <h3>환상 솔레노이드 (토로이드)</h3>
+    <p>도넛형 틀에 감은 코일. 자계는 거의 고리 안에만 있고, 적분로는 반지름 \(r\)인 원(둘레 \(2\pi r=\ell\)).</p>
+    <div class="eq-display">
+      $$H=\dfrac{NI}{2\pi r}=\dfrac{NI}{\ell}$$
     </div>
-    <p>H는 공심·철심 동일. B와 Φ만 μ에 따라 변함.</p>
+    <p>공심이든 철심이든 \(H\)는 같습니다. 달라지는 것은 \(B=\mu H\)와 자속 \(\Phi=BS\)입니다.</p>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>철심을 넣으면 \(H\)는 그대로, \(B\)만 커지는 이유</h3>
+      <p>암페어 오른편은 전류 \(NI\)뿐입니다. 철이든 공기든 전류가 같으면 한 바퀴 적분 \(\oint H\cdot\mathrm{d}\ell\)이 같습니다. 대칭 때문에 \(H\) 자체도 같습니다. 철은 \(\mu\)가 커서 같은 \(H\)로도 자속밀도 \(B\)가 훨씬 큽니다. 7장에서 \(H\)는 원천 쪽, \(B\)는 매질까지 포함한 밀도라고 한 것과 같은 이야기입니다.</p>
+    </div>
   </section>
 
   <section class="section">
-    <h2>8.5 비오–사바르</h2>
-    <div class="formula">
-      <div class="eq">
-        <span>dH =</span>
-        <span class="frac"><span class="num">I dl sin θ</span><span class="den">4π r²</span></span>
-      </div>
+    <h2>8.5 비오–사바르 법칙</h2>
+    <p>유한한 직선처럼 대칭이 깨질 때는, 도선을 작은 조각 \(I\mathrm{d}\boldsymbol{\ell}\)으로 나눠 각 조각이 만드는 \(\mathrm{d}H\)를 더합니다. 7장 쿨롱과 비슷하게 \(1/r^{2}\)이고, 조각과 관측점을 잇는 선에 수직인 성분만 장을 만듭니다(\(\sin\theta\)).</p>
+    <div class="eq-display">
+      $$\mathrm{d}H = \dfrac{I\,\mathrm{d}\ell\sin\theta}{4\pi r^{2}}, \qquad
+      \mathrm{d}\mathbf{H}=\dfrac{I\,(\mathrm{d}\boldsymbol{\ell}\times\hat{\mathbf{r}})}{4\pi r^{2}}$$
     </div>
-    <div class="formula">
-      <div class="eq">
-        <span>H =</span>
-        <span class="frac"><span class="num">I</span><span class="den">4π a</span></span>
-        <span>(sin φ₁ + sin φ₂)</span>
+    <p>유한 직선에서, 도선까지 수직 거리가 \(a\)인 점:</p>
+    <div class="eq-display">
+      $$H=\dfrac{I}{4\pi a}(\sin\phi_1+\sin\phi_2)$$
+    </div>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>무한 직선 식과 어떻게 이어지나</h3>
+      <p>도선이 양쪽 무한대까지 가면 \(\phi_1=\phi_2=90^{\circ}\), \(\sin 90^{\circ}=1\)이라서</p>
+      <div class="derive">
+        <p class="step">\(\displaystyle H=\dfrac{I}{4\pi a}(1+1)=\dfrac{I}{2\pi a}\)</p>
       </div>
+      <p>암페어로 구한 무한 직선 공식과 같아집니다. \(4\pi\)가 \(2\pi\)로 바뀌는 것은 “양쪽 끝 기여 1+1” 때문입니다. 식이 달라 보여도 같은 물리량의 다른 계산법입니다.</p>
+      <p>\(\sin\theta\)가 있는 이유: 전류 조각과 나란한 방향으로는 자기 효과가 상쇄되고, 수직 성분만 남습니다. 도선 연장선 바로 위(\(\theta=0\))에서는 \(\mathrm{d}H=0\)입니다.</p>
     </div>
   </section>
 
   <section class="section">
     <h2>8.6 회전과 스토크스</h2>
+    <p>정전계는 한 바퀴 돌아도 일이 0인 보존장입니다. 전류가 있는 정자계 \(H\)는 한 바퀴가 전류와 같아서 보존장이 아닙니다.</p>
     <table>
-      <thead><tr><th></th><th>정전계 E</th><th>정자계 H</th></tr></thead>
+      <thead><tr><th></th><th>정전계 \(E\)</th><th>정자계 \(H\)</th></tr></thead>
       <tbody>
-        <tr><td>선적분</td><td>∮ E · dl = 0</td><td>∮ H · dl = I</td></tr>
-        <tr><td>회전</td><td>∇ × E = 0</td><td>∇ × H = J</td></tr>
+        <tr><td>선적분</td><td>\(\oint\mathbf{E}\cdot\mathrm{d}\boldsymbol{\ell}=0\)</td><td>\(\oint\mathbf{H}\cdot\mathrm{d}\boldsymbol{\ell}=I\)</td></tr>
+        <tr><td>회전</td><td>\(\nabla\times\mathbf{E}=0\)</td><td>\(\nabla\times\mathbf{H}=\mathbf{J}\)</td></tr>
       </tbody>
     </table>
-    <div class="formula">
-      <div class="eq"><span>∮ H · dl = ∬_S (∇ × H) · dS</span></div>
+    <div class="eq-display">
+      $$\oint_{C}\mathbf{H}\cdot\mathrm{d}\boldsymbol{\ell}=\iint_{S}(\nabla\times\mathbf{H})\cdot\mathrm{d}\mathbf{S}$$
     </div>
+    <p>왼쪽은 암페어의 적분형, 오른쪽 피적분함수를 전류밀도 \(\mathbf{J}\)와 같다고 두면 미분형 \(\nabla\times\mathbf{H}=\mathbf{J}\)가 됩니다. 스토크스는 그 다리입니다.</p>
   </section>
 
   <section class="section">
     <h2>8.7 전자력 · 로렌츠 힘</h2>
-    <div class="formula">
-      <div class="eq"><span>F = I ℓ × B</span><span>,&nbsp; F = BIl sin θ</span></div>
+    <p>자계 속에 있는 전류는 힘을 받습니다. 쓰는 장은 \(H\)가 아니라 <strong>자속밀도 \(B\)</strong>입니다. 힘의 크기는 자속이 얼마나 빽빽한가에 달려 있기 때문입니다.</p>
+    <div class="eq-display">
+      $$\mathbf{F}=I\boldsymbol{\ell}\times\mathbf{B}, \qquad F=B I \ell \sin\theta$$
     </div>
-    <div class="formula">
-      <div class="eq"><span>F = q (v × B)</span><span>,&nbsp; F = Bqv sin θ</span></div>
+    <p>방향은 플레밍 왼손: 검지 \(B\), 중지 \(I\), 엄지 \(F\). 전하가 속도 \(\mathbf{v}\)로 움직이면 \(I\ell\)가 \(qv\)와 같은 역할을 해서</p>
+    <div class="eq-display">
+      $$\mathbf{F}=q(\mathbf{v}\times\mathbf{B}), \qquad F=Bqv\sin\theta$$
     </div>
-    <div class="formula">
-      <div class="eq"><span>F = q (E + v × B)</span></div>
+    <p>전계까지 있으면 로렌츠 힘</p>
+    <div class="eq-display">
+      $$\mathbf{F}=q(\mathbf{E}+\mathbf{v}\times\mathbf{B})$$
     </div>
-    <div class="formula">
-      <div class="label">평행도선</div>
-      <div class="eq">
-        <span>F =</span>
-        <span class="frac"><span class="num">μ₀ I₁ I₂ ℓ</span><span class="den">2π d</span></span>
-      </div>
+    <p>\(B\)에 수직으로 들어가면 등속 원운동, 비스듬히 들어가면 등속 나선운동입니다. \(B\)와 나란한 속도 성분은 힘을 받지 않습니다(\(\sin 0^{\circ}=0\)).</p>
+    <h3>평행 도선 사이 힘</h3>
+    <p>도선 1이 거리 \(d\)에 만드는 \(B=\mu_0 I_1/(2\pi d)\)가, 길이 \(\ell\)인 도선 2(\(I_2\))를 밉니다.</p>
+    <div class="eq-display">
+      $$F=\dfrac{\mu_0 I_1 I_2 \ell}{2\pi d}$$
     </div>
-    <p>같은 방향 → 흡인 / 반대 방향 → 반발</p>
+    <p>같은 방향 전류 → 사이 자속 감소 → 흡인. 반대 방향 → 사이 자속 증가 → 반발.</p>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>힘 공식에 \(H\)가 아니라 \(B\)가 들어가는 이유</h3>
+      <p>전류 원소가 실제로 “느끼는” 것은 자속밀도입니다. 같은 \(H\)라도 철심 속이면 \(B\)가 커서 힘이 커집니다. 진공에서는 \(B=\mu_0 H\)이므로 \(F=B I\ell\sin\theta\)에 \(\mu_0 H\)를 넣으면 평행도선 식의 \(\mu_0\)가 나옵니다.</p>
+      <p>분모 \(2\pi d\): 도선 1의 직선 자계 \(H=I_1/(2\pi d)\)에서 온 것입니다. 7~8장을 잇는 한 줄은 “한 전류가 만든 \(B\)가 다른 전류를 민다”입니다.</p>
+    </div>
   </section>
 </main>
-
 
 <footer class="footer wrap">
   전자기학 수업 정리 · 제7장 정자계 · 제8장 전류에 의한 자계
 </footer>
-<script src="main.js?v=20261003b"></script>
-
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script defer src="main.js?v=20261003c"></script>
 </body>
 </html>
