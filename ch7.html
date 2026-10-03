@@ -7,7 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=Song+Myung&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261003b" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="styles.css?v=20261003c" />
 </head>
 <body>
 
@@ -26,120 +27,260 @@
   </div>
 </header>
 
-
 <main class="wrap">
   <header class="page-head">
     <h1>제7장 정자계</h1>
-    <p>시간에 따라 변하지 않는 자계. 이 장에서는 주로 자석을 다룹니다.</p>
+    <p>시간에 따라 변하지 않는 자계. 이 장에서는 주로 자석이 만드는 장을 다룹니다.</p>
   </header>
   <p style="margin:-0.4rem 0 1.2rem;"><a class="btn btn-primary" href="problems-ch7.html">이 장 연습문제 풀기</a></p>
 
   <section class="section">
+    <h2>이 장을 읽는 순서</h2>
+    <p class="lead">공식을 외우기 전에, 이름만 먼저 붙잡아 두면 뒤가 훨씬 쉽습니다.</p>
+    <div class="chain">
+      <div class="row"><span class="sym">자하 \(m\)</span><span>자극이 얼마나 센가. 전기의 전하 \(Q\)에 해당합니다.</span></div>
+      <div class="row"><span class="sym">자계 \(H\)</span><span>그 공간에서 단위 자하가 받는 힘. “장의 세기”입니다.</span></div>
+      <div class="row"><span class="sym">자기력선 \(N\)</span><span>\(H\)를 선으로 그린 것. 선의 밀도 = \(H\).</span></div>
+      <div class="row"><span class="sym">자속밀도 \(B\)</span><span>실제로 자속이 얼마나 빽빽한가. 진공에서 \(B=\mu_0 H\).</span></div>
+      <div class="row"><span class="sym">자속 \(\Phi\)</span><span>면을 통과하는 자속의 총량. 원천 \(m\)과 같습니다.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
     <h2>7.1 자석</h2>
+    <p>막대자석을 철가루 위에 두면 양 끝이 가장 빽빽해집니다. 그 양 끝을 <strong>자극</strong>이라고 하고, N(+)극과 S(−)극으로 부릅니다. 같은 극끼리는 밀치고, 다른 극끼리는 끌어당깁니다.</p>
+    <p>자극의 세기를 <strong>자하</strong> \(m\)이라 하며 단위는 웨버 [Wb]입니다. 전기의 전하 \(Q\)와 비슷한 역할이지만, 결정적으로 다릅니다.</p>
     <ul>
-      <li>자극: N(+)극 / S(−)극. 작용이 강한 양 끝</li>
-      <li>자기력: 동종 반발, 이종 흡인</li>
-      <li>자하 m: 단위 [Wb]. 항상 N·S가 쌍으로 존재</li>
-      <li>자석을 잘라도 작은 자석 두 개가 됨 (고립자극 없음)</li>
+      <li>전하는 +만, −만 따로 존재할 수 있습니다.</li>
+      <li>자하는 항상 N과 S가 <strong>같은 양으로 쌍</strong>을 이룹니다.</li>
+      <li>자석을 반으로 잘라도 N만 / S만 생기지 않고, 작은 자석 두 개가 됩니다.</li>
     </ul>
+    <div class="fig" aria-hidden="true">
+      <svg viewBox="0 0 460 150" width="420" role="img">
+        <rect x="150" y="58" width="70" height="34" fill="#b04a3a" rx="3"/>
+        <rect x="220" y="58" width="70" height="34" fill="#2f6f7e" rx="3"/>
+        <text x="175" y="81" fill="#fff" font-size="16" text-anchor="middle" font-family="IBM Plex Sans KR, sans-serif">N</text>
+        <text x="255" y="81" fill="#fff" font-size="16" text-anchor="middle" font-family="IBM Plex Sans KR, sans-serif">S</text>
+        <path d="M150 64 C90 20, 370 20, 290 64" fill="none" stroke="#2f6f7e" stroke-width="1.6"/>
+        <path d="M150 75 C70 8, 390 8, 290 75" fill="none" stroke="#2f6f7e" stroke-width="1.3" opacity=".7"/>
+        <path d="M150 86 C90 130, 370 130, 290 86" fill="none" stroke="#2f6f7e" stroke-width="1.6"/>
+        <path d="M150 97 C70 148, 390 148, 290 97" fill="none" stroke="#2f6f7e" stroke-width="1.3" opacity=".7"/>
+        <path d="M158 58 C180 40, 260 40, 282 58" fill="none" stroke="#b86b2a" stroke-width="1.2"/>
+      </svg>
+      <p class="cap">바깥에서 자기력선은 N에서 나와 S로 들어갑니다. 자석 안에서는 S→N으로 이어져 폐회로가 됩니다.</p>
+    </div>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>자석은 왜 항상 N·S가 쌍인가?</h3>
+      <p>자석은 작은 전류 고리(원자 자석)가 한 방향으로 정렬된 것입니다. 고리에는 “입구”와 “출구”가 동시에 있습니다. 그래서 N만 떼어 올 수가 없습니다. 이걸 <strong>고립자극(자기 홀극)은 없다</strong>고 말합니다. 7장 끝의 가우스 정리 \(\oint \mathbf{B}\cdot\mathrm{d}\mathbf{S}=0\) 이 바로 이 사실을 수식으로 쓴 것입니다.</p>
+    </div>
   </section>
 
   <section class="section">
     <h2>7.2 쿨롱의 법칙</h2>
-    <div class="formula">
-      <div class="eq">
-        <span>F =</span>
-        <span class="frac"><span class="num">m₁ m₂</span><span class="den">4π μ₀ r²</span></span>
-        <span class="unit">[N]</span>
-      </div>
+    <p>두 점자극 \(m_1\), \(m_2\)가 거리 \(r\)만큼 떨어져 있을 때 서로 미는(또는 당기는) 힘입니다. 가늘고 긴 자석을 가정해서, 반대쪽 극의 영향을 거의 무시할 수 있을 때를 <strong>점자극</strong>이라고 합니다.</p>
+    <div class="eq-display">
+      $$F = \dfrac{m_1 m_2}{4\pi \mu_0 r^{2}} \quad [\mathrm{N}]$$
+      <span class="eq-caption">진공의 투자율 \(\mu_0 = 4\pi\times 10^{-7}\,\mathrm{H/m}\)</span>
     </div>
-    <p>μ₀ = 4π × 10⁻⁷ H/m. 전기 쿨롱에서 Q→m, ε₀→μ₀.</p>
+    <p>이미 배운 전기 쿨롱</p>
+    <div class="eq-display">
+      $$F = \dfrac{Q_1 Q_2}{4\pi \varepsilon_0 r^{2}}$$
+    </div>
+    <p>에서 전하 \(Q\)를 자하 \(m\)으로, 유전율 \(\varepsilon_0\)를 투자율 \(\mu_0\)로 바꾼 형태입니다. 동종 극은 반발, 이종 극은 흡인합니다.</p>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>분모에 \(4\pi\mu_0 r^{2}\)가 들어가는 이유</h3>
+      <ol>
+        <li>\(r^{2}\) : 영향이 3차원 공간으로 퍼집니다. 구의 겉넓이가 \(4\pi r^{2}\)이므로, 같은 원천이 더 넓은 면에 나뉘면 세기는 \(1/r^{2}\)로 약해집니다.</li>
+        <li>\(4\pi\) : 그 구의 겉넓이를 식에 직접 넣은 것입니다. SI 단위계의 약속입니다.</li>
+        <li>\(\mu_0\) : 진공이라는 매질이 “자기 영향”을 얼마나 잘 전달하는지를 나타내는 상수입니다. 전기에서 \(\varepsilon_0\)가 하는 일과 같습니다.</li>
+      </ol>
+      <p>그래서 이 식은 “새 공식”이 아니라, 전기 쿨롱을 자기 언어로 옮긴 번역입니다.</p>
+    </div>
   </section>
 
   <section class="section">
-    <h2>7.3 자계의 세기 H</h2>
-    <div class="formula">
-      <div class="eq">
-        <span>H =</span>
-        <span class="frac"><span class="num">m</span><span class="den">4π μ₀ r²</span></span>
-        <span class="unit">[A/m]</span>
-      </div>
+    <h2>7.3 자계의 세기 \(H\)</h2>
+    <p>전기에서 전계 \(E\)는 “단위 전하가 받는 힘”이었습니다. 마찬가지로 <strong>자계의 세기 \(H\)</strong>는 그 점에 단위 자하 \(+1\,\mathrm{Wb}\)를 놓았을 때 받는 힘의 크기와 방향입니다.</p>
+    <div class="eq-display">
+      $$\mathbf{H} = \dfrac{\mathbf{F}}{m} \quad \Rightarrow \quad \mathbf{F} = m\mathbf{H} \quad [\mathrm{N}]$$
     </div>
-    <div class="formula">
-      <div class="eq"><span>F = mH</span><span class="unit">[N]</span></div>
+    <p>점자극 \(m\)이 거리 \(r\)인 곳에 만드는 \(H\)는, 쿨롱 힘에서 시험 자하 \(m_2\)를 나누면 바로 나옵니다.</p>
+    <div class="derive">
+      <p class="step">쿨롱: \(\displaystyle F=\dfrac{m\cdot m_2}{4\pi\mu_0 r^{2}}\)</p>
+      <p class="step">정의: \(\displaystyle H=\dfrac{F}{m_2}\)</p>
+      <p class="step">따라서 \(\displaystyle H=\dfrac{m}{4\pi\mu_0 r^{2}}\quad [\mathrm{A/m}]\)</p>
+      <p class="hint">단위가 [N/Wb] = [A/m]인 이유는, 나중에 8장에서 전류가 만드는 자계와 같은 양을 쓰기 위해서입니다.</p>
+    </div>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>\(H\)는 “힘”이 아니라 “힘의 원인(장)”</h3>
+      <p>같은 자계라도, 그곳에 놓은 자하 \(m\)이 크면 힘 \(F=mH\)도 큽니다. 그래서 공간 자체의 성질을 말하려면 시험 물체를 나눈 \(H\)가 필요합니다. 전기의 \(E=F/Q\)와 완전히 같은 생각입니다.</p>
+      <p>거리 \(r\)이 커지면 \(H\)는 \(1/r^{2}\)로 줄습니다. 원천에서 멀어질수록 같은 영향이 더 넓은 구면에 퍼지기 때문입니다.</p>
     </div>
   </section>
 
   <section class="section">
     <h2>7.4 자위</h2>
-    <p>단위 자하를 무한대에서 그 점까지 가져오는 데 드는 일.</p>
-    <div class="formula">
-      <div class="eq"><span>U = −∫ (∞ → P) H · dl</span></div>
+    <p>전기의 전위가 “단위 전하를 무한대에서 그 점까지 가져오는 데 드는 일”이듯, <strong>자위 \(U\)</strong>는 단위 자하를 무한대에서 점 \(P\)까지 가져오는 데 드는 일입니다.</p>
+    <div class="eq-display">
+      $$U = -\int_{\infty}^{P} \mathbf{H}\cdot\mathrm{d}\boldsymbol{\ell} \quad [\mathrm{A}]$$
     </div>
-    <div class="formula">
-      <div class="eq">
-        <span>U =</span>
-        <span class="frac"><span class="num">m</span><span class="den">4π μ₀ r</span></span>
-        <span class="unit">[A]</span>
-      </div>
+    <p>점자극이면 \(H\propto 1/r^{2}\)를 적분하므로 \(1/r\)이 됩니다. \(r^{2}\)이 \(r\)로 “한 차원 내려가는” 것은 적분 때문입니다.</p>
+    <div class="eq-display">
+      $$U = \dfrac{m}{4\pi\mu_0 r} \quad [\mathrm{A}]$$
+    </div>
+    <p>장과 전위의 관계는 전기와 같습니다. 전위(자위)가 낮아지는 쪽으로 장이 생깁니다.</p>
+    <div class="eq-display">
+      $$\mathbf{E} = -\nabla V, \qquad \mathbf{H} = -\nabla U$$
+    </div>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>마이너스와 나블라 \(\nabla\)는 무엇인가</h3>
+      <p>\(\nabla U\)는 “자위가 가장 가파르게 증가하는 방향”입니다. 단위 자하는 자위가 <em>낮은</em> 쪽으로 힘을 받으므로, 장 \(H\)는 그 반대 방향입니다. 그래서 앞에 마이너스가 붙습니다.</p>
+      <p>거리 \(r\)이 분모에 한 번만 있는 이유: 힘·장 \(H\)는 \(1/r^{2}\)인데, 일을 구하려면 경로를 따라 \(H\,\mathrm{d}r\)을 적분합니다. \(\int r^{-2}\,\mathrm{d}r = -r^{-1}\) 이라서 자위는 \(1/r\)이 됩니다.</p>
     </div>
   </section>
 
   <section class="section">
-    <h2>7.5 자기력선</h2>
+    <h2>7.5 자기력선 — \(N\)이 \(H\)와 왜 연결되나</h2>
+    <p>자기력선은 실제로 공간에 실이 있는 것이 아닙니다. 단위 자하가 힘을 받아 움직이는 길을 <strong>그림으로 그린 가상선</strong>입니다. 그래도 시험에 나오는 성질은 분명합니다.</p>
     <ul>
-      <li>N에서 나와 S로 들어감 (안에서는 S→N, 폐회로)</li>
-      <li>서로 교차하지 않음</li>
-      <li>빽빽하면 셈 / 성기면 약함</li>
-      <li>접선 방향 = 그 점의 자계 방향</li>
+      <li>바깥: N에서 나와 S로 들어감. 자석 안: S→N. 전체는 닫힌 고리.</li>
+      <li>서로 교차하지 않음 (한 점에서 장 방향은 하나).</li>
+      <li>빽빽하면 자계가 세고, 성기면 약함.</li>
+      <li>한 점에서의 접선 방향 = 그 점의 \(\mathbf{H}\) 방향.</li>
     </ul>
-    <div class="formula">
-      <div class="eq">
-        <span>N = HS cos θ</span>
-        <span>,&nbsp; N =</span>
-        <span class="frac"><span class="num">m</span><span class="den">μ₀</span></span>
-      </div>
+
+    <h3>선의 개수 \(N\)을 \(H\)로 세는 약속</h3>
+    <p>그림을 쓸모 있게 만들려면 “얼마나 빽빽한가”를 숫자와 맞춰야 합니다. 교과서의 약속은 이렇습니다.</p>
+    <p class="summary-line"><strong>면적 \(1\,\mathrm{m}^{2}\)를 수직으로 지나는 선의 수 = 그 점의 자계 세기 \(H\).</strong> 즉 \(H\)는 자기력선의 <em>밀도</em>입니다.</p>
+    <p>그러면 넓이 \(S\)인 면을 수직으로 지나면, 밀도 × 면적이므로</p>
+    <div class="eq-display">
+      $$N = HS$$
+    </div>
+    <p>면이 자계와 각도 \(\theta\)만큼 기울면, 선을 “받는” 유효 면적은 \(S\cos\theta\)입니다. 빗면에 비가 오면 바닥 넓이보다 적게 맞는 것과 같습니다.</p>
+    <div class="eq-display">
+      $$N = HS\cos\theta = \mathbf{H}\cdot\mathbf{S}$$
+    </div>
+    <p>자계가 위치에 따라 바뀌거나 면이 굽으면, 작은 조각으로 나눠 더합니다.</p>
+    <div class="eq-display">
+      $$N = \int_{S} \mathbf{H}\cdot\mathrm{d}\mathbf{S}$$
+    </div>
+    <div class="fig" aria-hidden="true">
+      <svg viewBox="0 0 440 170" width="420" role="img">
+        <line x1="40" y1="30" x2="40" y2="140" stroke="#c5d3d9" stroke-width="1"/>
+        <line x1="40" y1="140" x2="400" y2="140" stroke="#c5d3d9" stroke-width="1"/>
+        <path d="M70 40 L70 130 M110 40 L110 130 M150 40 L150 130 M190 40 L190 130" stroke="#2f6f7e" stroke-width="1.8"/>
+        <polygon points="70,40 66,52 74,52" fill="#2f6f7e"/>
+        <polygon points="110,40 106,52 114,52" fill="#2f6f7e"/>
+        <polygon points="150,40 146,52 154,52" fill="#2f6f7e"/>
+        <polygon points="190,40 186,52 194,52" fill="#2f6f7e"/>
+        <rect x="55" y="78" width="150" height="8" fill="rgba(184,107,42,0.35)" stroke="#b86b2a"/>
+        <text x="130" y="160" font-size="12" text-anchor="middle" fill="#3a5560" font-family="IBM Plex Sans KR, sans-serif">수직면: N = HS</text>
+        <path d="M300 45 L340 125 M330 38 L370 118 M360 31 L400 111" stroke="#2f6f7e" stroke-width="1.8"/>
+        <polygon points="300,45 292,55 308,52" fill="#2f6f7e"/>
+        <line x1="285" y1="95" x2="410" y2="70" stroke="#b86b2a" stroke-width="3"/>
+        <text x="348" y="160" font-size="12" text-anchor="middle" fill="#3a5560" font-family="IBM Plex Sans KR, sans-serif">기울면: N = HS cosθ</text>
+      </svg>
+      <p class="cap">왼쪽은 면에 수직으로 선이 지나므로 전부 셉니다. 오른쪽은 면이 기울어 통과하는 선이 줄어듭니다.</p>
+    </div>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>자기력선 식이 \(N=HS\cos\theta\)인 까닭</h3>
+      <p>\(N\)은 새로운 물리량이 아닙니다. \(H\)를 선으로 그리기로 한 뒤, 그 선을 세는 식입니다. \(H\)가 이미 “단위 면적당 선 수”이므로 넓이만 곱하면 됩니다. \(\cos\theta\)는 기울기 보정입니다. \(\theta=0^{\circ}\) (수직)이면 \(\cos\theta=1\)이라 \(N=HS\)로 돌아가고, \(\theta=90^{\circ}\) (면에 나란)이면 선이 면을 스치기만 해서 \(N=0\)입니다.</p>
+    </div>
+
+    <h3>점자극에서 나오는 총 선 수 \(N=m/\mu_0\)</h3>
+    <p>점자극 \(m\)을 반지름 \(r\)인 구로 감싼다고 합시다. 구 표면에서 \(H\)는 어디서나 같고, 방향은 면에 수직입니다. 구의 겉넓이는 \(4\pi r^{2}\)이므로</p>
+    <div class="derive">
+      <p class="step">표면의 \(H=\dfrac{m}{4\pi\mu_0 r^{2}}\)</p>
+      <p class="step">총 선 수 \(N = H \times (\text{구의 겉넓이}) = \dfrac{m}{4\pi\mu_0 r^{2}}\cdot 4\pi r^{2}\)</p>
+      <p class="step">\(4\pi\)와 \(r^{2}\)이 약분되어 \(\displaystyle N=\dfrac{m}{\mu_0}\)</p>
+      <p class="hint">구를 크게 그려도 작게 그려도 \(r\)이 사라집니다. 선은 도중에 생기지 않고 사라지지도 않기 때문입니다.</p>
+    </div>
+    <div class="eq-display">
+      $$N = \dfrac{m}{\mu_0}$$
+    </div>
+    <p>전기에서는 전하 \(Q\)에서 나오는 전기력선 수가 \(N=Q/\varepsilon_0\)입니다. \(\varepsilon_0\leftrightarrow\mu_0\), \(Q\leftrightarrow m\) 대응이 그대로입니다.</p>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>\(N=m/\mu_0\)이지, \(N=m\)이 아닌 이유</h3>
+      <p>\(H\) 공식 분모에 이미 \(\mu_0\)가 들어 있습니다. 구면 전체를 곱해 \(r\)을 없애면 \(\mu_0\)만 남습니다. “선의 개수”는 \(H\)(장의 세기)로 세기로 약속했기 때문에, 원천 \(m\)보다 \(1/\mu_0\)배 많습니다.</p>
+      <p>뒤에서 나올 <strong>자속 \(\Phi\)</strong>는 반대로, 매질과 상관없이 원천과 같게 \(\Phi=m\)으로 정의합니다. 그래서 이름이 비슷해도 \(N\)과 \(\Phi\)는 다릅니다.</p>
     </div>
   </section>
 
   <section class="section">
-    <h2>7.6 자속과 자속밀도</h2>
-    <div class="formula">
-      <div class="eq">
-        <span>Φ = BS cos θ</span>
-        <span>,&nbsp; B =</span>
-        <span class="frac"><span class="num">Φ</span><span class="den">S</span></span>
-        <span class="unit">[T]</span>
-      </div>
+    <h2>7.6 자속과 자속밀도 — \(B=\mu_0 H\)가 나오는 이유</h2>
+    <p>자기력선 수 \(N\)은 그림을 위한 양이라, 매질(진공·철 등)이 바뀌면 달라질 수 있습니다. 원천 자하 \(m\) 자체는 매질이 바뀌어도 그대로입니다. 그래서 “원천의 총량”을 매질과 무관하게 세는 양을 따로 둡니다. 그것이 <strong>자속 \(\Phi\)</strong>입니다.</p>
+    <table>
+      <thead>
+        <tr><th></th><th>자기력선 수 \(N\)</th><th>자속 \(\Phi\)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>의미</td><td>\(H\)로 그린 선의 개수</td><td>원천의 총량</td></tr>
+        <tr><td>점자극</td><td>\(N=m/\mu_0\)</td><td>\(\Phi=m\)</td></tr>
+        <tr><td>매질</td><td>\(\mu\)에 따라 변할 수 있음</td><td>매질과 무관하게 일정</td></tr>
+        <tr><td>밀도</td><td>\(H = N/S\)</td><td>\(B=\Phi/S\)</td></tr>
+      </tbody>
+    </table>
+    <p>균일한 \(B\)가 면 \(S\)를 각도 \(\theta\)로 지나가면</p>
+    <div class="eq-display">
+      $$\Phi = BS\cos\theta = \mathbf{B}\cdot\mathbf{S} \quad [\mathrm{Wb}]$$
     </div>
-    <div class="formula">
-      <div class="eq"><span>B = μ₀ H</span></div>
+    <p>면에 수직(\(\theta=0\))이면 \(\Phi=BS\)이고, 거꾸로</p>
+    <div class="eq-display">
+      $$B = \dfrac{\Phi}{S} \quad [\mathrm{Wb/m}^{2}]=[\mathrm{T}]$$
     </div>
+    <p>진공에서는 두 밀도의 비율이 바로 \(\mu_0\)입니다. \(N=m/\mu_0\), \(\Phi=m\)이므로</p>
+    <div class="derive">
+      <p class="step">같은 면 \(S\)에서 \(H=N/S\), \(B=\Phi/S\)</p>
+      <p class="step">\(\Phi = m = \mu_0\cdot(m/\mu_0) = \mu_0 N\)</p>
+      <p class="step">양변을 \(S\)로 나누면 \(\displaystyle B=\mu_0 H\)</p>
+    </div>
+    <div class="eq-display">
+      $$B = \mu_0 H \quad (\text{진공}), \qquad B=\mu H \quad (\text{매질})$$
+    </div>
+    <div class="why">
+      <p class="kicker">왜 이렇게 되나</p>
+      <h3>\(H\)와 \(B\)를 왜 둘로 나누나</h3>
+      <p>\(H\)는 “원천이 장을 얼마나 만들었는가”에 가깝습니다. 8장에서 보면 같은 전류·같은 모양이면 공심이든 철심이든 \(H\)는 같습니다.</p>
+      <p>\(B\)는 “그 공간에 자속이 실제로 얼마나 빽빽한가”입니다. 철심은 자속을 잘 모아 주므로 \(\mu\)가 크고, \(B=\mu H\)가 커집니다.</p>
+      <p>비유하면 \(H\)는 수도꼭지를 튼 정도, \(B\)는 파이프 안 물의 밀도입니다. 같은 힘으로 틀어도 파이프(매질)가 다르면 유량이 달라집니다.</p>
+      <p>진공에서 \(B=\mu_0 H\)로 바꾸는 이유는, 선 수 \(N\)에 들어 있던 \(1/\mu_0\)를 곱해서 지우고 원천 \(m\)과 같은 자속 \(\Phi\)를 만들기 위해서입니다.</p>
+    </div>
+
     <h3>가우스 정리</h3>
-    <div class="formula">
-      <div class="eq"><span>∮ B · dS = 0</span><span>,&nbsp; ∇ · B = 0</span></div>
+    <p>임의의 닫힌 곡면으로 자속을 세면 알짜는 항상 0입니다.</p>
+    <div class="eq-display">
+      $$\oint_{S}\mathbf{B}\cdot\mathrm{d}\mathbf{S}=0, \qquad \nabla\cdot\mathbf{B}=0$$
     </div>
-    <p class="note">고립자극은 없다. 전기의 ∮ D · dS = Q 와 가장 다른 점.</p>
+    <p>전기는 \(\oint\mathbf{D}\cdot\mathrm{d}\mathbf{S}=Q\)라서, 안에 전하가 있으면 알짜 전속이 있습니다. 자기는 닫힌 상자 안에 N만 넣을 수 없습니다. N이 들어가면 반드시 같은 양의 S도 들어갑니다. 나오는 자속과 들어가는 자속이 같아서 알짜가 0입니다.</p>
+    <p class="note">이것이 “고립자극 없음”의 수식입니다. 자기력선이 폐회로인 이유와 같은 말입니다.</p>
   </section>
 
   <section class="section">
     <h2>대응 핵심</h2>
-    <div class="formula">
-      <div class="eq"><span>E = −∇V</span><span>,&nbsp; H = −∇U</span></div>
+    <p>자석에 의한 정자계는 정전계 공식을 그대로 번역하면 됩니다. \(Q\to m\), \(\varepsilon_0\to\mu_0\), \(E\to H\), \(V\to U\), \(D\to B\).</p>
+    <div class="eq-display">
+      $$\mathbf{E}=-\nabla V, \qquad \mathbf{H}=-\nabla U$$
     </div>
     <ul class="checklist">
-      <li>자석은 왜 항상 N·S 쌍인가?</li>
-      <li>F, H 공식을 분수로 쓸 수 있는가?</li>
-      <li>∮ B · dS = 0 을 설명할 수 있는가?</li>
+      <li>자석은 왜 항상 N·S 쌍인가? (고립자극 없음)</li>
+      <li>\(H\)는 선의 밀도, \(N=HS\cos\theta\), 점자극이면 \(N=m/\mu_0\)</li>
+      <li>진공에서 \(B=\mu_0 H\)인 까닭을 \(N\)과 \(\Phi\)로 설명할 수 있는가?</li>
+      <li>\(\oint\mathbf{B}\cdot\mathrm{d}\mathbf{S}=0\) 을 “상자 안에 N만 넣을 수 없다”로 말할 수 있는가?</li>
     </ul>
   </section>
 </main>
 
-
 <footer class="footer wrap">
   전자기학 수업 정리 · 제7장 정자계 · 제8장 전류에 의한 자계
 </footer>
-<script src="main.js?v=20261003b"></script>
-
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script defer src="main.js?v=20261003c"></script>
 </body>
 </html>

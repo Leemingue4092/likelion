@@ -17,14 +17,14 @@ const QUIZZES = {
       id: 'c7q2',
       type: 'mc',
       title: '7-2. 가우스 정리',
-      question: '임의의 폐곡면에 대한 자속 ∮ B · dS 의 값은?',
+      question: '임의의 폐곡면에 대한 자속 \\( \\oint \\mathbf{B}\\cdot\\mathrm{d}\\mathbf{S} \\) 의 값은?',
       choices: [
         '자극의 세기 m에 비례하는 양수',
         '자석 길이에 비례',
         '항상 0'
       ],
       answer: 2,
-      explain: '고립자극이 없으므로 ∮ B · dS = 0, ∇ · B = 0 입니다.'
+      explain: '고립자극이 없으므로 \\( \\oint \\mathbf{B}\\cdot\\mathrm{d}\\mathbf{S}=0 \\), \\( \\nabla\\cdot\\mathbf{B}=0 \\) 입니다.'
     },
     {
       id: 'c7q3',
@@ -41,24 +41,24 @@ const QUIZZES = {
       title: '7-4. B와 H의 관계',
       question: '진공에서 자속밀도 B와 자계의 세기 H의 관계식은?',
       choicesHtml: [
-        'B = μ₀ H',
-        'B = ε₀ E',
-        'B = H / μ₀',
-        'D = μ₀ H'
+        '\\( B=\\mu_0 H \\)',
+        '\\( B=\\varepsilon_0 E \\)',
+        '\\( B=H/\\mu_0 \\)',
+        '\\( D=\\mu_0 H \\)'
       ],
       answer: 0,
-      explain: '진공에서는 B = μ₀ H 입니다. 매질이 있으면 B = μ H 입니다.'
+      explain: '진공에서는 \\( B=\\mu_0 H \\) 입니다. 매질이 있으면 \\( B=\\mu H \\) 입니다.'
     },
     {
       id: 'c7q5',
       type: 'mc',
       title: '7-5. 자속',
-      question: '균일한 자속밀도 B가 면적 S에 수직일 때 자속 Φ는?',
+      question: '균일한 자속밀도 \\( B \\)가 면적 \\( S \\)에 수직일 때 자속 \\( \\Phi \\)는?',
       choicesHtml: [
-        'Φ = B + S',
-        'Φ = B / S',
-        'Φ = μ₀ B',
-        'Φ = B S'
+        '\\( \\Phi=B+S \\)',
+        '\\( \\Phi=B/S \\)',
+        '\\( \\Phi=\\mu_0 B \\)',
+        '\\( \\Phi=BS \\)'
       ],
       answer: 3,
       explain: '면에 수직이면 Φ = B S 입니다.'
@@ -83,9 +83,9 @@ const QUIZZES = {
       title: '7-7. 쿨롱 법칙 식',
       question: '두 점자극 m₁, m₂ 사이 거리 r에서 힘 F의 크기는? (진공)',
       choicesHtml: [
-        'F = <span class="frac"><span class="num">m₁ m₂</span><span class="den">4π ε₀ r²</span></span>',
-        'F = <span class="frac"><span class="num">m₁ m₂</span><span class="den">4π μ₀ r²</span></span>',
-        'F = <span class="frac"><span class="num">m₁ + m₂</span><span class="den">4π μ₀ r</span></span>',
+        '\\( F=\\dfrac{m_1 m_2}{4\\pi\\varepsilon_0 r^{2}} \\)',
+        '\\( F=\\dfrac{m_1 m_2}{4\\pi\\mu_0 r^{2}} \\)',
+        '\\( F=\\dfrac{m_1+m_2}{4\\pi\\mu_0 r} \\)',
         'F = m₁ m₂ r²'
       ],
       answer: 1,
@@ -106,7 +106,7 @@ const QUIZZES = {
       id: 'c8q2',
       type: 'mc',
       title: '8-2. 암페어 법칙',
-      question: '폐곡선이 I₁ = 3 A(⊙), I₂ = 5 A(⊗), I₃ = 2 A(⊙)를 감쌀 때 ∮ H · dl 의 값은?',
+      question: '폐곡선이 \\( I_1=3\\,\\mathrm{A} \\)(⊙), \\( I_2=5\\,\\mathrm{A} \\)(⊗), \\( I_3=2\\,\\mathrm{A} \\)(⊙)를 감쌀 때 \\( \\oint\\mathbf{H}\\cdot\\mathrm{d}\\boldsymbol{\\ell} \\) 의 값은?',
       choices: ['10 A', '0 A', '4 A', '−2 A'],
       answer: 1,
       explain: '알짜 전류 = 3 − 5 + 2 = 0 이므로 선적분도 0입니다.'
@@ -117,10 +117,10 @@ const QUIZZES = {
       title: '8-3. 무한장 직선 전류',
       question: '무한장 직선 전류 I로부터 거리 r인 점의 자계의 세기 H는?',
       choicesHtml: [
-        'H = <span class="frac"><span class="num">I</span><span class="den">2π r</span></span>',
-        'H = <span class="frac"><span class="num">2π r</span><span class="den">I</span></span>',
-        'H = I · 2π r',
-        'H = <span class="frac"><span class="num">I</span><span class="den">r²</span></span>'
+        '\\( H=\\dfrac{I}{2\\pi r} \\)',
+        '\\( H=\\dfrac{2\\pi r}{I} \\)',
+        '\\( H=I\\cdot 2\\pi r \\)',
+        '\\( H=\\dfrac{I}{r^{2}} \\)'
       ],
       answer: 0,
       explain: '암페어 법칙으로 H = I / (2π r) 이고, 거리에 반비례합니다.'
@@ -145,10 +145,10 @@ const QUIZZES = {
       title: '8-5. 무한장 솔레노이드',
       question: '이상적인 무한장 솔레노이드 외부의 자계의 세기 H는?',
       choicesHtml: [
-        'H = n I',
-        'H = <span class="frac"><span class="num">N I</span><span class="den">l</span></span>',
-        'H = 0',
-        'H = <span class="frac"><span class="num">I</span><span class="den">2π r</span></span>'
+        '\\( H=nI \\)',
+        '\\( H=\\dfrac{NI}{\\ell} \\)',
+        '\\( H=0 \\)',
+        '\\( H=\\dfrac{I}{2\\pi r} \\)'
       ],
       answer: 2,
       explain: '이상적인 무한장 솔레노이드 외부는 H = 0, 내부는 H = n I = N I / l 입니다.'
@@ -191,10 +191,10 @@ const QUIZZES = {
       title: '8-9. 환상 솔레노이드',
       question: '환상 솔레노이드 내부의 자계의 세기 H는? (권수 N, 전류 I, 평균 반지름 r)',
       choicesHtml: [
-        'H = <span class="frac"><span class="num">I</span><span class="den">2π r</span></span>',
-        'H = <span class="frac"><span class="num">N I</span><span class="den">2π r</span></span>',
-        'H = n I (외부도 동일)',
-        'H = μ₀ N I'
+        '\\( H=\\dfrac{I}{2\\pi r} \\)',
+        '\\( H=\\dfrac{NI}{2\\pi r} \\)',
+        '\\( H=nI \\) (외부도 동일)',
+        '\\( H=\\mu_0 NI \\)'
       ],
       answer: 1,
       explain: '환상 솔레노이드는 H = N I / (2π r) = N I / l 이고, 외부는 거의 0입니다.'
@@ -257,6 +257,7 @@ function renderQuiz(chapterKey, mountId) {
     `;
     quizList.appendChild(card);
   });
+  if (typeof window.renderMath === 'function') window.renderMath(root);
 
   root.querySelectorAll('.choice input').forEach((input) => {
     input.addEventListener('change', () => {
@@ -295,6 +296,7 @@ function renderQuiz(chapterKey, mountId) {
     fb.innerHTML = ok
       ? `<strong>정답입니다!</strong><br>${q.explain}`
       : `<strong>틀렸습니다.</strong> 정답은 <strong>${q.answer + 1}번</strong>입니다.<br>${q.explain}`;
+    if (typeof window.renderMath === 'function') window.renderMath(fb);
     return ok;
   }
 
