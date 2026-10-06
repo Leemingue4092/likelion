@@ -1,0 +1,753 @@
+\documentclass[11pt]{article}
+
+\usepackage{fontspec}
+\setmainfont{Noto Sans CJK KR}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[a4paper,margin=16mm,top=15mm,bottom=16mm]{geometry}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\setlist[itemize]{leftmargin=1.4em,itemsep=0.25em,topsep=0.35em}
+\setlist[enumerate]{leftmargin=1.5em,itemsep=0.3em,topsep=0.35em}
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+\allowdisplaybreaks
+
+\titleformat{\section}{\large\bfseries\color{blue!45!black}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{blue!35!black}}{\thesubsection}{0.45em}{}
+\titlespacing*{\section}{0pt}{1.15em}{0.45em}
+\titlespacing*{\subsection}{0pt}{0.85em}{0.3em}
+
+\tcbset{breakable,enhanced,sharp corners,boxsep=2.5pt,left=5pt,right=5pt,top=3pt,bottom=3pt}
+
+\newtcolorbox{mainbox}[1]{
+  colback=blue!6,colframe=blue!55!black,title={주요\quad #1},
+  fonttitle=\bfseries,coltitle=white,attach boxed title to top left={yshift=-2mm,xshift=2mm},
+  boxed title style={colback=blue!55!black,sharp corners}
+}
+\newtcolorbox{confbox}[1]{
+  colback=orange!8,colframe=orange!75!black,title={혼동\quad #1},
+  fonttitle=\bfseries,coltitle=white,attach boxed title to top left={yshift=-2mm,xshift=2mm},
+  boxed title style={colback=orange!75!black,sharp corners}
+}
+\newtcolorbox{relbox}[1]{
+  colback=violet!7,colframe=violet!60!black,title={관계\quad #1},
+  fonttitle=\bfseries,coltitle=white,attach boxed title to top left={yshift=-2mm,xshift=2mm},
+  boxed title style={colback=violet!60!black,sharp corners}
+}
+\newtcolorbox{fillbox}{
+  colback=green!7,colframe=green!45!black,
+  title={이어서 계산},
+  fonttitle=\bfseries,coltitle=white,attach boxed title to top left={yshift=-2mm,xshift=2mm},
+  boxed title style={colback=green!45!black,sharp corners}
+}
+
+\newcommand{\ex}[1]{\par\textbf{세부\quad #1}\par}
+\renewcommand{\contentsname}{차례}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries 공업수학 단권화 노트}\\[0.35em]
+{\large 1계 미분방정식 \textperiodcentered\ 정적분}\\[0.45em]
+{\small 수업 필기를 주제별로 다시 묶은 정리. 쪽 순서가 아니라 같은 풀이끼리 모았다.}
+\end{center}
+
+\vspace{0.2em}
+수업 노트에 적힌 공식과 예제만 사용했다. 낙서, 지운 메모, 과제만 적혀 있고 풀이가 없는 식은 빼었다. 식이 중간에 끊기거나 마지막 계산이 식과 맞지 않는 곳은 녹색 상자에서 같은 공식으로 끝까지 계산했다.
+
+\tableofcontents
+\vspace{0.4em}
+
+\section{어떤 식으로 풀지}
+
+\begin{mainbox}{식의 모양과 이름}
+노트에 나온 1계 방정식은 아래 다섯 가지다. 이름을 고르기 전에, \(y'\)의 계수와 우변에 \(y\)가 어떻게 들어 있는지를 본다.
+\[
+\begin{array}{lll}
+\hline
+\text{식} & \text{노트에서의 이름} & \text{해의 꼴}\\
+\hline
+g(y)\,y'=f(x) & \text{변수분리} & \text{양쪽을 적분}\\[0.25em]
+y'+a(x)y=0 & \text{동차 선형} & y=Ce^{-\int a(x)\,dx}\\[0.25em]
+y'+a(x)y=f(x) & \text{비동차 선형} &
+y=e^{-\int a}\,\!\Bigl[\int f\,e^{\int a}\,dx+C\Bigr]\\[0.35em]
+y'+a(x)y=f(x)\,y^{n} & \text{베르누이} & u=y^{1-n}\text{으로 선형화}\\[0.25em]
+M\,dx+N\,dy=0,\; \partial M/\partial y=\partial N/\partial x & \text{완전} & f(x,y)=C\\
+\hline
+\end{array}
+\]
+\end{mainbox}
+
+\begin{relbox}{다섯 공식이 서로 어떻게 겹치는가}
+\begin{itemize}
+\item 동차 선형은 비동차 공식에서 \(f=0\)인 경우다. 적분 안이 상수만 남는다.
+\item 베르누이 방정식은 그 자체로 \(y'+a(x)y=f(x)\) 꼴이 아니다. \(u=y^{1-n}\)으로 바꾸면 비동차 선형이 되고, 그때 위의 일반해를 쓴다.
+\item 완전미분은 \(y'=\cdots\)로 정리하기 전의 꼴 \(M\,dx+N\,dy=0\)이다. \(\partial M/\partial y\neq\partial N/\partial x\)이면 완전이 아니므로, 그 식을 \(y'\)에 대해 풀어 선형인지 다시 본다.
+\item 변수분리는 \(y\)쪽과 \(x\)쪽이 곱으로 갈라질 때 쓴다. 선형 공식의 \(a(x)\) 자리에 \(y\)가 들어가면 선형이 아니다.
+\end{itemize}
+\end{relbox}
+
+노트 여백에만 단어로 적혀 있는 것: 미분, 상미분, 편미분, 계수, 차수, 고계 미분방정식, 선형 미분방정식, 비선형 미분방정식. 이 단어들의 정의는 노트에 따로 없다.
+
+\section{변수분리}
+
+\begin{mainbox}{변수분리}
+\[
+g(y)\,\frac{dy}{dx}=f(x)
+\quad\Longrightarrow\quad
+\int g(y)\,dy=\int f(x)\,dx+C.
+\]
+\(y\)만 있는 인수를 왼쪽으로, \(x\)만 있는 인수를 오른쪽으로 옮긴 뒤 적분한다.
+\end{mainbox}
+
+\ex{예제 1-1 (a)}
+\[
+\frac{dy}{dx}+\frac{y}{x}=0.
+\]
+\[
+\frac{dy}{y}=-\frac{dx}{x},\qquad
+\ln|y|=-\ln|x|+C_1,\qquad
+\ln|xy|=C_1.
+\]
+\[
+y=\frac{C}{x}.
+\]
+\(C\)는 \(0\)이 아닌 상수와 \(y=0\)을 포함한다. 같은 식을 뒤의 예제 1-6 (a)에서 동차 선형 공식으로 다시 푼다.
+
+\ex{예제 1-1 (b)}
+\[
+\frac{dy}{dx}=\frac{2}{x^{2}-1}=\frac{2}{(x-1)(x+1)}.
+\]
+\[
+\frac{2}{(x-1)(x+1)}=\frac{1}{x-1}-\frac{1}{x+1},
+\]
+\[
+y=\ln|x-1|-\ln|x+1|+C=\ln\left|\frac{x-1}{x+1}\right|+C.
+\]
+
+\ex{초기조건이 있는 변수분리}
+\[
+\frac{dy}{dx}=\frac{y}{x+2},\qquad y(0)=1.
+\]
+\[
+\ln|y|=\ln|x+2|+C_0.
+\]
+\(y(0)=1\)이면 \(0=\ln 2+C_0\)이므로 \(C_0=-\ln 2\).
+\[
+\ln|y|=\ln\left|\frac{x+2}{2}\right|.
+\]
+\(y(0)=1>0\)이고 \(x=0\) 근처에서 \(x+2>0\)이므로
+\[
+y=\frac{x+2}{2}.
+\]
+
+\[
+\frac{dy}{dx}=e^{-x}-1,\qquad y(0)=1.
+\]
+\[
+y=-e^{-x}-x+C.
+\]
+\(1=-1+C\)에서 \(C=2\).
+\[
+y=-e^{-x}-x+2.
+\]
+
+\ex{노트에 \(y^{2}\)이 들어 있어 분리한 식}
+\[
+\frac{dy}{dx}+(x+1)y^{2}=0.
+\]
+\[
+y^{-2}\,dy=-(x+1)\,dx,\qquad
+-\frac{1}{y}=-\frac{x^{2}}{2}-x+C.
+\]
+\[
+y=\frac{1}{\dfrac{x^{2}}{2}+x+C}.
+\]
+\(n=2\)인 베르누이 방정식이기도 하다. 노트에서는 치환 없이 변수분리로 풀었다.
+
+\ex{\(\dfrac{1}{x}\dfrac{dy}{dx}=y^{2}-y,\; y(1)=2\)}
+\[
+\frac{dy}{y(y-1)}=x\,dx.
+\]
+\[
+\frac{1}{y(y-1)}=\frac{1}{y-1}-\frac{1}{y},
+\]
+\[
+\ln\left|\frac{y-1}{y}\right|=\frac{x^{2}}{2}+C.
+\]
+\(x=1,\;y=2\)이면 \(\ln(1/2)=1/2+C\)이므로
+\[
+C=\ln\frac{1}{2}-\frac{1}{2}.
+\]
+
+\begin{fillbox}
+노트는 상수 \(C\)까지 구하고 멈춘다. \(C\)를 도로 넣으면
+\[
+\ln\left|\frac{y-1}{y}\right|
+=\frac{x^{2}}{2}+\ln\frac{1}{2}-\frac{1}{2}.
+\]
+\(y(1)=2\)이므로 \((y-1)/y>0\)인 쪽을 택한다.
+\[
+\frac{y-1}{y}=\frac12\exp\!\left(\frac{x^{2}-1}{2}\right),
+\qquad
+y=\left(1-\frac12\exp\!\left(\frac{x^{2}-1}{2}\right)\right)^{-1}.
+\]
+\(x=1\)에서 \(y=2\)가 된다.
+\end{fillbox}
+
+\begin{confbox}{\(1/(y(y-1))\)의 부분분수}
+\[
+\frac{1}{y(y-1)}=\frac{1}{y-1}-\frac{1}{y}
+\]
+이지, \(\dfrac{1}{y}+\dfrac{1}{y-1}\)이 아니다. 부호를 같게 두면 \(\ln|y(y-1)|\)이 되어, 초기조건을 넣은 줄의 \(\ln|(y-1)/y|\)와 다른 식이 된다.
+\end{confbox}
+
+\section{1계 선형}
+
+\begin{mainbox}{정의 1-2}
+\[
+\frac{dy}{dx}+a(x)y=f(x).
+\]
+\begin{itemize}
+\item \(f(x)=0\)이면 동차, \(f(x)\neq 0\)이면 비동차.
+\item 노트에 적힌 보기: \(y'+x^{2}y=e^{x}\)는 비동차, \(y'+x^{2}y=0\)은 동차.
+\end{itemize}
+동차일 때
+\[
+\frac{dy}{y}=-a(x)\,dx,\qquad
+\ln|y|=-\int a(x)\,dx+C_0,
+\]
+\[
+y=Ce^{-\int a(x)\,dx}.
+\]
+비동차의 일반해는
+\begin{equation}
+y=e^{-\int a(x)\,dx}
+\left[\int f(x)\,e^{\int a(x)\,dx}\,dx+C\right].
+\label{eq:general}
+\end{equation}
+해 앞에 붙는 지수는 \(-\int a\), 적분 안의 지수는 \(+\int a\)이다.
+\end{mainbox}
+
+\begin{confbox}{동차와 비동차, 그리고 지수 부호}
+\begin{itemize}
+\item 동차·비동차는 우변 \(f\)가 \(0\)인지로 가른다. \(a(x)\)가 상수인지와는 별개다.
+\item \(e^{-\int a}\)와 \(e^{\int a}\)를 같은 자리에 넣으면 적분이 풀리지 않거나 다른 해가 나온다.
+\item \(f=e^{x}\)이면 적분 안이 \(1\)이 되는 경우가 있고, \(f=e^{2x}\)이면 적분 안이 \(e^{x}\)가 된다. 우변의 지수와 \(\int a\)의 부호를 같이 본다.
+\end{itemize}
+\end{confbox}
+
+\ex{예제 1-6 (a), 동차}
+\[
+\frac{dy}{dx}+\frac{y}{x}=0,\qquad a(x)=\frac{1}{x},\qquad \int a(x)\,dx=\ln|x|.
+\]
+\[
+y=Ce^{-\ln|x|}=\frac{C}{|x|}.
+\]
+예제 1-1 (a)와 같은 식이다. \(0\)을 포함하지 않는 구간에서는 \(y=C/x\)로 쓸 수 있다.
+
+\ex{예제 1-6 (b), 동차, \(y(0)=1\)}
+\[
+\frac{dy}{dx}-\frac{1}{(x+1)(x+2)}y=0,
+\qquad
+a(x)=-\frac{1}{(x+1)(x+2)}.
+\]
+\[
+\frac{1}{(x+1)(x+2)}=\frac{1}{x+1}-\frac{1}{x+2},
+\]
+\[
+\int a(x)\,dx=\ln\left|\frac{x+2}{x+1}\right|,
+\qquad
+y=C\,\frac{x+1}{x+2}.
+\]
+\begin{fillbox}
+노트는 일반해에서 멈춘다. \(y(0)=1\)이면 \(C/2=1\)이므로 \(C=2\).
+\[
+y=\frac{2(x+1)}{x+2}.
+\]
+\end{fillbox}
+
+\ex{예제 1-7 (a), 비동차}
+\[
+\frac{dy}{dx}-y=e^{2x}.
+\]
+\(a(x)=-1\), \(\int a\,dx=-x\), \(f(x)=e^{2x}\). 식 \eqref{eq:general}에 넣으면
+\[
+y=e^{x}\left[\int e^{2x}\cdot e^{-x}\,dx+C\right]
+=e^{x}\left[\int e^{x}\,dx+C\right]
+=e^{2x}+Ce^{x}.
+\]
+
+\begin{confbox}{이 예의 적분}
+노트 중간에는 적분 안이 \(1\)이 되고 \(y=e^{x}(x+C)\)까지 적혀 있다. \(y=e^{x}(x+C)\)는 \(y'-y=e^{x}\)의 해다. 우변이 \(e^{2x}\)이면 적분 안은 \(e^{2x}e^{-x}=e^{x}\)이고, 해는 \(e^{2x}+Ce^{x}\)이다.
+\end{confbox}
+
+\ex{예제 1-7 (b), 비동차, \(y(1)=1\)}
+\[
+\frac{dy}{dx}=\frac{y+x}{x}
+\quad\Longleftrightarrow\quad
+\frac{dy}{dx}-\frac{1}{x}y=1.
+\]
+\(a(x)=-1/x\), \(\int a\,dx=-\ln|x|\), \(f=1\).
+\[
+y=|x|\bigl(\ln|x|+C\bigr).
+\]
+\(x=1,\;y=1\)이면 \(C=1\). 이 초기조건이 있는 쪽 \(x>0\)에서는
+\[
+y=x(\ln x+1).
+\]
+
+\ex{동차, \(y(-1)=e^{-1}\)}
+\[
+\frac{dy}{dx}+\frac{1}{x^{2}}y=0,\qquad a(x)=\frac{1}{x^{2}}.
+\]
+\[
+y=Ce^{-\int x^{-2}\,dx}=Ce^{1/x}.
+\]
+\(e^{-1}=Ce^{-1}\)이므로 \(C=1\).
+\[
+y=e^{1/x}.
+\]
+
+\ex{\(y'+y=\cos x\)}
+\(a(x)=1\), \(f(x)=\cos x\).
+\[
+y=e^{-x}\left[\int\cos x\cdot e^{x}\,dx+C\right].
+\]
+노트는 부분적분을
+\[
+u=\cos x,\; dv=e^{x}\,dx,\qquad
+du=-\sin x\,dx,\; v=e^{x}
+\]
+까지 두고, \(-\sin x\cdot e^{x}+\cos x\cdot e^{x}\)에서 끊긴다.
+
+\begin{fillbox}
+\(\displaystyle\int e^{x}\cos x\,dx\)를 두 번 부분적분한다.
+\[
+\int e^{x}\cos x\,dx
+=e^{x}\cos x+\int e^{x}\sin x\,dx
+=e^{x}\cos x+e^{x}\sin x-\int e^{x}\cos x\,dx.
+\]
+\[
+\int e^{x}\cos x\,dx=\frac{e^{x}}{2}(\sin x+\cos x).
+\]
+\[
+y=e^{-x}\left[\frac{e^{x}}{2}(\sin x+\cos x)+C\right]
+=\frac12(\sin x+\cos x)+Ce^{-x}.
+\]
+검산: \(y'+y=\cos x\).
+\end{fillbox}
+
+\section{베르누이 방정식}
+
+\begin{mainbox}{1.4 베르누이}
+\[
+\frac{dy}{dx}+a(x)y=f(x)\,y^{n}.
+\]
+\[
+u=y^{1-n}
+\]
+으로 두면 \(u\)의 1계 선형 방정식이 된다. 그 해를 구한 뒤 \(y\)로 되돌린다.
+\end{mainbox}
+
+\begin{confbox}{치환의 지수}
+\(u=y^{n}\)이 아니라 \(u=y^{1-n}\)이다. \(n=2\)이면 \(u=y^{-1}\), \(n=-1\)이면 \(u=y^{2}\)이다. \(u\)로 바꾼 식의 \(a(x)\)는 원래 \(a(x)\)와 부호·계수가 달라진다. 나눈 뒤에 다시 \(u'\)으로 정리한 결과를 선형 공식에 넣는다.
+\end{confbox}
+
+\ex{1-10}
+\[
+\frac{dy}{dx}+\frac{1}{x}y=xy^{2}.
+\]
+\(n=2\), \(u=y^{-1}\). \(y^{2}\)으로 나누고 \(u'=-y^{-2}y'\)를 쓰면
+\[
+u'-\frac{1}{x}u=-x.
+\]
+\(x>0\)에서 \(\int a\,dx=-\ln x\)이므로 식 \eqref{eq:general}은
+\[
+u=x\left[\int -1\,dx+C\right]=x(-x+C)=-x^{2}+Cx.
+\]
+\[
+y=\frac{1}{Cx-x^{2}}.
+\]
+
+\ex{1-11}
+\[
+\frac{dy}{dx}-y=xy^{-1}.
+\]
+\(n=-1\), \(u=y^{2}\), \(u'=2yy'\).
+\[
+u'=2y(y+xy^{-1})=2y^{2}+2x=2u+2x,
+\]
+\[
+u'-2u=2x.
+\]
+\(a=-2\), \(f=2x\).
+\[
+u=e^{2x}\left[\int 2xe^{-2x}\,dx+C\right].
+\]
+\[
+\int 2xe^{-2x}\,dx=-e^{-2x}\Bigl(x+\frac12\Bigr),
+\]
+\[
+u=-(x+\tfrac12)+Ce^{2x}.
+\]
+\[
+y=\pm\sqrt{Ce^{2x}-x-\frac12}.
+\]
+
+\ex{\(y'+y=e^{-x}y^{2}\)}
+노트에는 식과 ``베르누이 방정식''이라는 이름만 있다.
+
+\begin{fillbox}
+\(n=2\), \(u=y^{-1}\). \(y^{2}\)으로 나누면
+\[
+y^{-2}y'+y^{-1}=e^{-x}.
+\]
+\(y^{-2}y'=-u'\)이므로
+\[
+u'-u=-e^{-x}.
+\]
+\(a=-1\), \(f=-e^{-x}\).
+\[
+u=e^{x}\left[\int -e^{-x}\cdot e^{-x}\,dx+C\right]
+=e^{x}\left[\frac12 e^{-2x}+C\right]
+=\frac12 e^{-x}+Ce^{x}.
+\]
+\[
+y=\frac{1}{Ce^{x}+\dfrac12 e^{-x}}
+=\frac{2e^{x}}{2Ce^{2x}+1}.
+\]
+\end{fillbox}
+
+\begin{relbox}{1-10과 바로 위의 식}
+둘 다 \(n=2\)라서 \(u=y^{-1}\)이다. 차이는 원래의 \(a(x)\)와 \(f(x)\)뿐이다.
+\[
+\begin{array}{c|cc}
+ & a(x) & f(x)\\
+\hline
+\text{1-10} & 1/x & x\\
+y'+y=e^{-x}y^{2} & 1 & e^{-x}
+\end{array}
+\]
+\(u\) 방정식의 계수는 이 값 그대로가 아니라, \(y^{2}\)으로 나눈 뒤 \(u'=-y^{-2}y'\)로 부호를 맞춘 결과다.
+\end{relbox}
+
+\section{완전미분방정식}
+
+\begin{mainbox}{1.5 완전}
+\[
+M(x,y)\,dx+N(x,y)\,dy=0.
+\]
+\begin{enumerate}
+\item \(\partial M/\partial y\)와 \(\partial N/\partial x\)를 계산한다. 같으면 완전이다.
+\item \(f\)를 찾는다. 노트에서는 \(\partial f/\partial x=M\)로 두고 \(x\)로 적분한 뒤, \(\partial f/\partial y=N\)으로 \(h(y)\)를 정한다.
+\item 해는 \(f(x,y)=C\).
+\end{enumerate}
+\(M\)은 \(dx\)의 계수, \(N\)은 \(dy\)의 계수다.
+\end{mainbox}
+
+\begin{confbox}{\(M\)과 \(N\)을 바꾸면 완전성 판정이 뒤집힌다}
+\(\partial/\partial y\)는 \(M\)에, \(\partial/\partial x\)는 \(N\)에 작용한다. \(h\)는 먼저 적분하지 않은 변수의 함수다. \(x\)로 먼저 적분하면 \(h=h(y)\)이고, \(h'(y)\)는 \(\partial f/\partial y\)와 \(N\)을 비교해서 나온다.
+\end{confbox}
+
+\ex{1-12 (a)}
+\[
+(2xy+1)\,dx+x^{2}\,dy=0.
+\]
+\[
+M=2xy+1,\; N=x^{2},\qquad
+\frac{\partial M}{\partial y}=2x=\frac{\partial N}{\partial x}.
+\]
+\[
+f=\int(2xy+1)\,dx=x^{2}y+x+h(y),
+\]
+\[
+\frac{\partial f}{\partial y}=x^{2}+h'(y)=x^{2}
+\quad\Rightarrow\quad h'(y)=0.
+\]
+\[
+x^{2}y+x=C,\qquad y=\frac{C-x}{x^{2}}.
+\]
+두 식은 같은 해다. 뒤의 식은 지운 것이 아니다.
+
+\ex{1-12 (b), \(x=0,\;y=1\)}
+\[
+y^{2}\,dx+2(xy+1)\,dy=0.
+\]
+\[
+M=y^{2},\; N=2xy+2,\qquad
+\frac{\partial M}{\partial y}=2y=\frac{\partial N}{\partial x}.
+\]
+\[
+f=\int y^{2}\,dx=xy^{2}+h(y),
+\]
+\[
+\frac{\partial f}{\partial y}=2xy+h'(y)=2xy+2
+\quad\Rightarrow\quad h'(y)=2,\; h(y)=2y.
+\]
+\[
+xy^{2}+2y=C.
+\]
+\(x=0,\;y=1\)이면 \(C=2\).
+\[
+xy^{2}+2y=2.
+\]
+
+\ex{\((2xy+1)\,dx+(x^{2}+x)\,dy=0\)}
+노트에는 식과 ``완전미분방정식''이라는 이름만 있다.
+
+\begin{fillbox}
+노트의 완전성 조건으로 검사하면
+\[
+M=2xy+1,\; N=x^{2}+x,
+\]
+\[
+\frac{\partial M}{\partial y}=2x,\qquad
+\frac{\partial N}{\partial x}=2x+1.
+\]
+둘이 같지 않으므로 완전이 아니다. \(y'\)에 대해 풀면 1계 선형이 된다.
+\[
+\frac{dy}{dx}+\frac{2}{x+1}y=-\frac{1}{x(x+1)}.
+\]
+\(a(x)=2/(x+1)\), \(\int a\,dx=2\ln|x+1|\). \(x>-1\)에서
+\[
+\frac{d}{dx}\bigl[y(x+1)^{2}\bigr]
+=-(x+1)^{2}\cdot\frac{1}{x(x+1)}
+=-1-\frac{1}{x}.
+\]
+\[
+y(x+1)^{2}=-x-\ln|x|+C,
+\qquad
+y=\frac{C-x-\ln|x|}{(x+1)^{2}}.
+\]
+\end{fillbox}
+
+\section{정적분}
+
+정적분 쪽은 치환, 우함수·기함수, 삼각함수 항등식, 부분분수, 부분적분이 노트에 있다. 하나의 적분에 두 가지가 같이 쓰이면, 먼저 쓰는 도구로 묶었다.
+
+\subsection{치환}
+
+\begin{mainbox}{정적분의 치환}
+\[
+\int f\bigl(g(x)\bigr)\,g'(x)\,dx=\int f(u)\,du.
+\]
+정적분에서는 \(x\)의 양 끝을 \(u\)의 양 끝으로 바꾼다.
+\end{mainbox}
+
+\ex{\(\displaystyle\int_{1}^{2}\frac{1}{(3-5x)^{2}}\,dx\)}
+\(u=3-5x\), \(du=-5\,dx\). \(x=1\)이면 \(u=-2\), \(x=2\)이면 \(u=-7\).
+\[
+\int_{-2}^{-7}u^{-2}\Bigl(-\frac{du}{5}\Bigr)
+=\frac15\int_{-7}^{-2}u^{-2}\,du
+=\frac15\left[-\frac{1}{u}\right]_{-7}^{-2}
+=\frac15\left(\frac12-\frac17\right)
+=\frac{1}{14}.
+\]
+
+\ex{\(\displaystyle\int_{0}^{a}x\sqrt{x^{2}+a^{2}}\,dx\quad(a>0)\)}
+\(u=x^{2}+a^{2}\), \(du=2x\,dx\). \(x=0\)이면 \(u=a^{2}\), \(x=a\)이면 \(u=2a^{2}\).
+\[
+\frac12\int_{a^{2}}^{2a^{2}}u^{1/2}\,du
+=\frac13\Bigl[(2a^{2})^{3/2}-(a^{2})^{3/2}\Bigr]
+=\frac{a^{3}}{3}(2\sqrt{2}-1).
+\]
+
+\ex{\(\displaystyle\int_{0}^{1/2}\frac{\sin^{-1}x}{\sqrt{1-x^{2}}}\,dx\)}
+\(u=\sin^{-1}x\)이면 \(du=dx/\sqrt{1-x^{2}}\). \(x=0\)이면 \(u=0\), \(x=1/2\)이면 \(u=\pi/6\).
+\[
+\int_{0}^{\pi/6}u\,du=\frac12\left(\frac{\pi}{6}\right)^{2}=\frac{\pi^{2}}{72}.
+\]
+
+\subsection{우함수와 기함수}
+
+\begin{mainbox}{대칭 구간}
+\(f\)가 우함수, 즉 \(f(-x)=f(x)\)이면
+\[
+\int_{-a}^{a}f(x)\,dx=2\int_{0}^{a}f(x)\,dx.
+\]
+\(f\)가 기함수, 즉 \(f(-x)=-f(x)\)이면
+\[
+\int_{-a}^{a}f(x)\,dx=0.
+\]
+구간이 \(-a\)에서 \(a\)일 때만 이렇게 줄인다.
+\end{mainbox}
+
+\begin{confbox}{2배를 쓸지 0으로 볼지}
+우함수 공식은 적분을 \(2\)배한다. 기함수 공식은 \(0\)이다. 노트에는 \(\tan x/(1+x^{2}+x^{4})\)를 \(2\int_{0}^{1}\)로 쓰기 시작했다가, 분자는 기함수, 분모의 \(1\), \(x^{2}\), \(x^{4}\)는 각각 우함수라고 고쳐 적혀 있다. 기함수를 우함수 공식에 넣지 않는다.
+\end{confbox}
+
+\ex{\(\displaystyle\int_{-1}^{1}\frac{\tan x}{1+x^{2}+x^{4}}\,dx\)}
+\(\tan(-x)=-\tan x\)이고 분모는 \(x\)를 \(-x\)로 바꿔도 같다. 따라서 피적분함수는 기함수다.
+\[
+\int_{-1}^{1}\frac{\tan x}{1+x^{2}+x^{4}}\,dx=0.
+\]
+\([-1,1]\)에서 분모는 \(0\)이 아니고, \(\tan x\)의 불연속점 \(\pi/2\)도 이 구간 밖에 있다.
+
+\ex{\(\displaystyle\int_{-\pi/4}^{\pi/4}(x^{3}+x^{4}\tan x)\,dx\)}
+\begin{itemize}
+\item \(x^{3}\)은 기함수.
+\item \(x^{4}\)은 우함수, \(\tan x\)는 기함수이므로 \(x^{4}\tan x\)는 기함수.
+\item 기함수끼리 더하면 기함수.
+\end{itemize}
+구간이 \(-\pi/4\)에서 \(\pi/4\)로 대칭이므로 적분은 \(0\)이다. \(\pi/4<\pi/2\)라서 \(\tan x\)는 이 구간에서 연속이다.
+
+\subsection{삼각함수 적분}
+
+\begin{mainbox}{노트에 별표로 적힌 항등식}
+\[
+\begin{aligned}
+\cos^{2}x+\sin^{2}x&=1,\\
+1+\tan^{2}x&=\sec^{2}x,\\
+1+\cot^{2}x&=\csc^{2}x,\\
+\cos^{2}x&=\frac{1+\cos 2x}{2},\\
+\sin^{2}x&=\frac{1-\cos 2x}{2}.
+\end{aligned}
+\]
+\(\cot x=\cos x/\sin x\). \(\cot^{2}x\) 적분에서는 \(\cot^{2}x=\csc^{2}x-1\)을 쓴다.
+\end{mainbox}
+
+\ex{\(\displaystyle\int_{0}^{\pi/2}\sin^{2}x\cos^{2}x\,dx\)}
+노트는 반각으로 전개하다가
+\[
+\frac18\int_{0}^{\pi/2}(2-\cos 4x)\,dx
+\]
+에서 값이 없이 끝난다.
+
+\begin{fillbox}
+같은 반각 공식으로 정리하면
+\begin{align*}
+\sin^{2}x\cos^{2}x
+&=\frac{1-\cos 2x}{2}\cdot\frac{1+\cos 2x}{2}
+=\frac{1-\cos^{2}2x}{4}\\
+&=\frac{\sin^{2}2x}{4}
+=\frac{1-\cos 4x}{8}.
+\end{align*}
+\(1-\cos^{2}2x=(1-\cos 4x)/2\)이므로, 마지막 분자에 남는 것은 \(2-\cos 4x\)가 아니라 \(1-\cos 4x\)다.
+\[
+\int_{0}^{\pi/2}\sin^{2}x\cos^{2}x\,dx
+=\frac18\int_{0}^{\pi/2}(1-\cos 4x)\,dx
+=\frac18\cdot\frac{\pi}{2}
+=\frac{\pi}{16}.
+\]
+\end{fillbox}
+
+\ex{\(\displaystyle\int_{\pi/6}^{\pi/3}\cot^{2}x\,dx\)}
+\[
+\cot^{2}x=\csc^{2}x-1,
+\]
+\[
+\int_{\pi/6}^{\pi/3}\cot^{2}x\,dx
+=\bigl[-\cot x-x\bigr]_{\pi/6}^{\pi/3}.
+\]
+\[
+\Bigl(-\cot\frac{\pi}{3}-\frac{\pi}{3}\Bigr)
+-\Bigl(-\cot\frac{\pi}{6}-\frac{\pi}{6}\Bigr)
+=\Bigl(-\frac{1}{\sqrt{3}}-\frac{\pi}{3}\Bigr)
+-\Bigl(-\sqrt{3}-\frac{\pi}{6}\Bigr).
+\]
+
+\begin{fillbox}
+\[
+\sqrt{3}-\frac{1}{\sqrt{3}}-\frac{\pi}{6}
+=\frac{3-1}{\sqrt{3}}-\frac{\pi}{6}
+=\frac{2\sqrt{3}}{3}-\frac{\pi}{6}.
+\]
+노트 마지막 줄은 \(\sqrt{3}-\pi/3\)이다. 그 줄에는 \(-\cot(\pi/3)=-1/\sqrt{3}\)과 구간의 차 \(-\pi/3-(-\pi/6)=-\pi/6\)이 빠져 있다.
+\end{fillbox}
+
+\subsection{부분분수}
+
+\ex{\(\displaystyle\int_{0}^{1}\frac{2}{2x^{2}+3x+1}\,dx\)}
+\[
+2x^{2}+3x+1=(2x+1)(x+1),
+\]
+\[
+\frac{2}{(2x+1)(x+1)}=\frac{4}{2x+1}-\frac{2}{x+1}.
+\]
+\[
+\int\left(\frac{4}{2x+1}-\frac{2}{x+1}\right)dx
+=2\ln|2x+1|-2\ln|x+1|.
+\]
+\[
+\bigl[2\ln(2x+1)-2\ln(x+1)\bigr]_{0}^{1}
+=2\ln 3-2\ln 2
+=2\ln\frac{3}{2}.
+\]
+
+\subsection{부분적분}
+
+\begin{mainbox}{정적분의 부분적분}
+노트에 적힌 식은
+\[
+\int_{a}^{b}f(x)g'(x)\,dx
+=\Bigl[f(x)g(x)\Bigr]_{a}^{b}
+-\int_{a}^{b}g(x)f'(x)\,dx.
+\]
+\end{mainbox}
+
+\ex{\(\displaystyle\int_{0}^{1}\tan^{-1}x\,dx\)}
+노트에는 적분만 있다.
+
+\begin{fillbox}
+\(f=\tan^{-1}x\), \(g'=1\)로 두면 \(f'=1/(1+x^{2})\), \(g=x\).
+\begin{align*}
+\int_{0}^{1}\tan^{-1}x\,dx
+&=\bigl[x\tan^{-1}x\bigr]_{0}^{1}
+-\int_{0}^{1}\frac{x}{1+x^{2}}\,dx\\
+&=\frac{\pi}{4}-\frac12\bigl[\ln(1+x^{2})\bigr]_{0}^{1}
+=\frac{\pi}{4}-\frac12\ln 2.
+\end{align*}
+\end{fillbox}
+
+\ex{\(\displaystyle\int_{\sqrt{\pi/2}}^{\sqrt{\pi}}\theta^{3}\cos(\theta^{2})\,d\theta\)}
+노트에는 적분만 있다.
+
+\begin{fillbox}
+\(u=\theta^{2}\)이면 \(du=2\theta\,d\theta\), \(\theta^{3}\,d\theta=\theta^{2}\cdot\theta\,d\theta=u\,du/2\).
+\(\theta=\sqrt{\pi/2}\)이면 \(u=\pi/2\), \(\theta=\sqrt{\pi}\)이면 \(u=\pi\).
+\[
+\frac12\int_{\pi/2}^{\pi}u\cos u\,du.
+\]
+\(u\)와 \(\cos u\)를 부분적분하면 \(\int u\cos u\,du=u\sin u+\cos u\).
+\begin{align*}
+\frac12\bigl[u\sin u+\cos u\bigr]_{\pi/2}^{\pi}
+&=\frac12\Bigl[(\pi\cdot 0+\cos\pi)
+-\bigl(\tfrac{\pi}{2}\cdot 1+\cos\tfrac{\pi}{2}\bigr)\Bigr]\\
+&=\frac12\Bigl[-1-\frac{\pi}{2}\Bigr]
+=-\frac12-\frac{\pi}{4}.
+\end{align*}
+\end{fillbox}
+
+\subsection{넓이}
+
+\ex{타원 \(\dfrac{x^{2}}{a^{2}}+\dfrac{y^{2}}{b^{2}}=1\)로 둘러싸인 영역의 넓이}
+노트에는 문제만 있다.
+
+\begin{fillbox}
+제1사분면의 \(y\)는 \(y=b\sqrt{1-x^{2}/a^{2}}\)이고, 대칭이므로 넓이는 이 곡선의 4배다.
+\[
+S=4b\int_{0}^{a}\sqrt{1-\frac{x^{2}}{a^{2}}}\,dx.
+\]
+\(x=a\sin\theta\)이면 \(dx=a\cos\theta\,d\theta\). \(x=0\)일 때 \(\theta=0\), \(x=a\)일 때 \(\theta=\pi/2\).
+\[
+S=4ab\int_{0}^{\pi/2}\cos^{2}\theta\,d\theta
+=4ab\int_{0}^{\pi/2}\frac{1+\cos 2\theta}{2}\,d\theta
+=2ab\Bigl[\theta+\frac12\sin 2\theta\Bigr]_{0}^{\pi/2}
+=\pi ab.
+\]
+\(\cos^{2}\theta\)는 노트에 적힌 반각 공식 \((1+\cos 2\theta)/2\)다.
+\end{fillbox}
+
+\begin{relbox}{정적분 도구가 한 문제에서 겹칠 때}
+\begin{itemize}
+\item \(\theta^{3}\cos(\theta^{2})\)는 먼저 치환으로 \(u\cos u\)를 만들고, 그다음 부분적분한다.
+\item 타원 넓이는 먼저 \(x=a\sin\theta\)로 치환하고, 남은 \(\cos^{2}\theta\)에 반각 공식을 쓴다.
+\item 대칭 구간의 기함수 적분은 피적분함수를 전개하기 전에 \(0\)인지 확인한다. \(x^{3}+x^{4}\tan x\)가 그 경우다.
+\end{itemize}
+\end{relbox}
+
+\end{document}
