@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """기초 회로이론 6·7·8·10장과 수업 필기를 단권화한 노트 PDF."""
 
+import os
+
 from reportlab.lib.colors import Color, white
 from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT
 from reportlab.lib.pagesizes import A4
@@ -17,11 +19,14 @@ from reportlab.platypus import (
     NextPageTemplate,
     PageBreak,
     PageTemplate,
+    Image,
     Paragraph,
     Spacer,
     Table,
     TableStyle,
 )
+
+FIGDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "figures")
 
 pdfmetrics.registerFont(TTFont("Nanum", "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"))
 pdfmetrics.registerFont(TTFont("NanumBold", "/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf"))
@@ -159,6 +164,38 @@ def formula(lines):
 
 def example_box(title, paragraphs):
     return boxed("예제  ·  " + title, paragraphs, EX_BG, TEAL)
+
+
+def figstrip(items, max_h_mm=48):
+    """items: (파일 이름, 캡션). 원래 회로와 풀이 중 다시 그린 회로를 나란히 둔다."""
+    n = len(items)
+    col_w = CONTENT_W / n
+    max_h = max_h_mm * mm
+    imgs = []
+    caps = []
+    for name, cap in items:
+        im = Image(os.path.join(FIGDIR, name + ".png"))
+        scale = min((col_w - 6) / float(im.imageWidth), max_h / float(im.imageHeight))
+        im.drawWidth = im.imageWidth * scale
+        im.drawHeight = im.imageHeight * scale
+        imgs.append(im)
+        caps.append(Paragraph(cap, STY["small"]))
+    table = Table([imgs, caps], colWidths=[col_w] * n)
+    table.setStyle(
+        TableStyle(
+            [
+                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                ("VALIGN", (0, 0), (-1, 0), "MIDDLE"),
+                ("VALIGN", (0, 1), (-1, 1), "TOP"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 2),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 2),
+                ("TOPPADDING", (0, 0), (-1, -1), 2),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+                ("BACKGROUND", (0, 0), (-1, -1), white),
+            ]
+        )
+    )
+    return KeepTogether([table, Spacer(1, 4)])
 
 
 def comparison_table(headers, rows):
@@ -352,6 +389,14 @@ def build():
             ],
         )
     )
+    story.append(
+        figstrip(
+            [
+                ("inv", "반전. 양단자는 접지하고, 음단자에서 KCL을 세운다."),
+                ("noninv", "비반전. vi는 양단자, R1은 음단자에서 접지로 간다."),
+            ]
+        )
+    )
     story.append(P("노드를 세는 순서", "h2"))
     story.append(
         P(
@@ -381,6 +426,16 @@ def build():
             ],
         )
     )
+    story.append(
+        figstrip(
+            [
+                ("follower", "추종기. 출력을 음단자로."),
+                ("load_before", "무부하. 아래 10 kΩ."),
+                ("load_after", "부하를 달면 아래 5 kΩ. 필기 3 V."),
+            ]
+        )
+    )
+    story.append(figstrip([("buffer", "분배와 부하 사이에 추종기를 넣으면, 앞 단은 RL을 보지 않는다.")], max_h_mm=42))
     story.append(P("합산기", "h2"))
     story.append(
         main_box(
@@ -393,6 +448,12 @@ def build():
             ],
         )
     )
+    story.append(
+        figstrip(
+            [("summer", "반전 합산. v1, v2, v3는 모두 음단자에서 만난다. 단위는 Ω.")],
+            max_h_mm=52,
+        )
+    )
     story.append(P("차동, 브리지, 아날로그 컴퓨터", "h2"))
     story.append(
         detail_box(
@@ -400,9 +461,11 @@ def build():
             [
                 "두 입력의 차이를 저항비로 키우는 회로다. 양단과 음단에 각각 KCL을 세우고, 가상 단락으로 두 입력 단자 전압을 같게 둔다.",
                 "필기에서 정리한 결과는  vo = 3(vb - va)  다. 교재 핵심요약의 같은 회로도 두 입력의 차를 일정 배로 만든다.",
+                "출력의 50 kΩ은 접지로 가는 부하이고, 되먹임은 30 kΩ이다. 양단자의 30 kΩ도 접지로 간다.",
             ],
         )
     )
+    story.append(figstrip([("diff", "차이 증폭. 50 kΩ은 출력과 접지 사이.")], max_h_mm=48))
     story.append(
         detail_box(
             "브리지 증폭 (필기 Ex 6-3)",
@@ -412,6 +475,22 @@ def build():
                 "Rth = R1∥R2 + R3∥R4",
                 "vo = (1 + R6/R5) Vth",
             ],
+        )
+    )
+    story.append(
+        figstrip(
+            [
+                ("bridge", "브리지. a는 R1과 R2 사이, b는 R3과 R4 사이."),
+                ("bridge_div", "개방전압. 위 분배로 Va, 아래 분배로 Vb."),
+            ]
+        )
+    )
+    story.append(
+        figstrip(
+            [
+                ("bridge_rth_net", "전원을 죽인 뒤 a-b에서 본 저항."),
+                ("bridge_th", "그 테브난을 비반전 증폭에 붙인다. 이상이면 Rth 전류는 0."),
+            ]
         )
     )
     story.append(
@@ -478,6 +557,14 @@ def build():
                 "DC 전압이 걸리면 dv/dt = 0 이라 커패시터 전류는 0이고, 개방으로 동작한다.",
                 "DC 전류가 흐르면 di/dt = 0 이라 인덕터 전압은 0이고, 단락으로 동작한다.",
             ],
+        )
+    )
+    story.append(
+        figstrip(
+            [
+                ("dc_copen", "DC 정상상태. 커패시터 자리는 개방."),
+                ("dc_lshort", "DC 정상상태. 인덕터 자리는 단락, 전압 0."),
+            ]
         )
     )
     story.append(
@@ -613,6 +700,14 @@ def build():
         )
     )
     story.append(
+        figstrip(
+            [
+                ("tau_v", "τ와 무전원응답. 전압원은 단락하고, C 쪽에서 Req를 본다. 최종값을 구하는 그림과 다르다."),
+            ],
+            max_h_mm=40,
+        )
+    )
+    story.append(
         detail_box(
             "연속 스위칭에서 넘어가는 양",
             [
@@ -620,6 +715,15 @@ def build():
                 "인덕터는 전류를 넘긴다. 인덕터 전압은 전환 직전과 직후가 다를 수 있다. 필기 예는 t = 0.4 s에서 vL(0.4-)와 vL(0.4+)가 다르다.",
                 "커패시터는 전압을 넘긴다.",
             ],
+        )
+    )
+    story.append(
+        figstrip(
+            [
+                ("rl82", "원래. 0.4 s에 5 Ω 스위치가 닫힌다."),
+                ("rl82_early", "0.4 s 전. 5 Ω은 열려 20 Ω과 8 H만."),
+                ("rl82_late", "0.4 s 이후. 5∥20 = 4 Ω."),
+            ]
         )
     )
     story.append(
@@ -635,10 +739,20 @@ def build():
         )
     )
     story.append(
-        example_box(
-            "칠판에 남긴 t &gt; 0 의 인덕터 전류",
+        figstrip(
             [
-                "iL(0) = 4 A,  τ = 4/9 s 로 계산한 결과가 칠판에 적혀 있다.",
+                ("y2022", "원래. t=0에 스위치가 열려 10 A가 떨어진다."),
+                ("y2022_ic", "t&lt;0. L 단락. 3∥6=2 Ω, 직렬 3 Ω, iL=4 A."),
+                ("y2022_t", "t&gt;0. 전원 없음. 4.5 Ω과 2 H."),
+            ]
+        )
+    )
+    story.append(
+        example_box(
+            "2022년 칠판의 인덕터 전류",
+            [
+                "t &lt; 0 에서는 인덕터를 단락으로 바꾼다. 3 Ω ∥ 6 Ω = 2 Ω 이고, 인덕터 가지의 3 Ω과 나누면 iL(0) = 10 × 2/(2+3) = 4 A. 9 Ω은 단락에 가려 빠진다.",
+                "t &gt; 0 에서는 스위치가 열려 전류원이 없다. 칠판은 남은 저항을 9 Ω ∥ 9 Ω = 4.5 Ω 으로 묶어 τ = 2/4.5 = 4/9 s 로 적었다.",
                 "iL(t) = 4 e^{-(9/4) t} A.",
             ],
         )
@@ -654,11 +768,46 @@ def build():
             ],
         )
     )
+    story.append(
+        figstrip(
+            [
+                ("rc_charge", "충전. 스위치가 전원 쪽이면 Vo가 C를 채운다."),
+                ("rc_free", "방전. 전원은 빠지고 C와 R만 남는다."),
+            ]
+        )
+    )
     story.append(P("수업에서 푼 RC 방전", "h2"))
     story.append(
         P(
             "이상화 교수 자료의 문제는 필기에 LSH와 쪽수가 적혀 있다. 쪽수는 교수 자료 기준이다. "
             "소자 종류와 단위는 확인된 것만 반영했다."
+        )
+    )
+    story.append(
+        figstrip(
+            [
+                ("ex62", "원래. 20 V, 6 kΩ, 4 kΩ, 1 kΩ, C."),
+                ("ex62_open", "C를 개방. 1 kΩ 가지는 빠지고 Vc = 8 V."),
+                ("ex62_rth", "전압원을 단락. C 쪽에서 본 Rth = 3.4 kΩ."),
+            ]
+        )
+    )
+    story.append(
+        example_box(
+            "LSH p.219, 회로를 두 번 다시 그리기 (Ex 6-2)",
+            [
+                "원래 회로는 20 V, 직렬 6 kΩ, 병렬 4 kΩ, 그리고 1 kΩ과 커패시터의 직렬이다.",
+                "(a) 커패시터가 충분히 충전된 DC. 커패시터를 개방으로 보면 1 kΩ 가지에 전류가 없고, Vc = 20 × 4/(6+4) = 8 V.",
+                "(b) 커패시터 양단에서 본 등가저항. 전압원을 단락하면 Rth = 1 kΩ + (4 kΩ ∥ 6 kΩ) = 3.4 kΩ.",
+            ],
+        )
+    )
+    story.append(
+        figstrip(
+            [
+                ("ex69", "5 mF ∥ 5 kΩ, 그리고 8 kΩ과 12 kΩ의 직렬."),
+                ("ex69_eq", "τ를 위해 다시 그림. 5 kΩ ∥ 20 kΩ = 4 kΩ."),
+            ]
         )
     )
     story.append(
@@ -675,6 +824,15 @@ def build():
         )
     )
     story.append(
+        figstrip(
+            [
+                ("ex610", "원래. t=0에 스위치가 열린다. 소자는 커패시터."),
+                ("ex610_t0", "t&lt;0, C 개방. 3 kΩ과 6 kΩ만 남아 Vc = 6 V."),
+                ("ex610_t", "t&gt;0. 전원과 3 kΩ은 빠지고 4 kΩ과 6 kΩ이 직렬."),
+            ]
+        )
+    )
+    story.append(
         example_box(
             "LSH, 커패시터 방전. 필기에 적힌 τ = 0.2 s",
             [
@@ -683,6 +841,15 @@ def build():
                 "등가 10 kΩ 가지의 전류  i(t) = 0.6 e^{-5t} mA.",
                 "그 저항의 전력  p(t) = 2.16 e^{-10t} mW.",
             ],
+        )
+    )
+    story.append(
+        figstrip(
+            [
+                ("ex64", "원래. 12 V, 8 kΩ, t=0 스위치, 6 kΩ, 1 kΩ과 20 mF, 12 kΩ."),
+                ("ex64_t0", "t&lt;0에 C를 개방. 1 kΩ 가지는 빠지고 6 kΩ ∥ 12 kΩ."),
+                ("ex64_t", "t&gt;0에 필기가 다시 그린 방전. 전원과 8 kΩ은 없다."),
+            ]
         )
     )
     story.append(
@@ -698,9 +865,19 @@ def build():
         )
     )
     story.append(
+        figstrip(
+            [
+                ("ex611", "계산에 쓴 회로. 4 kΩ 두 개와 100 μF, t=0 스위치."),
+                ("ex611_t0", "t&lt;0, C 개방. 4 kΩ 분배로 6 V."),
+                ("ex611_t", "t&gt;0 방전. 커패시터와 4 kΩ만."),
+            ]
+        )
+    )
+    story.append(
         example_box(
             "칠판 Ex, 100 μF",
             [
+                "칠판 왼쪽 스케치에는 1 kΩ과 3 kΩ도 보인다. 6 V와 τ = 0.4 s를 구한 그림은 4 kΩ 두 개다.",
                 "t &lt; 0 분배로  Vc(0) = 6 V.  t &gt; 0 에서 커패시터와 연결된 저항은 4 kΩ, C = 100 μF.",
                 "τ = 4×10³ × 100×10^-6 = 0.4 s.",
                 "Vc(t) = 6 e^{-2.5 t} V.  최종값은 0인 방전이다.",
@@ -852,12 +1029,37 @@ def build():
     )
     story.append(P("수업에서 계산이 끝난 임피던스", "h2"))
     story.append(
+        P(
+            "시간 영역의 R, L, C를 페이저로 바꾸면 저항 상자 R, jXL, -jXc가 된다. "
+            "그 상자를 더해 임피던스 하나처럼 보면 저항 회로와 같은 나눗셈이 된다."
+        )
+    )
+    story.append(
+        figstrip(
+            [
+                ("ex123", "시간 영역. 10 Vrms, 2.5 kHz, R과 C."),
+                ("ex123z", "페이저. R과 -jXc의 직렬."),
+                ("ex123eq", "하나로 묶은 Z. 7.91 kΩ, 각 -53.6°."),
+            ]
+        )
+    )
+    story.append(
         example_box(
             "Ex 12-3",
             [
                 "확인한 답은  Z = 7.91 kΩ, 각 53.6°  다.",
                 "회로는 저항과 커패시터의 연결이고, 필기의 각에는 음부호가 붙어 있다. 용량성 임피던스로 읽으면  Z = 7.91 kΩ ∠ -53.6°.",
+                "필기에 적힌 직사각형 꼴의 저항 숫자는 이 극형식과 맞지 않아, 그림에는 확인된 극형식만 적었다.",
             ],
+        )
+    )
+    story.append(
+        figstrip(
+            [
+                ("ex124", "시간 영역. 10 kHz, 1 kΩ, 15 mH."),
+                ("ex124z", "페이저. 1 kΩ과 j942.5 Ω."),
+                ("ex124eq", "Z = 1374 Ω ∠ 43.3°."),
+            ]
         )
     )
     story.append(
@@ -868,6 +1070,14 @@ def build():
                 "XL = 2πfL = 942.5 Ω.",
                 "Z = 1000 + j942.5 = 1374.2 Ω ∠ 43.3°.",
             ],
+        )
+    )
+    story.append(
+        figstrip(
+            [
+                ("ex125", "시간 영역. 10 Vrms, 2 kHz, 2.7 kΩ과 C."),
+                ("ex125z", "페이저. 2.7 kΩ과 -j1.693 kΩ. 전류는 하나."),
+            ]
         )
     )
     story.append(
@@ -884,6 +1094,15 @@ def build():
         )
     )
     story.append(
+        figstrip(
+            [
+                ("ex127", "시간 영역. 5 Vrms, 100 kHz, 470 Ω, 1 mH."),
+                ("ex127z", "페이저. 470 Ω과 j628 Ω."),
+                ("ex127eq", "Z = 785 Ω ∠ 53.2°. 필기 크기는 784.6 Ω."),
+            ]
+        )
+    )
+    story.append(
         example_box(
             "Ex 12-7  직렬 RL",
             [
@@ -891,6 +1110,15 @@ def build():
                 "XL = 2πfL = 628 Ω.",
                 "Z = 470 + j628 = 784.6 Ω ∠ 53.2°.",
             ],
+        )
+    )
+    story.append(
+        figstrip(
+            [
+                ("ex129", "시간 영역. 5 Vrms, 820 Ω, 2 mH, C."),
+                ("ex129z", "페이저. 820, j628, -j318."),
+                ("ex129eq", "하나로 묶으면 877 Ω ∠ 20.7°."),
+            ]
         )
     )
     story.append(
