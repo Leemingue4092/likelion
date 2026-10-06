@@ -198,49 +198,41 @@ def diff_amp():
 
 
 def bridge():
+    """휘트스톤. 왼쪽 다리는 R1-a-R2, 오른쪽 다리는 R3-b-R4."""
     d = D()
-    d += elm.Line().up().length(0.45)
+    d += elm.SourceV().label("vs", loc="left").up().length(3.4)
     bot = d.elements[-1].start
-    d += elm.SourceV().up().label("vs").length(1.7)
-    d += elm.Line().up().length(0.45)
-    d += elm.Line().right().length(1.7)
+    d += elm.Line().right().length(2.0)
     left = d.here
     d += elm.Dot()
-    d += elm.Resistor().right().label("R1")
-    d += elm.Dot().label("a", "top")
-    d += elm.Resistor().right().label("R2")
-    right = d.here
-    d += elm.Dot()
-    d += elm.Line().down().toy(bot)
+    d += elm.Resistor().down().label("R1").length(1.7)
+    d += elm.Dot().label("a", "right")
+    d += elm.Resistor().down().label("R2").length(1.7)
     d += elm.Line().left().tox(bot)
-    d += elm.Resistor().at(left).down().label("R3").toy(bot)
-    b = d.here
-    d += elm.Dot().at(b).label("b", "bottom")
-    d += elm.Resistor().at(b).right().label("R4").tox(right)
+    d += elm.Line().right().at(left).length(3.2)
+    d += elm.Dot()
+    d += elm.Resistor().down().label("R3").length(1.7)
+    d += elm.Dot().label("b", "right")
+    d += elm.Resistor().down().label("R4").length(1.7)
+    d += elm.Line().left().tox(bot)
     save(d, "bridge")
 
 
+def _divider(d, origin, r_top, mid, r_bot):
+    d += elm.SourceV().at(origin).label("vs", loc="left").up()
+    src = d.elements[-1]
+    d += elm.Resistor().right().label(r_top)
+    d += elm.Dot().label(mid, "top")
+    d += elm.Resistor().right().label(r_bot)
+    d += elm.Line().down().toy(src.start)
+    d += elm.Line().left().tox(src.start)
+
+
 def bridge_div():
-    """개방전압. 위 분배와 아래 분배를 따로 본다."""
+    """개방전압. 위 분배로 Va, 아래 분배로 Vb."""
     d = D()
-    d += elm.SourceV().label("vs").up()
-    d += elm.Line().right().length(0.5)
-    left = d.here
-    d += elm.Resistor().right().label("R1")
-    d += elm.Dot().label("Va", "top")
-    d += elm.Resistor().right().label("R2")
-    right = d.here
-    d += elm.Line().down().length(d.unit * 2)
-    bot = d.here
-    d += elm.Line().left().tox(left)
-    d += elm.Line().down().at(left).length(d.unit * 2 + 1.3)
-    low = d.here
-    d += elm.Resistor().right().label("R3")
-    d += elm.Dot().label("Vb", "bottom")
-    d += elm.Resistor().right().label("R4").tox(right)
-    d += elm.Line().down().toy(low)
-    d += elm.Line().left().tox(left)
-    d += elm.Line().at(d.elements[0].start).right().tox(left)
+    _divider(d, (0, 0), "R1", "Va", "R2")
+    _divider(d, (0, -3.6), "R3", "Vb", "R4")
     save(d, "bridge_div")
 
 
@@ -400,7 +392,7 @@ def ex62():
     b = d.here
     d += elm.Line().left().tox(d.elements[0].start)
     d += elm.Resistor().right().at(n).label("1 kΩ")
-    d += elm.Capacitor().down().label("C")
+    d += elm.Capacitor().down().label("30 uF")
     d += elm.Line().left().tox(n)
     save(d, "ex62")
 
@@ -437,7 +429,7 @@ def ex62_rth():
 
 def ex69():
     d = D()
-    d += elm.Capacitor().up().label("5 mF")
+    d += elm.Capacitor().up().label("5 uF")
     top = d.here
     d += elm.Line().left().length(1.8)
     d += elm.Dot()
@@ -455,7 +447,7 @@ def ex69():
 
 def ex69_eq():
     d = D()
-    d += elm.Capacitor().up().label("5 mF", loc="left")
+    d += elm.Capacitor().up().label("5 uF", loc="left")
     d += elm.Line().right().length(2.4)
     d += elm.Resistor().down().label("4 kΩ", loc="right")
     d += elm.Line().left()
@@ -555,17 +547,26 @@ def ex64_t():
 
 
 def ex611():
+    """LSH Ex 6-11 원회로. 3 kΩ과 1 kΩ이 직렬로 4 kΩ, 4 kΩ은 12 V와 직렬. 12 V의 +는 위."""
     d = D()
-    d += elm.SourceV().label("12 V").up()
-    d += elm.Resistor().right().label("4 kΩ")
+    d += elm.Resistor().at((0, 0)).up().length(5.2)
+    d += elm.Label().at((-0.9, 2.6)).label("3 kΩ")
+    d += elm.Resistor().right().length(3.0)
     n = d.here
-    d += elm.Dot().label("A", "top")
-    d += elm.Resistor().down().label("4 kΩ").length(1.5)
-    d += elm.Switch(action="open").down().label("t=0")
-    b = d.here
-    d += elm.Line().left().tox(d.elements[0].start)
-    d += elm.Capacitor().right().at(n).label("100 uF")
-    d += elm.Line().down().toy(b)
+    d += elm.Label().at((1.5, 5.6)).label("1 kΩ")
+    d += elm.Dot().at(n)
+    d += elm.Label().at((n.x + 0.28, 5.55)).label("A")
+    d += elm.Resistor().at((n.x, 5.2)).down().length(2.2)
+    d += elm.Label().at((n.x - 0.85, 4.1)).label("4 kΩ")
+    d += elm.SourceV().at((n.x, 1.5)).up().length(1.5)
+    d += elm.Label().at((n.x + 0.95, 2.25)).label("12 V")
+    d += elm.Switch(action="open", nc=True).at((n.x, 0)).up().length(1.5)
+    d += elm.Label().at((n.x + 0.95, 0.7)).label("t=0")
+    d += elm.Line().at((0, 0)).right().tox(n)
+    d += elm.Line().at(n).right().length(2.8)
+    c = d.here
+    d += elm.Capacitor().down().toy(0)
+    d += elm.Label().at((c.x + 0.85, 2.6)).label("100 uF")
     d += elm.Line().left().tox(n)
     save(d, "ex611")
 
@@ -589,6 +590,17 @@ def ex611_t():
     d += elm.Line().down()
     d += elm.Line().left()
     save(d, "ex611_t")
+
+
+def rc_step():
+    """10/6 step 응답. Vs u(t), 직렬 R, 접지 C."""
+    d = D()
+    d += elm.SourceV().label("Vs u(t)", loc="left").up()
+    d += elm.Resistor().right().label("R")
+    d += elm.Dot().label("A", "top")
+    d += elm.Capacitor().down().label("C")
+    d += elm.Line().left().tox(d.elements[0].start)
+    save(d, "rc_step")
 
 
 def rc_charge():
@@ -1123,6 +1135,7 @@ def main():
     ex611()
     ex611_t0()
     ex611_t()
+    rc_step()
     rc_charge()
     rc_free()
     series_rc("ex123", "4.7 kΩ", "0.01 uF", "10 Vrms, 2.5 kHz")
