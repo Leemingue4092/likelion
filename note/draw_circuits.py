@@ -851,6 +851,131 @@ def ex74():
     save(d, "ex74")
 
 
+def ex101():
+    d = D()
+    d += elm.SourceI().up().label("Is cos ωt", loc="left")
+    d += elm.Line().right().length(1.6)
+    n = d.here
+    d += elm.Dot()
+    d += elm.Resistor().down().label("R")
+    b = d.here
+    d += elm.Line().left().tox(d.elements[0].start)
+    d += elm.Inductor2().right().at(n).label("L")
+    d += elm.Line().down().toy(b)
+    d += elm.Line().left().tox(n)
+    save(d, "ex101")
+
+
+def ex105l():
+    d = D()
+    d += elm.Line().right().length(0.35)
+    n = d.here
+    d += elm.Dot()
+    a = d.add(elm.Inductor2().at(n).down().length(2.0))
+    d += elm.Label().at((a.center.x - 0.85, a.center.y)).label("L1")
+    b = a.end
+    m = (n[0] + 2.6, n[1])
+    d += elm.Line().at(n).to(m)
+    c = d.add(elm.Inductor2().at(m).down().length(2.0))
+    d += elm.Label().at((c.center.x + 0.75, c.center.y)).label("L2")
+    far = (n[0] + 5.2, n[1])
+    d += elm.Line().at(m).to(far)
+    e = d.add(elm.Inductor2().at(far).down().length(2.0))
+    d += elm.Label().at((e.center.x + 0.75, e.center.y)).label("L3")
+    d += elm.Line().at(b).to(e.end)
+    save(d, "ex105l")
+
+
+def ex105c():
+    d = D()
+    d += elm.Line().right().length(0.35)
+    n = d.here
+    d += elm.Dot()
+    a = d.add(elm.Capacitor().at(n).down().length(2.0))
+    d += elm.Label().at((a.center.x - 0.85, a.center.y)).label("C1")
+    b = a.end
+    m = (n[0] + 2.6, n[1])
+    d += elm.Line().at(n).to(m)
+    c = d.add(elm.Capacitor().at(m).down().length(2.0))
+    d += elm.Label().at((c.center.x + 0.75, c.center.y)).label("C2")
+    far = (n[0] + 5.2, n[1])
+    d += elm.Line().at(m).to(far)
+    e = d.add(elm.Capacitor().at(far).down().length(2.0))
+    d += elm.Label().at((e.center.x + 0.75, e.center.y)).label("C3")
+    d += elm.Line().at(b).to(e.end)
+    save(d, "ex105c")
+
+
+def gain4():
+    d = D()
+    op = d.add(elm.Opamp())
+    d += elm.Line().at(op.in2).left().length(1.3).label("x", "left")
+    n = (op.in1.x - 2.0, op.in1.y)
+    d += elm.Line().at(op.in1).to(n)
+    d += elm.Dot().at(n)
+    d += elm.Resistor().at(n).down().label("20 kΩ").length(2.3)
+    d += elm.Ground()
+    d += elm.Line().at(op.out).right().length(1.2).label("4x", "right")
+    top = (n[0], n[1] + 1.3)
+    d += elm.Line().at(op.out).to((op.out.x, top[1]))
+    d += elm.Resistor().at((op.out.x, top[1])).to(top).label("60 kΩ")
+    d += elm.Line().at(top).to(n)
+    save(d, "gain4")
+
+
+def gain_m5():
+    d = D()
+    d += elm.Dot().label("y", "left")
+    d += elm.Resistor().right().label("20 kΩ")
+    n = d.here
+    op = d.add(elm.Opamp().anchor("in1"))
+    d += elm.Line().at(op.out).right().length(1.2).label("-5y", "right")
+    d += elm.Line().at(op.out).up().length(1.35)
+    d += elm.Resistor().left().label("100 kΩ").tox(n)
+    d += elm.Line().down().toy(n)
+    d += elm.Line().at(op.in2).down().length(1.3)
+    d += elm.Ground()
+    save(d, "gain_m5")
+
+
+def ex64sum():
+    """예제 6-4의 비반전 합산. 입력 세 개, 접지 20 kΩ 하나, 궤환 60 kΩ."""
+    d = D()
+    op = d.add(elm.Opamp().at((8.6, 0)))
+    g = (op.in1.x - 1.15, op.in1.y)
+    d += elm.Line().at(op.in1).to(g)
+    d += elm.Dot().at(g)
+    d += elm.Resistor().at(g).down().length(0.55)
+    d += elm.Ground()
+    d += elm.Line().at(op.out).right().length(1.15).label("vz", "right")
+    top = (g[0], g[1] + 1.25)
+    d += elm.Line().at(op.out).to((op.out.x, top[1]))
+    d += elm.Resistor().at((op.out.x, top[1])).to(top).label("60 kΩ")
+    d += elm.Line().at(top).to(g)
+    d += elm.Line().at(op.in2).down().length(1.85)
+    low = d.here
+    p = (op.in2.x - 3.0, low.y)
+    d += elm.Line().to(p)
+    d += elm.Dot().at(p)
+    d += elm.Resistor().at(p).left().label("20 kΩ").length(2.0)
+    d += elm.Dot().label("v1", "left")
+    up = (p[0], p[1] + 1.3)
+    d += elm.Line().at(p).to(up)
+    d += elm.Dot().at(up)
+    d += elm.Resistor().at(up).left().label("20 kΩ").length(2.0)
+    d += elm.Dot().label("v2", "left")
+    dn = (p[0], p[1] - 1.3)
+    d += elm.Line().at(p).to(dn)
+    d += elm.Dot().at(dn)
+    d += elm.Resistor().at(dn).left().label("20 kΩ").length(2.0)
+    d += elm.Dot().label("v3", "left")
+    gnd = (p[0] + 1.15, p[1])
+    d += elm.Line().at(p).to(gnd)
+    d += elm.Resistor().at(gnd).down().label("20 kΩ").length(2.0)
+    d += elm.Ground()
+    save(d, "ex64sum")
+
+
 def ex102():
     series_rl("ex102", "3 Ω", "2 H", "10 sin 3t")
 
@@ -1015,6 +1140,12 @@ def main():
     series_rl("ex127", "470 Ω", "1 mH", "5 Vrms, 100 kHz")
     zbox("ex127z", ["470 Ω", "j628 Ω"], "5 Vrms")
     zbox("ex127eq", ["785 Ω ∠53.2°"], "5 Vrms")
+    ex101()
+    ex105l()
+    ex105c()
+    gain4()
+    gain_m5()
+    ex64sum()
     ex102()
     ex102z()
     integ()
