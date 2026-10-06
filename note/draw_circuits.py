@@ -466,14 +466,14 @@ def ex610():
     d = D()
     d += elm.SourceV().label("9 V").up()
     d += elm.Resistor().right().label("3 kΩ")
-    d += elm.Switch(action="open").right().label("t=0")
+    d += elm.Switch(action="open", nc=True).right().label("t=0 열림")
     n = d.here
     d += elm.Dot()
     d += elm.Resistor().down().label("6 kΩ")
     b = d.here
     d += elm.Line().left().tox(d.elements[0].start)
     d += elm.Resistor().right().at(n).label("4 kΩ")
-    d += elm.Capacitor().down().label("C")
+    d += elm.Capacitor().down().label("20 uF")
     d += elm.Line().left().tox(n)
     save(d, "ex610")
 
@@ -497,7 +497,7 @@ def ex610_t():
     left = d.elements[-1].start
     d += elm.Resistor().at(right).down().label("6 kΩ", loc="right").length(2.4)
     low = d.here
-    d += elm.Capacitor().at(low).left().label("C").tox(left)
+    d += elm.Capacitor().at(low).left().label("20 uF").tox(left)
     d += elm.Line().up().toy(left)
     save(d, "ex610_t")
 
@@ -506,7 +506,7 @@ def ex64():
     d = D()
     d += elm.SourceV().label("12 V").up()
     d += elm.Resistor().right().label("8 kΩ")
-    d += elm.Switch(action="close").right().label("t=0")
+    d += elm.Switch(action="open", nc=True).right().label("t=0 열림")
     n = d.here
     d += elm.Dot()
     d += elm.Resistor().down().label("6 kΩ").length(3.2)
@@ -516,7 +516,7 @@ def ex64():
     a = d.here
     d += elm.Dot().label("A", "top")
     d += elm.Resistor().down().label("1 kΩ").length(1.6)
-    d += elm.Capacitor().down().label("20 mF").length(1.6)
+    d += elm.Capacitor().down().label("20 uF").length(1.6)
     d += elm.Line().left().tox(b)
     d += elm.Resistor().right().at(a).label("12 kΩ")
     d += elm.Line().down().toy(b)
@@ -541,7 +541,7 @@ def ex64_t0():
 
 def ex64_t():
     d = D()
-    d += elm.Capacitor().up().label("20 mF")
+    d += elm.Capacitor().up().label("20 uF")
     d += elm.Resistor().right().label("1 kΩ")
     n = d.here
     d += elm.Dot().label("A", "top")
@@ -633,7 +633,7 @@ def series_rlc():
     d += elm.SourceSin().label("5 Vrms").up()
     d += elm.Resistor().right().label("820 Ω")
     d += elm.Inductor2().right().label("2 mH")
-    d += elm.Capacitor().down().label("C")
+    d += elm.Capacitor().down().label("0.01 uF")
     d += elm.Line().left().tox(d.elements[0].start)
     save(d, "ex129")
 
@@ -649,7 +649,7 @@ def zbox(name, parts, vlabel="V"):
 
 
 def nsummer():
-    """세 입력은 양단자, 접지 저항 두 개. 양단자 선은 음단자 접지 기호 아래로 내려 그린다."""
+    """강의 9/22. 입력 세 개, 양단자 접지 R 하나, 궤환 3R, 음단자 접지 R."""
     d = D()
     op = d.add(elm.Opamp().at((10.4, 0)))
     g = (op.in1.x - 1.15, op.in1.y)
@@ -660,7 +660,7 @@ def nsummer():
     d += elm.Line().at(op.out).right().length(1.05).label("vo", "right")
     top = (g[0], g[1] + 1.25)
     d += elm.Line().at(op.out).to((op.out.x, top[1]))
-    d += elm.Resistor().at((op.out.x, top[1])).to(top).label("2R")
+    d += elm.Resistor().at((op.out.x, top[1])).to(top).label("3R")
     d += elm.Line().at(top).to(g)
     d += elm.Line().at(op.in2).down().length(1.85)
     low = d.here
@@ -679,19 +679,15 @@ def nsummer():
     d += elm.Dot().at(dn)
     d += elm.Resistor().at(dn).left().label("R").length(2.0)
     d += elm.Dot().label("Vc", "left")
-    g1 = (p[0] + 0.85, p[1])
+    g1 = (p[0] + 1.15, p[1])
     d += elm.Line().at(p).to(g1)
     d += elm.Resistor().at(g1).down().label("R").length(2.0)
-    d += elm.Ground()
-    g2 = (p[0] + 1.7, p[1])
-    d += elm.Line().at(p).to(g2)
-    d += elm.Resistor().at(g2).down().label("R").length(2.0)
     d += elm.Ground()
     save(d, "nsummer")
 
 
 def nsummer_va():
-    """Va만 살린 등가. 분배 전압 Va/4, 궤환 2R, 출력 3Va/4."""
+    """Va만 살린 등가. 분배 Va/4, 궤환 3R, 이득 4, 출력 Va."""
     d = D()
     op = d.add(elm.Opamp().at((7.2, 0)))
     g = (op.in1.x - 1.2, op.in1.y)
@@ -699,10 +695,10 @@ def nsummer_va():
     d += elm.Dot().at(g)
     d += elm.Resistor().at(g).down().label("R", loc="left").length(0.55)
     d += elm.Ground()
-    d += elm.Line().at(op.out).right().length(1.35).label("3Va/4", "right")
+    d += elm.Line().at(op.out).right().length(1.35).label("Va", "right")
     top = (g[0], g[1] + 1.25)
     d += elm.Line().at(op.out).to((op.out.x, top[1]))
-    d += elm.Resistor().at((op.out.x, top[1])).to(top).label("2R")
+    d += elm.Resistor().at((op.out.x, top[1])).to(top).label("3R")
     d += elm.Line().at(top).to(g)
     d += elm.Line().at(op.in2).down().length(1.7)
     low = d.here
@@ -1129,8 +1125,8 @@ def main():
     ex611_t()
     rc_charge()
     rc_free()
-    series_rc("ex123", "R", "C", "10 Vrms, 2.5 kHz")
-    zbox("ex123z", ["R", "-jXc"], "10 Vrms")
+    series_rc("ex123", "4.7 kΩ", "0.01 uF", "10 Vrms, 2.5 kHz")
+    zbox("ex123z", ["4.7 kΩ", "-j6.37 kΩ"], "10 Vrms")
     zbox("ex123eq", ["7.91 kΩ ∠-53.6°"], "10 Vrms")
     series_rl("ex124", "1 kΩ", "15 mH", "vs, 10 kHz")
     zbox("ex124z", ["1 kΩ", "j942.5 Ω"], "V")
@@ -1139,7 +1135,7 @@ def main():
     zbox("ex125z", ["2.7 kΩ", "-j1.693 kΩ"], "10 Vrms")
     series_rl("ex127", "470 Ω", "1 mH", "5 Vrms, 100 kHz")
     zbox("ex127z", ["470 Ω", "j628 Ω"], "5 Vrms")
-    zbox("ex127eq", ["785 Ω ∠53.2°"], "5 Vrms")
+    zbox("ex127eq", ["784.4 Ω ∠53.2°"], "5 Vrms")
     ex101()
     ex105l()
     ex105c()
@@ -1156,7 +1152,7 @@ def main():
     ex107_th()
     series_rlc()
     zbox("ex129z", ["820 Ω", "j628 Ω", "-j318 Ω"], "5 Vrms")
-    zbox("ex129eq", ["877 Ω ∠20.7°"], "5 Vrms")
+    zbox("ex129eq", ["876.6 Ω ∠20.7°"], "5 Vrms")
 
 
 if __name__ == "__main__":
