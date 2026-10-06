@@ -56,7 +56,7 @@
 \end{center}
 
 \vspace{0.2em}
-수업 노트에 적힌 공식과 예제만 사용했다. 낙서, 지운 메모, 과제만 적혀 있고 풀이가 없는 식은 빼었다. 식이 중간에 끊기거나 마지막 계산이 식과 맞지 않는 곳은 녹색 상자에서 같은 공식으로 끝까지 계산했다.
+수업 노트에 적힌 공식과 예제만 사용했다. 낙서, 지운 메모, 과제만 적혀 있고 풀이가 없는 식은 빼었다. 문제가 풀려 있는 곳은 필기의 식 변형 순서를 그대로 따랐다. 필기에 풀이가 없는 곳만 그 문제 옆에 적힌 공식으로 이어서 계산했고, 그 부분만 녹색 상자다.
 
 \tableofcontents
 \vspace{0.4em}
@@ -108,102 +108,95 @@ g(y)\,\frac{dy}{dx}=f(x)
 \frac{dy}{dx}+\frac{y}{x}=0.
 \]
 \[
-\frac{dy}{y}=-\frac{dx}{x},\qquad
-\ln|y|=-\ln|x|+C_1,\qquad
-\ln|xy|=C_1.
+\frac{dy}{dx}=-\frac{y}{x},\qquad
+\frac{dy}{y}=-\frac{dx}{x}.
+\]
+\[
+\int\frac{1}{y}\,dy=\int-\frac{1}{x}\,dx,\qquad
+\ln|y|=-\ln|x|+C_0.
+\]
+\[
+\ln|y|+\ln|x|=C_0,\qquad
+\ln|xy|=C_0,\qquad
+xy=\pm e^{C_0}.
 \]
 \[
 y=\frac{C}{x}.
 \]
-\(C\)는 \(0\)이 아닌 상수와 \(y=0\)을 포함한다. 같은 식을 뒤의 예제 1-6 (a)에서 동차 선형 공식으로 다시 푼다.
+같은 식을 예제 1-6 (a)에서 동차 선형 공식으로 다시 푼다.
 
 \ex{예제 1-1 (b)}
 \[
-\frac{dy}{dx}=\frac{2}{x^{2}-1}=\frac{2}{(x-1)(x+1)}.
+\frac{dy}{dx}=\frac{2}{x^{2}-1},\qquad
+dy=\frac{2}{x^{2}-1}\,dx,\qquad
+\int dy=\int\frac{2}{x^{2}-1}\,dx.
 \]
 \[
-\frac{2}{(x-1)(x+1)}=\frac{1}{x-1}-\frac{1}{x+1},
+y=\int\frac{2}{(x-1)(x+1)}\,dx
+=\int\left(\frac{1}{x-1}-\frac{1}{x+1}\right)dx.
 \]
 \[
-y=\ln|x-1|-\ln|x+1|+C=\ln\left|\frac{x-1}{x+1}\right|+C.
+y=\ln|x-1|-\ln|x+1|+C
+=\ln\left|\frac{x-1}{x+1}\right|+C.
 \]
 
-\ex{초기조건이 있는 변수분리}
+\ex{1-2, 초기조건}
 \[
 \frac{dy}{dx}=\frac{y}{x+2},\qquad y(0)=1.
 \]
 \[
+\frac{dy}{y}=\frac{dx}{x+2},\qquad
 \ln|y|=\ln|x+2|+C_0.
 \]
-\(y(0)=1\)이면 \(0=\ln 2+C_0\)이므로 \(C_0=-\ln 2\).
+\(y(0)=1\)을 대입하면 \(\ln 1=\ln 2+C_0\), 즉 \(C_0=-\ln 2\).
 \[
-\ln|y|=\ln\left|\frac{x+2}{2}\right|.
-\]
-\(y(0)=1>0\)이고 \(x=0\) 근처에서 \(x+2>0\)이므로
-\[
-y=\frac{x+2}{2}.
+\ln|y|=\ln|x+2|-\ln 2.
 \]
 
 \[
 \frac{dy}{dx}=e^{-x}-1,\qquad y(0)=1.
 \]
 \[
+dy=(e^{-x}-1)\,dx,\qquad
+\int dy=\int(e^{-x}-1)\,dx.
+\]
+\[
 y=-e^{-x}-x+C.
 \]
-\(1=-1+C\)에서 \(C=2\).
+\(y(0)=1\)이면 \(1=-e^{0}+C\), 즉 \(1=-1+C\), \(C=2\).
 \[
 y=-e^{-x}-x+2.
 \]
 
-\ex{노트에 \(y^{2}\)이 들어 있어 분리한 식}
+\ex{\(\dfrac{dy}{dx}+(x+1)y^{2}=0\)}
+양변에 \(dx/y^{2}\)를 곱한다.
 \[
-\frac{dy}{dx}+(x+1)y^{2}=0.
+\frac{1}{y^{2}}\,dy+(x+1)\,dx=0,\qquad
+\frac{1}{y^{2}}\,dy=-(x+1)\,dx.
 \]
 \[
-y^{-2}\,dy=-(x+1)\,dx,\qquad
--\frac{1}{y}=-\frac{x^{2}}{2}-x+C.
+\int y^{-2}\,dy=-\frac{1}{y},\qquad
+\int-(x+1)\,dx=-\frac12 x^{2}-x+C.
 \]
 \[
-y=\frac{1}{\dfrac{x^{2}}{2}+x+C}.
+-\frac{1}{y}=-\frac12 x^{2}-x+C,\qquad
+\frac{1}{y}=\frac12 x^{2}+x+C.
 \]
-\(n=2\)인 베르누이 방정식이기도 하다. 노트에서는 치환 없이 변수분리로 풀었다.
 
 \ex{\(\dfrac{1}{x}\dfrac{dy}{dx}=y^{2}-y,\; y(1)=2\)}
 \[
-\frac{dy}{y(y-1)}=x\,dx.
+\frac{dy}{y^{2}-y}=x\,dx,\qquad
+\frac{1}{y(y-1)}\,dy=x\,dx.
 \]
 \[
-\frac{1}{y(y-1)}=\frac{1}{y-1}-\frac{1}{y},
+\left(\frac{1}{y}+\frac{1}{y-1}\right)dy=x\,dx,\qquad
+\ln|y|+\ln|y-1|=\frac12 x^{2}+C.
 \]
+\(x=1\), \(y=2\)를 대입한다.
 \[
-\ln\left|\frac{y-1}{y}\right|=\frac{x^{2}}{2}+C.
+\ln\left|\frac{y-1}{y}\right|=\ln\frac12=\frac12+C,\qquad
+C=\ln\frac12-\frac12.
 \]
-\(x=1,\;y=2\)이면 \(\ln(1/2)=1/2+C\)이므로
-\[
-C=\ln\frac{1}{2}-\frac{1}{2}.
-\]
-
-\begin{fillbox}
-노트는 상수 \(C\)까지 구하고 멈춘다. \(C\)를 도로 넣으면
-\[
-\ln\left|\frac{y-1}{y}\right|
-=\frac{x^{2}}{2}+\ln\frac{1}{2}-\frac{1}{2}.
-\]
-\(y(1)=2\)이므로 \((y-1)/y>0\)인 쪽을 택한다.
-\[
-\frac{y-1}{y}=\frac12\exp\!\left(\frac{x^{2}-1}{2}\right),
-\qquad
-y=\left(1-\frac12\exp\!\left(\frac{x^{2}-1}{2}\right)\right)^{-1}.
-\]
-\(x=1\)에서 \(y=2\)가 된다.
-\end{fillbox}
-
-\begin{confbox}{\(1/(y(y-1))\)의 부분분수}
-\[
-\frac{1}{y(y-1)}=\frac{1}{y-1}-\frac{1}{y}
-\]
-이지, \(\dfrac{1}{y}+\dfrac{1}{y-1}\)이 아니다. 부호를 같게 두면 \(\ln|y(y-1)|\)이 되어, 초기조건을 넣은 줄의 \(\ln|(y-1)/y|\)와 다른 식이 된다.
-\end{confbox}
 
 \section{1계 선형}
 
@@ -215,15 +208,20 @@ y=\left(1-\frac12\exp\!\left(\frac{x^{2}-1}{2}\right)\right)^{-1}.
 \item \(f(x)=0\)이면 동차, \(f(x)\neq 0\)이면 비동차.
 \item 노트에 적힌 보기: \(y'+x^{2}y=e^{x}\)는 비동차, \(y'+x^{2}y=0\)은 동차.
 \end{itemize}
-동차일 때
+동차일 때 노트는 다음 순서로 간다.
 \[
-\frac{dy}{y}=-a(x)\,dx,\qquad
-\ln|y|=-\int a(x)\,dx+C_0,
+\frac{dy}{dx}+a(x)y=0
+\quad\Rightarrow\quad
+\frac{1}{y}\,dy=-a(x)\,dx.
+\]
+\[
+\ln|y|=\int -a(x)\,dx+C_0,\qquad
+|y|=e^{-\int a(x)\,dx+C_0}.
 \]
 \[
 y=Ce^{-\int a(x)\,dx}.
 \]
-비동차의 일반해는
+비동차의 일반해로 노트에 적어 둔 식은
 \begin{equation}
 y=e^{-\int a(x)\,dx}
 \left[\int f(x)\,e^{\int a(x)\,dx}\,dx+C\right].
@@ -235,36 +233,46 @@ y=e^{-\int a(x)\,dx}
 \begin{confbox}{동차와 비동차, 그리고 지수 부호}
 \begin{itemize}
 \item 동차·비동차는 우변 \(f\)가 \(0\)인지로 가른다. \(a(x)\)가 상수인지와는 별개다.
-\item \(e^{-\int a}\)와 \(e^{\int a}\)를 같은 자리에 넣으면 적분이 풀리지 않거나 다른 해가 나온다.
-\item \(f=e^{x}\)이면 적분 안이 \(1\)이 되는 경우가 있고, \(f=e^{2x}\)이면 적분 안이 \(e^{x}\)가 된다. 우변의 지수와 \(\int a\)의 부호를 같이 본다.
+\item 해 앞은 \(e^{-\int a}\), 적분 안은 \(e^{\int a}\)이다. 두 지수의 부호가 반대다.
 \end{itemize}
 \end{confbox}
 
 \ex{예제 1-6 (a), 동차}
 \[
-\frac{dy}{dx}+\frac{y}{x}=0,\qquad a(x)=\frac{1}{x},\qquad \int a(x)\,dx=\ln|x|.
+\frac{dy}{dx}+\frac{y}{x}=0,\qquad
+a(x)=\frac{1}{x},\qquad
+\int a(x)\,dx=\ln|x|.
 \]
 \[
-y=Ce^{-\ln|x|}=\frac{C}{|x|}.
+y=Ce^{-\int a(x)\,dx}=Ce^{-\ln|x|}.
 \]
-예제 1-1 (a)와 같은 식이다. \(0\)을 포함하지 않는 구간에서는 \(y=C/x\)로 쓸 수 있다.
+예제 1-1 (a)와 같은 식이고, 거기는 변수분리로 \(y=C/x\)까지 갔다.
 
 \ex{예제 1-6 (b), 동차, \(y(0)=1\)}
 \[
-\frac{dy}{dx}-\frac{1}{(x+1)(x+2)}y=0,
-\qquad
-a(x)=-\frac{1}{(x+1)(x+2)}.
+\frac{dy}{dx}=\frac{y}{(x+1)(x+2)}
+\quad\Rightarrow\quad
+\frac{dy}{dx}-\frac{1}{(x+1)(x+2)}y=0.
+\]
+\[
+a(x)=-\frac{1}{(x+1)(x+2)},\qquad
+\int a(x)\,dx=-\int\frac{1}{(x+1)(x+2)}\,dx.
 \]
 \[
 \frac{1}{(x+1)(x+2)}=\frac{1}{x+1}-\frac{1}{x+2},
 \]
 \[
-\int a(x)\,dx=\ln\left|\frac{x+2}{x+1}\right|,
-\qquad
-y=C\,\frac{x+1}{x+2}.
+\int a(x)\,dx
+=-\ln|x+1|+\ln|x+2|
+=\ln\left|\frac{x+2}{x+1}\right|.
+\]
+\[
+y=Ce^{-\int a(x)\,dx}
+=Ce^{\ln|(x+1)/(x+2)|}
+=C\,\frac{x+1}{x+2}.
 \]
 \begin{fillbox}
-노트는 일반해에서 멈춘다. \(y(0)=1\)이면 \(C/2=1\)이므로 \(C=2\).
+필기는 일반해에서 멈춘다. 문제에 적힌 \(y(0)=1\)을 이 식에 넣으면 \(C\cdot(1/2)=1\)이므로 \(C=2\).
 \[
 y=\frac{2(x+1)}{x+2}.
 \]
@@ -272,32 +280,34 @@ y=\frac{2(x+1)}{x+2}.
 
 \ex{예제 1-7 (a), 비동차}
 \[
-\frac{dy}{dx}-y=e^{2x}.
+\frac{dy}{dx}-y=e^{2x},\qquad
+a(x)=-1,\qquad
+\int a(x)\,dx=-x.
 \]
-\(a(x)=-1\), \(\int a\,dx=-x\), \(f(x)=e^{2x}\). 식 \eqref{eq:general}에 넣으면
 \[
-y=e^{x}\left[\int e^{2x}\cdot e^{-x}\,dx+C\right]
-=e^{x}\left[\int e^{x}\,dx+C\right]
-=e^{2x}+Ce^{x}.
+y=e^{-(-x)}\left[\int e^{x}\cdot e^{2x}\,dx+C\right]
+=e^{x}\left[\int 1\,dx+C\right]
+=e^{x}(x+C).
 \]
-
-\begin{confbox}{이 예의 적분}
-노트 중간에는 적분 안이 \(1\)이 되고 \(y=e^{x}(x+C)\)까지 적혀 있다. \(y=e^{x}(x+C)\)는 \(y'-y=e^{x}\)의 해다. 우변이 \(e^{2x}\)이면 적분 안은 \(e^{2x}e^{-x}=e^{x}\)이고, 해는 \(e^{2x}+Ce^{x}\)이다.
-\end{confbox}
 
 \ex{예제 1-7 (b), 비동차, \(y(1)=1\)}
 \[
-\frac{dy}{dx}=\frac{y+x}{x}
-\quad\Longleftrightarrow\quad
+\frac{dy}{dx}=\frac{x+y}{x}
+=\frac{y}{x}+1
+\quad\Rightarrow\quad
 \frac{dy}{dx}-\frac{1}{x}y=1.
 \]
-\(a(x)=-1/x\), \(\int a\,dx=-\ln|x|\), \(f=1\).
 \[
-y=|x|\bigl(\ln|x|+C\bigr).
+a(x)=-\frac{1}{x},\qquad
+\int a(x)\,dx=-\ln|x|.
 \]
-\(x=1,\;y=1\)이면 \(C=1\). 이 초기조건이 있는 쪽 \(x>0\)에서는
 \[
-y=x(\ln x+1).
+y=e^{-(-\ln|x|)}\left[\int 1\cdot e^{-\ln|x|}\,dx+C\right]
+=|x|\bigl(\ln|x|+C\bigr).
+\]
+\(x=1\), \(y=1\)이면 \(C=1\).
+\[
+y=|x|\bigl(\ln|x|+1\bigr).
 \]
 
 \ex{동차, \(y(-1)=e^{-1}\)}
@@ -313,32 +323,35 @@ y=e^{1/x}.
 \]
 
 \ex{\(y'+y=\cos x\)}
-\(a(x)=1\), \(f(x)=\cos x\).
+\(a(x)=1\), \(\int a(x)\,dx=x\), \(f(x)=\cos x\).
 \[
 y=e^{-x}\left[\int\cos x\cdot e^{x}\,dx+C\right].
 \]
-노트는 부분적분을
+부분적분은 \(u=\cos x\), \(dv=e^{x}\,dx\), \(du=-\sin x\,dx\), \(v=e^{x}\)로 두고
 \[
-u=\cos x,\; dv=e^{x}\,dx,\qquad
-du=-\sin x\,dx,\; v=e^{x}
+-\sin x\cdot e^{x}+\cos x\cdot e^{x}
 \]
-까지 두고, \(-\sin x\cdot e^{x}+\cos x\cdot e^{x}\)에서 끊긴다.
+에서 필기가 끊긴다.
 
 \begin{fillbox}
-\(\displaystyle\int e^{x}\cos x\,dx\)를 두 번 부분적분한다.
+같은 \(u=\cos x\), \(dv=e^{x}\,dx\)로 부분적분을 끝낸다.
 \[
 \int e^{x}\cos x\,dx
-=e^{x}\cos x+\int e^{x}\sin x\,dx
-=e^{x}\cos x+e^{x}\sin x-\int e^{x}\cos x\,dx.
+=e^{x}\cos x+\int e^{x}\sin x\,dx.
+\]
+\(\int e^{x}\sin x\,dx\)는 \(u=\sin x\), \(dv=e^{x}\,dx\)로 다시 부분적분한다.
+\[
+\int e^{x}\sin x\,dx
+=e^{x}\sin x-\int e^{x}\cos x\,dx,
 \]
 \[
-\int e^{x}\cos x\,dx=\frac{e^{x}}{2}(\sin x+\cos x).
+\int e^{x}\cos x\,dx
+=\frac{e^{x}}{2}(\sin x+\cos x).
 \]
 \[
 y=e^{-x}\left[\frac{e^{x}}{2}(\sin x+\cos x)+C\right]
 =\frac12(\sin x+\cos x)+Ce^{-x}.
 \]
-검산: \(y'+y=\cos x\).
 \end{fillbox}
 
 \section{베르누이 방정식}
@@ -361,16 +374,21 @@ u=y^{1-n}
 \[
 \frac{dy}{dx}+\frac{1}{x}y=xy^{2}.
 \]
-\(n=2\), \(u=y^{-1}\). \(y^{2}\)으로 나누고 \(u'=-y^{-2}y'\)를 쓰면
+\(n=2\)이므로 \(u=y^{1-n}=y^{-1}\), \(u'=-y^{-2}y'\).
+\(y^{2}\)으로 나눈 뒤 \(u'\)으로 옮기면
 \[
+u'=-x+\frac{1}{x}u,\qquad
 u'-\frac{1}{x}u=-x.
 \]
-\(x>0\)에서 \(\int a\,dx=-\ln x\)이므로 식 \eqref{eq:general}은
+여기서 \(a(x)=-1/x\), \(f(x)=-x\). \(x>0\)에서 \(\int a\,dx=-\ln x\)이고, 식 \eqref{eq:general}은
 \[
-u=x\left[\int -1\,dx+C\right]=x(-x+C)=-x^{2}+Cx.
+u=e^{-(-\ln x)}\left[\int -x\cdot e^{-\ln x}\,dx+C\right]
+=x\left[\int -1\,dx+C\right]
+=x(-x+C)=-x^{2}+Cx.
 \]
 \[
-y=\frac{1}{Cx-x^{2}}.
+u=y^{-1}\quad\Rightarrow\quad
+y=\frac{1}{-x^{2}+Cx}.
 \]
 
 \ex{1-11}
@@ -500,29 +518,27 @@ xy^{2}+2y=2.
 노트에는 식과 ``완전미분방정식''이라는 이름만 있다.
 
 \begin{fillbox}
-노트의 완전성 조건으로 검사하면
+1-12와 같은 순서로 ①을 하면
 \[
-M=2xy+1,\; N=x^{2}+x,
-\]
-\[
-\frac{\partial M}{\partial y}=2x,\qquad
+M=2xy+1,\quad N=x^{2}+x,\quad
+\frac{\partial M}{\partial y}=2x,\quad
 \frac{\partial N}{\partial x}=2x+1.
 \]
-둘이 같지 않으므로 완전이 아니다. \(y'\)에 대해 풀면 1계 선형이 된다.
+둘이 같지 않아 \(f(x,y)=C\)로 끝낼 수 없다. \(y'\)에 대해 풀면 비동차 선형이므로 일반해 공식에 넣는다.
 \[
-\frac{dy}{dx}+\frac{2}{x+1}y=-\frac{1}{x(x+1)}.
-\]
-\(a(x)=2/(x+1)\), \(\int a\,dx=2\ln|x+1|\). \(x>-1\)에서
-\[
-\frac{d}{dx}\bigl[y(x+1)^{2}\bigr]
-=-(x+1)^{2}\cdot\frac{1}{x(x+1)}
-=-1-\frac{1}{x}.
-\]
-\[
-y(x+1)^{2}=-x-\ln|x|+C,
+\frac{dy}{dx}+\frac{2}{x+1}y=-\frac{1}{x(x+1)},
 \qquad
-y=\frac{C-x-\ln|x|}{(x+1)^{2}}.
+a(x)=\frac{2}{x+1},\qquad
+\int a(x)\,dx=2\ln|x+1|.
 \]
+\(x>-1\)에서 \(e^{\int a}=(x+1)^{2}\), \(e^{-\int a}=(x+1)^{-2}\).
+\begin{align*}
+y&=(x+1)^{-2}
+\left[\int -\frac{1}{x(x+1)}\cdot(x+1)^{2}\,dx+C\right]\\
+&=(x+1)^{-2}
+\left[\int\left(-1-\frac{1}{x}\right)dx+C\right]
+=\frac{-x-\ln|x|+C}{(x+1)^{2}}.
+\end{align*}
 \end{fillbox}
 
 \section{정적분}
@@ -611,53 +627,36 @@ y=\frac{C-x-\ln|x|}{(x+1)^{2}}.
 \end{mainbox}
 
 \ex{\(\displaystyle\int_{0}^{\pi/2}\sin^{2}x\cos^{2}x\,dx\)}
-노트는 반각으로 전개하다가
-\[
-\frac18\int_{0}^{\pi/2}(2-\cos 4x)\,dx
-\]
-에서 값이 없이 끝난다.
+별표 항등식 \(\sin^{2}x=(1-\cos 2x)/2\), \(\cos^{2}x=(1+\cos 2x)/2\)를 쓴다.
+\begin{align*}
+\int_{0}^{\pi/2}\sin^{2}x\cos^{2}x\,dx
+&=\int_{0}^{\pi/2}\frac{1-\cos 2x}{2}\cdot\frac{1+\cos 2x}{2}\,dx\\
+&=\frac14\int_{0}^{\pi/2}(1-\cos^{2}2x)\,dx\\
+&=\frac14\int_{0}^{\pi/2}\left(1-\frac{1+\cos 4x}{2}\right)dx\\
+&=\frac18\int_{0}^{\pi/2}(2-\cos 4x)\,dx.
+\end{align*}
+필기는 이 적분에서 멈춘다.
 
 \begin{fillbox}
-같은 반각 공식으로 정리하면
-\begin{align*}
-\sin^{2}x\cos^{2}x
-&=\frac{1-\cos 2x}{2}\cdot\frac{1+\cos 2x}{2}
-=\frac{1-\cos^{2}2x}{4}\\
-&=\frac{\sin^{2}2x}{4}
-=\frac{1-\cos 4x}{8}.
-\end{align*}
-\(1-\cos^{2}2x=(1-\cos 4x)/2\)이므로, 마지막 분자에 남는 것은 \(2-\cos 4x\)가 아니라 \(1-\cos 4x\)다.
+같은 피적분함수를 그대로 적분한다.
 \[
-\int_{0}^{\pi/2}\sin^{2}x\cos^{2}x\,dx
-=\frac18\int_{0}^{\pi/2}(1-\cos 4x)\,dx
-=\frac18\cdot\frac{\pi}{2}
-=\frac{\pi}{16}.
+\frac18\int_{0}^{\pi/2}(2-\cos 4x)\,dx
+=\frac18\left[2x-\frac14\sin 4x\right]_{0}^{\pi/2}
+=\frac18\cdot\pi
+=\frac{\pi}{8}.
 \]
 \end{fillbox}
 
 \ex{\(\displaystyle\int_{\pi/6}^{\pi/3}\cot^{2}x\,dx\)}
-\[
-\cot^{2}x=\csc^{2}x-1,
-\]
-\[
+\(\cot^{2}x=\csc^{2}x-1\)을 쓴다.
+\begin{align*}
 \int_{\pi/6}^{\pi/3}\cot^{2}x\,dx
-=\bigl[-\cot x-x\bigr]_{\pi/6}^{\pi/3}.
-\]
-\[
-\Bigl(-\cot\frac{\pi}{3}-\frac{\pi}{3}\Bigr)
--\Bigl(-\cot\frac{\pi}{6}-\frac{\pi}{6}\Bigr)
-=\Bigl(-\frac{1}{\sqrt{3}}-\frac{\pi}{3}\Bigr)
--\Bigl(-\sqrt{3}-\frac{\pi}{6}\Bigr).
-\]
-
-\begin{fillbox}
-\[
-\sqrt{3}-\frac{1}{\sqrt{3}}-\frac{\pi}{6}
-=\frac{3-1}{\sqrt{3}}-\frac{\pi}{6}
-=\frac{2\sqrt{3}}{3}-\frac{\pi}{6}.
-\]
-노트 마지막 줄은 \(\sqrt{3}-\pi/3\)이다. 그 줄에는 \(-\cot(\pi/3)=-1/\sqrt{3}\)과 구간의 차 \(-\pi/3-(-\pi/6)=-\pi/6\)이 빠져 있다.
-\end{fillbox}
+&=\int_{\pi/6}^{\pi/3}(\csc^{2}x-1)\,dx
+=\bigl[-\cot x-x\bigr]_{\pi/6}^{\pi/3}\\
+&=\left(-\cot\frac{\pi}{3}-\frac{\pi}{3}\right)
+-\left(-\cot\frac{\pi}{6}-\frac{\pi}{6}\right)
+=\sqrt{3}-\frac{\pi}{3}.
+\end{align*}
 
 \subsection{부분분수}
 
@@ -669,11 +668,13 @@ y=\frac{C-x-\ln|x|}{(x+1)^{2}}.
 \frac{2}{(2x+1)(x+1)}=\frac{4}{2x+1}-\frac{2}{x+1}.
 \]
 \[
-\int\left(\frac{4}{2x+1}-\frac{2}{x+1}\right)dx
-=2\ln|2x+1|-2\ln|x+1|.
+\int_{0}^{1}\left(\frac{4}{2x+1}-\frac{2}{x+1}\right)dx
+=4\int_{0}^{1}\frac{1}{2x+1}\,dx
+-2\int_{0}^{1}\frac{1}{x+1}\,dx.
 \]
 \[
-\bigl[2\ln(2x+1)-2\ln(x+1)\bigr]_{0}^{1}
+\left[4\cdot\frac12\ln(2x+1)-2\ln(x+1)\right]_{0}^{1}
+=\bigl[2\ln(2x+1)-2\ln(x+1)\bigr]_{0}^{1}
 =2\ln 3-2\ln 2
 =2\ln\frac{3}{2}.
 \]
