@@ -2,6 +2,7 @@
 """기초 회로이론 6·7·8·10장과 수업 필기를 단권화한 노트 PDF."""
 
 import os
+import re
 
 from reportlab.lib.colors import Color, white
 from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT
@@ -164,6 +165,140 @@ def formula(lines):
 
 def example_box(title, paragraphs):
     return boxed("예제  ·  " + title, paragraphs, EX_BG, TEAL)
+
+
+def _tex_plain(s):
+    s = s.replace("\\,", " ").replace("\\ ", " ").replace("\\;", " ").replace("\\!", "")
+    s = s.replace("\\bigl", "").replace("\\bigr", "").replace("\\Bigl", "").replace("\\Bigr", "")
+    s = s.replace("\\begin{aligned}", " ").replace("\\end{aligned}", " ")
+    s = s.replace("\\begin{align*}", " ").replace("\\end{align*}", " ")
+    s = s.replace("\\\\", " ")
+    s = re.sub(r"\^\{?\\circ\}?", "°", s)
+    for _ in range(6):
+        s2 = re.sub(r"\\sqrt\{([^{}]*)\}", r"sqrt(\1)", s)
+        if s2 == s:
+            break
+        s = s2
+    s = re.sub(r"\\d?frac\s*([0-9])\s*([0-9])", r"(\1)/(\2)", s)
+    for _ in range(4):
+        s2 = re.sub(
+            r"\\(sin|cos|tan)\s*\\d?frac\{([^{}]*)\}\{([^{}]*)\}",
+            r"\1((\2)/(\3))",
+            s,
+        )
+        if s2 == s:
+            break
+        s = s2
+    for _ in range(4):
+        s2 = re.sub(r"\\mathrm\{([^{}]*)\}", r"\1", s)
+        s2 = re.sub(r"\\text\{([^{}]*)\}", r"\1", s2)
+        s2 = re.sub(r"\\dfrac\{([^{}]*)\}\{([^{}]*)\}", r"(\1)/(\2)", s2)
+        s2 = re.sub(r"\\frac\{([^{}]*)\}\{([^{}]*)\}", r"(\1)/(\2)", s2)
+        if s2 == s:
+            break
+        s = s2
+    repl = {
+        "\\rightarrow": "→", "\\Rightarrow": "→", "\\infty": "∞", "\\Omega": "Ω",
+        "\\omega": "ω", "\\theta": "θ", "\\tau": "τ", "\\pi": "π", "\\mu": "μ",
+        "\\qquad": " ", "\\quad": " ", "\\approx": "≈", "\\cdot": "·", "\\times": "×",
+        "\\exp": "exp", "\\sqrt": "sqrt", "\\circ": "°", "\\sin": "sin", "\\cos": "cos",
+        "\\tan": "tan", "\\ln": "ln", "\\log": "log", "\\left": "", "\\right": "",
+        "\\displaystyle": "", "\\mathrm": "", "\\text": "", "\\Big": "", "\\big": "",
+        "\\leq": "<=", "\\geq": ">=", "\\le": "<=", "\\ge": ">=", "\\neq": "≠",
+        "\\to": "→", "\\,": " ",
+    }
+    for a, b in sorted(repl.items(), key=lambda kv: len(kv[0]), reverse=True):
+        s = s.replace(a, b)
+    s = s.replace("\\(", "").replace("\\)", "").replace("\\[", "").replace("\\]", "")
+    s = re.sub(r"\\[a-zA-Z]+", "", s)
+    s = s.replace("\\", " ")
+    s = re.sub(r"e\^\{([^{}]*)\}", r"exp(\1)", s)
+    s = s.replace("{", "").replace("}", "")
+    s = s.replace("$", "").replace("*", "").replace("&", " ").replace("−", "-").replace("–", "-")
+    s = s.replace("<", "&lt;").replace(">", "&gt;")
+    s = re.sub(r"[ \t]+", " ", s)
+    return s.strip()
+
+
+def practice_items(path):
+    raw = open(path, encoding="utf-8").read()
+    chunks = re.split(r"\n### ", raw)
+    out = []
+    for chunk in chunks[1:]:
+        title, _, body = chunk.partition("\n")
+        body = re.split(r"\n## ", body, maxsplit=1)[0]
+        title = _tex_plain(title)
+        if title.startswith("확신") or title.startswith("막힌") or title.startswith("그림"):
+            continue
+        answer_lines = []
+        lines = body.splitlines()
+        for i, line in enumerate(lines):
+            if any(k in line for k in ("**답:**", "**최종 답:**", "**정답:**")):
+                rest = re.split(r"\*\*(?:답|최종 답|정답):\*\*", line, maxsplit=1)[-1].strip()
+                block = [rest] if rest else []
+                base_indent = len(line) - len(line.lstrip(" "))
+                j = i + 1
+                while j < len(lines):
+                    raw = lines[j]
+                    n = raw.strip()
+                    indent = len(raw) - len(raw.lstrip(" "))
+                    if n.startswith("- **") or (n.startswith("**") and indent <= base_indent):
+                        break
+                    if n.startswith("- ") and indent <= base_indent:
+                        break
+                    if not n:
+                        nxt = lines[j + 1] if j + 1 < len(lines) else ""
+                        nxt_s = nxt.strip()
+                        nxt_indent = len(nxt) - len(nxt.lstrip(" "))
+                        if nxt_s.startswith("|") or nxt_s.startswith("\\") or (
+                            nxt_s.startswith("-") and nxt_indent > base_indent
+                        ):
+                            j += 1
+                            continue
+                        break
+                    if n.startswith("|"):
+                        if re.match(r"^\|[\s:\-|]+\|$", n):
+                            j += 1
+                            continue
+                        cells = [c.strip() for c in n.strip("|").split("|")]
+                        if len(cells) >= 2 and cells[0] not in ("노드", "---"):
+                            block.append(cells[0] + " = " + cells[1])
+                        j += 1
+                        continue
+                    block.append(n.lstrip("- ").strip())
+                    j += 1
+                answer_lines.append(" ".join(x for x in block if x))
+                break
+        if not answer_lines:
+            for line in lines:
+                t = line.strip()
+                if not t.startswith("- ") or t.startswith("- 회로") or t.startswith("- 신뢰"):
+                    continue
+                body_l = t[2:].strip()
+                if re.search(r"\([tT]\)\s*=", body_l) or re.search(r"^[①②③④⑤]", body_l):
+                    answer_lines.append(body_l)
+        conf = ""
+        if "중간" in body and ("확신" in body or "신뢰" in body):
+            conf = " 그림 판독은 한 번 더 볼 것."
+        if "확정하지" in body or "만들지 않" in body:
+            conf = " 그림만으로 한 값으로 정하지 않음."
+        summary = ""
+        for line in body.splitlines():
+            t = line.strip().lstrip("- ").strip()
+            if "회로:" in t[:12] or t.startswith("**회로:**") or t.startswith("**주어진 값:**"):
+                summary = t.split(":", 1)[-1]
+                break
+        bits = []
+        if summary:
+            bits.append(_tex_plain(summary)[:280])
+        if answer_lines:
+            ans = " ".join(_tex_plain(x) for x in answer_lines[:6])
+            bits.append(("답. " + ans)[:1100] + conf)
+        elif "정답" in title:
+            bits.append(title + conf)
+        if bits:
+            out.append((title[:90], bits))
+    return out
 
 
 def figstrip(items, max_h_mm=48):
@@ -1378,10 +1513,29 @@ def build():
         )
     )
     story.append(Spacer(1, 3 * mm))
+    story.append(P("7.  연습문제와 기출을 계산한 답", "h1"))
     story.append(
         P(
-            "이 노트는 기초 회로이론 6·7·8·10장 본문 예제, 수업 필기, Floyd 임피던스 절, 이상화 교수 자료에서 풀이가 있는 것만 묶은 것이다. "
-            "장 끝 연습문제와 기출은 올린 자료에 풀이가 없어 답을 만들지 않았다."
+            "교재 6·7·8·10장 맨 끝 연습문제와 기출은 올린 페이지에 풀이가 없다. "
+            "회로를 잘라 다시 읽고, 이상 연산증폭기·상태변수·페이저로 계산했다. "
+            "그림 판독이 답을 가를 수 있는 문항은 답 끝에 다시 보라고 적었다."
+        )
+    )
+    sol_dir = os.path.join(os.path.dirname(__file__), "solutions")
+    for fname, heading in (
+        ("sol6.md", "6장 연산증폭기"),
+        ("sol7.md", "7장 커패시터·인덕터"),
+        ("sol8.md", "8장 RL/RC 완전응답"),
+        ("sol10.md", "10장 정현파 정상상태"),
+    ):
+        story.append(P(heading, "h2"))
+        for title, bits in practice_items(os.path.join(sol_dir, fname)):
+            story.append(detail_box(title, bits))
+    story.append(Spacer(1, 3 * mm))
+    story.append(
+        P(
+            "이 노트는 기초 회로이론 6·7·8·10장 본문 예제, 그 장 끝 연습·기출의 계산, 수업 필기, Floyd 임피던스 절, 이상화 교수 자료를 묶은 것이다. "
+            "연습·기출 중 그림을 끝까지 확정하지 못한 문항은 답을 하나만 고르지 않고 그 이유를 적었다."
         )
     )
 
