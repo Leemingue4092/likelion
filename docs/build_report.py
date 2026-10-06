@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""실험 4 적분기 보고서. 칠판에 적힌 값만 본문에 넣는다."""
+"""실험 4 적분기 문안. 제출 파일은 docs/hwp/build.sh가 만드는 HWP다."""
 
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING, WD_TAB_ALIGNMENT
