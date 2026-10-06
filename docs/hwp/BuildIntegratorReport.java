@@ -150,12 +150,14 @@ public class BuildIntegratorReport {
                 "100 nF",
                 "3 kHz",
                 "10 Vpp",
+                "sine파",
+                "이 회로는 입력을 핀 2, 반전 −단자에 넣는다.",
                 "입력 없음",
                 "[그림 2-1]",
                 "[표 5-3]",
                 "수업 화면, 실험 4 적분기"
         };
-        String[] forbidden = {"3.3 kΩ", "33 pF", "741", "10.00 kHz", "140.99", "회로이론실습설계 1"};
+        String[] forbidden = {"3.3 kΩ", "33 pF", "741", "10.00 kHz", "140.99", "회로이론실습설계 1", "사인파"};
         List<String> problems = new ArrayList<String>();
         for (String s : required) {
             if (!text.contains(s)) {
@@ -333,18 +335,19 @@ public class BuildIntegratorReport {
         cursorY = 0;
         heading("1. 실험 목적", true);
         sentences(
-                "적분기 회로에 사인파와 삼각파를 넣어 출력 모양을 보는 실험이다.",
+                "적분기 회로에 sine파와 삼각파를 넣어 출력 모양을 보는 실험이다.",
                 "출력은 입력을 시간에 대해 더한 값에 비례한다.",
-                "수업 화면에는 10 Vpp, 3 kHz, 사인파, 삼각파가 적혀 있다."
+                "수업 화면에는 10 Vpp, 3 kHz, sine파, 삼각파가 적혀 있다."
         );
 
         heading("2. 실험 이론", false);
         subhead("2-1. 적분기가 하는 일");
         sentences(
                 "출력은 입력의 적분에 비례한다.",
-                "사인 입력은 이렇다."
+                "sine 입력은 이렇다."
         );
         text("Vi = Vp sin(ωt)", psBody, csBody, false);
+        sentences("이 회로는 입력을 핀 2, 반전 −단자에 넣는다.");
         equation("Vo = − (1 / (R C)) ∫ Vi dt", "수식 2-1");
         sentences(
                 "sin(ωt)의 적분은 −cos(ωt) / ω다.",
@@ -378,16 +381,16 @@ public class BuildIntegratorReport {
                 "Vp는 10 Vpp의 절반이라 5 V다.",
                 "ω R C = 2π · 3 kHz · 15 kΩ · 100 nF = 28.27이다.",
                 "1 / 28.27 = 0.03537이다.",
-                "사인파 이론 출력은 10 Vpp · 0.03537 = 0.3537 Vpp다.",
+                "sine파 이론 출력은 10 Vpp · 0.03537 = 0.3537 Vpp다.",
                 "이 값은 15 kΩ과 100 nF만 쓴 계산이다.",
                 "2π · 3 kHz · 33 kΩ · 100 nF = 62.20이다.",
                 "1 + 62.20의 제곱의 제곱근은 62.21이다.",
                 "2.2 / 62.21 = 0.03536이다.",
-                "33 kΩ을 병렬로 넣은 사인파 출력은 10 Vpp · 0.03536 = 0.3536 Vpp다.",
+                "33 kΩ을 병렬로 넣은 sine파 출력은 10 Vpp · 0.03536 = 0.3536 Vpp다.",
                 "반전 입력의 부호는 180도다.",
                 "arctan(62.20) = 89.08도다.",
                 "180 − 89.08 = 90.92도다.",
-                "33 kΩ을 병렬로 넣은 사인파 출력은 입력보다 90.92도 앞선다.",
+                "33 kΩ을 병렬로 넣은 sine파 출력은 입력보다 90.92도 앞선다.",
                 "화면에서 읽은 입력으로 다시 계산한 값은 입력 없음.",
                 "삼각파도 칠판의 전원 표시 10 Vpp로 계산했다.",
                 "5 V / (4 · 3 kHz) = 4.167×10⁻⁴ V·s다.",
@@ -398,9 +401,13 @@ public class BuildIntegratorReport {
         );
 
         subhead("2-3. 회로도");
-        text("입력은 15 kΩ을 거쳐 핀 2(−)로 들어간다. 핀 3(+)는 접지다. "
-                        + "33 kΩ과 100 nF는 핀 6과 핀 2 사이에 병렬로 있다. 핀 7은 +15 V이고 핀 4는 −15 V다.",
-                psBody, csBody, false);
+        sentences(
+                "입력은 15 kΩ을 거쳐 핀 2(−)로 들어간다.",
+                "핀 3(+)는 접지다.",
+                "33 kΩ과 100 nF는 핀 6과 핀 2 사이에 병렬로 있다.",
+                "핀 7은 +15 V다.",
+                "핀 4는 −15 V다."
+        );
         double photoH = 70.0 * 1024.0 / 768.0;
         double captionH = paraHeight("[그림 2-1] 수업 화면. 실험 4 적분기", 10, 2, 8, CONTENT_W);
         boolean breakPhoto = cursorY + photoH + captionH > CONTENT_H;
@@ -432,7 +439,7 @@ public class BuildIntegratorReport {
                         {"능동소자", "연산증폭기 (모델명 입력 없음)"},
                         {"저항", "15 kΩ (입력), 33 kΩ (피드백)"},
                         {"커패시터 또는 인덕터", "100 nF"},
-                        {"입력(함수발생기 설정)", "3 kHz, 10 Vpp, 사인파 / 삼각파"},
+                        {"입력(함수발생기 설정)", "3 kHz, 10 Vpp, sine파 / 삼각파"},
                         {"측정기", "입력 없음"}
                 },
                 new double[]{52, 108},
@@ -456,7 +463,7 @@ public class BuildIntegratorReport {
         sentences(
                 "함수발생기 모델은 입력 없음.",
                 "칠판 주파수는 3 kHz다.",
-                "파형은 사인파와 삼각파다.",
+                "파형은 sine파와 삼각파다.",
                 "진폭은 10 Vpp다.",
                 "오프셋은 입력 없음.",
                 "스코프 모델은 입력 없음.",
@@ -468,20 +475,20 @@ public class BuildIntegratorReport {
         );
 
         heading("5. 실험 결과", false);
-        subhead("5-1. 사인파");
+        subhead("5-1. sine파");
         sentences(
-                "칠판에 적힌 첫 입력은 사인파다.",
+                "칠판에 적힌 첫 입력은 sine파다.",
                 "진폭은 10 Vpp다.",
                 "주파수는 3 kHz다.",
                 "스코프 화면의 색, 채널, pk-pk, 시간축, 전압축, 촬영 시각은 입력 없음.",
                 "15 kΩ과 100 nF만 쓴 이론 출력은 0.3537 Vpp다.",
                 "33 kΩ을 병렬로 넣은 이론 출력은 0.3536 Vpp다."
         );
-        text("[표 5-1] 사인파", psKeep, csCaption, false);
+        text("[표 5-1] sine파", psKeep, csCaption, false);
         table(
                 new String[]{"항목", "값"},
                 new String[][]{
-                        {"칠판 입력", "사인파, 10 Vpp, 3 kHz"},
+                        {"칠판 입력", "sine파, 10 Vpp, 3 kHz"},
                         {"스코프 pk-pk", "입력 없음"},
                         {"시간축", "입력 없음"},
                         {"전압축", "입력 없음"},
@@ -518,12 +525,12 @@ public class BuildIntegratorReport {
         );
 
         subhead("5-3. 정리");
-        text("[표 5-3] 사인파와 삼각파", psKeep, csCaption, false);
+        text("[표 5-3] sine파와 삼각파", psKeep, csCaption, false);
         table(
                 new String[]{"구분", "입력", "출력"},
                 new String[][]{
-                        {"사인파", "10 Vpp, 3 kHz", "0.3537 Vpp (계산)"},
-                        {"사인파, 33 kΩ 병렬", "10 Vpp, 3 kHz", "0.3536 Vpp (계산)"},
+                        {"sine파", "10 Vpp, 3 kHz", "0.3537 Vpp (계산)"},
+                        {"sine파, 33 kΩ 병렬", "10 Vpp, 3 kHz", "0.3536 Vpp (계산)"},
                         {"삼각파", "10 Vpp, 3 kHz", "0.2778 Vpp (계산)"},
                         {"스코프", "입력 없음", "입력 없음"}
                 },
@@ -548,7 +555,7 @@ public class BuildIntegratorReport {
         heading("7. 결론", false);
         sentences(
                 "15 kΩ, 100 nF, 33 kΩ 적분기의 칠판 입력은 3 kHz, 10 Vpp다.",
-                "사인파 계산 출력은 0.3537 Vpp이고, 33 kΩ 병렬을 넣은 계산은 0.3536 Vpp다.",
+                "sine파 계산 출력은 0.3537 Vpp이고, 33 kΩ 병렬을 넣은 계산은 0.3536 Vpp다.",
                 "삼각파 계산 출력은 0.2778 Vpp인 포물선이고, 스코프에서 읽은 출력과 오차율은 입력 없음."
         );
 
