@@ -71,6 +71,16 @@ public class BuildIntegratorReport {
                 "0.3537 Vpp",
                 "0.3536 Vpp",
                 "0.2778 Vpp",
+                "0.3755 Vpp",
+                "0.5906 Vpp",
+                "3.72 V",
+                "652 mV",
+                "73.6%",
+                "10.63 V",
+                "10.62 V",
+                "AFG-2012",
+                "LT322",
+                "17:34:59",
                 "90.92",
                 "15 kΩ",
                 "33 kΩ",
@@ -151,6 +161,7 @@ public class BuildIntegratorReport {
             problems.add("큰 제목 문단 모양 다름");
         }
         boolean sawPhoto = false;
+        boolean sawClassPhoto = false;
         boolean sawTable = false;
         for (int i = COVER_KEEP; i < section.getParagraphCount(); i++) {
             Paragraph p = section.getParagraph(i);
@@ -164,8 +175,8 @@ public class BuildIntegratorReport {
                 ControlPicture pic = (ControlPicture) p.getControlList().get(0);
                 if (pic.getHeader().getWidth() == PHOTO_W && pic.getHeader().getHeight() == PHOTO_H) {
                     sawPhoto = true;
-                    if (pic.getShapeComponentPicture().getPictureInfo().getBinItemID() != 8) {
-                        problems.add("수업 화면 그림 번호 다름");
+                    if (pic.getShapeComponentPicture().getPictureInfo().getBinItemID() == 8) {
+                        sawClassPhoto = true;
                     }
                 }
             }
@@ -186,7 +197,7 @@ public class BuildIntegratorReport {
                 sawTable = true;
             }
         }
-        if (!sawPhoto) {
+        if (!sawPhoto || !sawClassPhoto) {
             problems.add("70 mm 수업 화면 그림이 없음");
         }
         if (!sawTable) {
@@ -216,15 +227,15 @@ public class BuildIntegratorReport {
         replaceCover(section.getParagraph(4), "실험 4.  적분기");
         replaceCover(section.getParagraph(5), "과목명 : 회로이론실습설계 2");
         replaceCover(section.getParagraph(9), "제출일 : 입력 없음");
-        replaceCover(section.getParagraph(10), "실험일 : 입력 없음");
+        replaceCover(section.getParagraph(10), "실험일 : 2026. 09. 29.");
         blankGroup(section.getParagraph(11));
 
         while (section.getParagraphCount() > COVER_KEEP) {
             section.deleteParagraph(section.getParagraphCount() - 1);
         }
 
-        body("적분기 회로에 sine파와 삼각파를 넣어 출력 모양을 보는 실험이다.");
-        body("출력은 입력을 시간에 대해 더한 값에 비례한다.");
+        body("적분기에 3 kHz, 10 Vpp sine파를 넣고 출력 파형을 보려 한 실험이다.");
+        body("같은 주파수, 같은 크기의 삼각파도 칠판 입력이다.");
         body("수업 화면에는 10 Vpp, 3 kHz, sine파, 삼각파가 적혀 있다.");
 
         heading("2. 실험 이론");
@@ -271,7 +282,18 @@ public class BuildIntegratorReport {
         body("arctan(62.20) = 89.08도다.");
         body("180 − 89.08 = 90.92도다.");
         body("33 kΩ을 병렬로 넣은 sine파 출력은 입력보다 90.92도 앞선다.");
-        body("화면에서 읽은 입력으로 다시 계산한 값은 입력 없음.");
+        body("화면 CH1의 sine파 pk-pk는 10.62 V다.");
+        body("0.03537 · 10.62 V = 0.3756 Vpp다.");
+        body("이 값은 15 kΩ과 100 nF만 쓴 화면 입력 계산이다.");
+        body("0.03536 · 10.62 V = 0.3755 Vpp다.");
+        body("이 값은 33 kΩ을 병렬로 넣은 화면 입력 계산이다.");
+        body("구형파 화면 CH1 pk-pk는 10.63 V다.");
+        body("10.63 V의 절반은 5.315 V다.");
+        body("5.315 V / (2 · 3.00000 kHz) = 8.858×10⁻⁴ V·s다.");
+        body("666.7 · 8.858×10⁻⁴ = 0.5906 Vpp다.");
+        body("구형파 이론 pk-pk는 0.5906 Vpp다.");
+        body("이 값은 화면 입력 10.63 V와 15 kΩ, 100 nF로 계산했다.");
+        body("칠판 10 Vpp와 화면 10.63 V를 한 숫자로 합치지 않았다.");
         body("삼각파도 칠판의 전원 표시 10 Vpp로 계산했다.");
         body("5 V / (4 · 3 kHz) = 4.167×10⁻⁴ V·s다.");
         body("1 / (15 kΩ · 100 nF) = 666.7 s⁻¹이다.");
@@ -308,97 +330,165 @@ public class BuildIntegratorReport {
                 {"능동소자", "연산증폭기 (모델명 입력 없음)"},
                 {"저항", "15 kΩ (입력), 33 kΩ (피드백)"},
                 {"커패시터 또는 인덕터", "100 nF"},
-                {"입력(함수발생기 설정)", "3 kHz, 10 Vpp, sine파 / 삼각파"},
-                {"측정기", "입력 없음"}
+                {"입력(함수발생기 설정)", "AFG-2012, 3.00000 kHz, 10.000 Vpp, 오프셋 0.00 V"},
+                {"측정기", "LeCroy waverunner LT322"}
         });
 
         heading("4. 실험 방법");
         subhead("4-1. 주의사항");
         body("핀 7은 +15 V다.");
         body("핀 4는 −15 V다.");
+        body("핀 7과 핀 4를 바꾸면 연산증폭기가 죽는다.");
         body("입력은 15 kΩ을 거쳐 핀 2(−)로 넣는다.");
         body("프로브 배율은 입력 없음.");
         subhead("4-2. 회로 구성");
-        body("브레드보드에 꽂은 순서는 입력 없음.");
-        body("스코프 CH1, CH2가 어느 노드인지는 입력 없음.");
+        body("브레드보드 구멍 순서는 입력 없음.");
+        body("빨간 집게는 양전원 선에 물려 있다.");
+        body("검은 집게는 음전원 선에 물려 있다.");
+        body("8핀 칩이 브레드보드 아래쪽에 있다.");
+        body("저항 두 개와 커패시터가 칩 옆에 있다.");
+        body("색띠와 커패시터 표기는 이 사진에서 안 읽힌다.");
+        body("노란 선은 CH1이다.");
+        body("분홍 선은 CH2이다.");
+        body("CH1 파형은 함수발생기 파형과 같다.");
+        body("CH2 파형은 적분된 출력이다.");
+        photo(docsDir + "/breadboard.jpg");
+        figureCaption("[그림 4-1] 브레드보드 배선");
         subhead("4-3. 측정 조건");
-        body("함수발생기 모델은 입력 없음.");
-        body("칠판 주파수는 3 kHz다.");
-        body("파형은 sine파와 삼각파다.");
-        body("진폭은 10 Vpp다.");
-        body("오프셋은 입력 없음.");
-        body("스코프 모델은 입력 없음.");
-        body("시간축은 입력 없음.");
-        body("전압축은 입력 없음.");
-        body("커플링은 입력 없음.");
+        body("함수발생기는 GW INSTEK AFG-2012다.");
+        body("함수발생기 주파수는 3.00000 kHz다.");
+        body("진폭은 10.000 Vpp다.");
+        body("오프셋은 0.00 V다.");
+        body("칠판 파형은 sine파와 삼각파다.");
+        body("함수발생기 화면은 구형파와 sine파다.");
+        body("스코프는 LeCroy waverunner LT322다.");
+        body("시간축은 0.2 ms/div다.");
+        body("커플링은 DC다.");
+        body("구형파 CH1 전압축은 2.00 V/div다.");
+        body("구형파 CH2 전압축은 1.00 V/div다.");
+        body("sine파 CH1 전압축은 2.00 V/div다.");
+        body("sine파 CH2 전압축은 0.1 V/div다.");
+        body("샘플 속도는 25 MS/s다.");
+        body("화면은 STOPPED다.");
         body("프로브 배율은 입력 없음.");
-        body("촬영 시각은 입력 없음.");
 
         heading("5. 실험 결과");
-        subhead("5-1. sine파");
-        body("칠판에 적힌 첫 입력은 sine파다.");
-        body("진폭은 10 Vpp다.");
-        body("주파수는 3 kHz다.");
-        body("스코프 화면의 색, 채널, pk-pk, 시간축, 전압축, 촬영 시각은 입력 없음.");
-        body("15 kΩ과 100 nF만 쓴 이론 출력은 0.3537 Vpp다.");
-        body("33 kΩ을 병렬로 넣은 이론 출력은 0.3536 Vpp다.");
-        caption("[표 5-1] sine파");
+        subhead("5-1. 구형파");
+        body("2026.09.29 17:34:59에 찍었다.");
+        body("노란 선은 CH1이다.");
+        body("분홍 선은 CH2이다.");
+        body("CH1 pk-pk는 10.63 V다.");
+        body("CH1 주파수는 2.99999 kHz다.");
+        body("CH1 rms는 5.113 V다.");
+        body("CH2 pk-pk는 3.72 V다.");
+        body("CH2 주파수는 3.00177 kHz다.");
+        body("시간축은 0.2 ms/div다.");
+        body("CH1 전압축은 2.00 V/div DC다.");
+        body("CH2 전압축은 1.00 V/div DC다.");
+        body("트리거는 CH1 DC 0.04 V다.");
+        body("비교 이론값은 화면 CH1 10.63 V로 다시 계산한 0.5906 Vpp다.");
+        caption("[표 5-1] 구형파");
         table(measureTableProto.clone(), new String[][]{
                 {"항목", "값"},
-                {"칠판 입력", "sine파, 10 Vpp, 3 kHz"},
-                {"스코프 pk-pk", "입력 없음"},
-                {"시간축", "입력 없음"},
-                {"전압축", "입력 없음"},
-                {"이론 출력 (15 kΩ, 100 nF)", "0.3537 Vpp (계산)"},
-                {"이론 출력 (33 kΩ 병렬)", "0.3536 Vpp (계산)"}
+                {"CH1 pk-pk", "10.63 V"},
+                {"CH2 pk-pk", "3.72 V"},
+                {"CH2 pk-pk (계산)", "0.5906 Vpp (계산)"},
+                {"CH1 주파수", "2.99999 kHz"},
+                {"CH2 주파수", "3.00177 kHz"},
+                {"전압축", "CH1 2.00 V/div, CH2 1.00 V/div DC"}
         });
+        photo(docsDir + "/scope_square_173459.jpg");
+        figureCaption("[그림 5-1] 구형파 입력 (2026.09.29 17:34:59)");
 
-        subhead("5-2. 삼각파");
-        body("칠판에 적힌 다음 입력은 삼각파다.");
-        body("주파수는 3 kHz다.");
-        body("진폭은 칠판의 전원 표시 10 Vpp를 썼다.");
-        body("15 kΩ과 100 nF만 쓴 이론 출력은 포물선이다.");
-        body("그 pk-pk는 0.2778 Vpp다.");
-        body("33 kΩ을 병렬로 넣은 삼각파 계산은 입력 없음.");
-        body("스코프 화면의 색, 채널, pk-pk, 시간축, 전압축, 촬영 시각은 입력 없음.");
-        caption("[표 5-2] 삼각파");
+        subhead("5-2. sine파");
+        body("2026.09.29 17:35:53에 찍었다.");
+        body("노란 선은 CH1이다.");
+        body("분홍 선은 CH2이다.");
+        body("CH1 pk-pk는 10.62 V다.");
+        body("CH1 주파수는 2.99978 kHz다.");
+        body("CH1 rms는 3.625 V다.");
+        body("CH2 pk-pk는 652 mV다.");
+        body("CH2 주파수는 2.99959 kHz다.");
+        body("시간축은 0.2 ms/div다.");
+        body("CH1 전압축은 2.00 V/div DC다.");
+        body("CH2 전압축은 0.1 V/div DC다.");
+        body("트리거는 CH1 DC −0.04 V다.");
+        body("칠판 10 Vpp로 계산한 출력은 0.3537 Vpp다.");
+        body("33 kΩ 병렬을 넣은 칠판 계산은 0.3536 Vpp다.");
+        body("화면 CH1 10.62 V에 0.03536을 곱한 값은 0.3755 Vpp다.");
+        caption("[표 5-2] sine파");
         table(measureTableProto.clone(), new String[][]{
                 {"항목", "값"},
-                {"칠판 입력", "삼각파, 10 Vpp, 3 kHz"},
-                {"스코프 pk-pk", "입력 없음"},
-                {"시간축", "입력 없음"},
-                {"전압축", "입력 없음"},
-                {"이론 출력 (15 kΩ, 100 nF)", "0.2778 Vpp (계산)"},
-                {"이론 출력 (33 kΩ 병렬)", "입력 없음"}
+                {"CH1 pk-pk", "10.62 V"},
+                {"CH2 pk-pk", "652 mV"},
+                {"CH2 pk-pk (계산)", "0.3755 Vpp (계산)"},
+                {"CH1 주파수", "2.99978 kHz"},
+                {"CH2 주파수", "2.99959 kHz"},
+                {"전압축", "CH1 2.00 V/div, CH2 0.1 V/div DC"}
         });
+        photo(docsDir + "/scope_sine_173553.jpg");
+        figureCaption("[그림 5-2] sine파 입력 (2026.09.29 17:35:53)");
 
         subhead("5-3. 정리");
-        caption("[표 5-3] sine파와 삼각파");
+        body("삼각파 입력 화면은 입력 없음.");
+        body("칠판 삼각파 계산 0.2778 Vpp는 2-2에 있다.");
+        caption("[표 5-3] 구형파와 sine파");
         table(summaryTableProto, new String[][]{
                 {"구분", "입력", "출력"},
-                {"sine파", "10 Vpp, 3 kHz", "0.3537 Vpp (계산)"},
-                {"sine파, 33 kΩ 병렬", "10 Vpp, 3 kHz", "0.3536 Vpp (계산)"},
-                {"삼각파", "10 Vpp, 3 kHz", "0.2778 Vpp (계산)"},
-                {"스코프", "입력 없음", "입력 없음"}
+                {"구형파", "CH1 10.63 V", "CH2 3.72 V"},
+                {"구형파 (계산)", "화면 10.63 V", "0.5906 Vpp (계산)"},
+                {"sine파", "CH1 10.62 V", "CH2 652 mV"},
+                {"sine파 (계산)", "화면 10.62 V", "0.3755 Vpp (계산)"}
         });
 
         heading("6. 결과 분석 및 고찰");
-        subhead("6-1. 입력 없음");
-        body("스코프 화면이 입력에 없다.");
-        body("화면에서 이상해 보인 점은 입력 없음.");
+        subhead("6-1. 왜 출력 pk-pk가 이론보다 크냐");
+        body("구형파 화면에서 분홍 삼각파 꼭짓점마다 가는 선이 아래로 뻗는다.");
+        body("그 선은 노란 구형파 엣지와 같은 시각이다.");
+        body("CH2 pk-pk 3.72 V는 그 선 끝까지의 값이다.");
+        body("화면 입력으로 계산한 삼각파 높이는 0.5906 Vpp다.");
+        body("3.72 / 0.5906 = 6.30이다.");
+        body("구형파가 위일 때 분홍 출력은 내려간다.");
+        body("그 방향은 핀 2의 음부호와 같다.");
+        body("33 kΩ만 남으면 배율은 −2.2다.");
+        body("10.63 V · 2.2 = 23.39 Vpp다.");
+        body("화면 출력은 삼각파다.");
+        body("3.72 V는 23.39 Vpp보다 작다.");
+        body("저항 색띠와 커패시터 표기는 사진에서 안 읽힌다.");
+        body("sine파 CH2에도 아래로 짧은 선이 있다.");
+        body("652 mV는 그 끝을 포함한다.");
+        body("CH1 주파수 sigma는 0.00006 kHz다.");
+        body("CH2 주파수 sigma는 0.03482 kHz다.");
+        body("출력 주파수 읽기가 흔들린다.");
+        body("크기 비교는 자동 pk-pk를 쓰지 않는다.");
+        body("삼각파의 기울어진 구간 높이를 눈금으로 읽는다.");
         subhead("6-2. 크기");
-        body("비교할 측정값이 입력에 없다.");
-        body("오차율은 입력 없음.");
+        body("오차율은 sine파 CH2 pk-pk 한 번만 계산한다.");
+        body("식은 (측정 − 이론) / 이론이다.");
+        body("이론값은 화면 CH1 pk-pk 10.62 V에 0.03536을 곱한 0.3755 Vpp다.");
+        body("칠판 10 Vpp의 0.3536 Vpp와 다른 값이다.");
+        body("652 mV − 375.5 mV = 276.5 mV다.");
+        body("276.5 / 375.5 = 0.736이다.");
+        body("백분율은 73.6%다.");
+        body("이 652 mV는 스파이크를 포함한 pk-pk다.");
+        body("CH2 rms는 입력 없음이다.");
+        body("평탄한 구간 높이도 입력 없음이다.");
+        body("몸통 높이의 오차율은 계산하지 않는다.");
         subhead("6-3. 느낀점");
-        body("입력 없음.");
+        body("나는 CH2 pk-pk를 적분 출력의 높이로 읽었다.");
+        body("엣지의 가는 선을 먼저 안 봤다.");
+        body("다음에는 함수발생기 파형 표시를 먼저 본다.");
+        body("칠판은 삼각파인데 이번 화면은 구형파였다.");
+        body("그 다음 엣지에 선이 붙었는지 보고 기울기 구간을 읽는다.");
 
         heading("7. 결론");
-        body("15 kΩ, 100 nF, 33 kΩ 적분기의 칠판 입력은 3 kHz, 10 Vpp다.");
-        body("sine파 계산 출력은 0.3537 Vpp이고, 33 kΩ 병렬을 넣은 계산은 0.3536 Vpp다.");
-        body("삼각파 계산 출력은 0.2778 Vpp인 포물선이고, 스코프에서 읽은 출력과 오차율은 입력 없음.");
+        body("15 kΩ, 100 nF, 33 kΩ 적분기에 3.00000 kHz, 10.000 Vpp 구형파를 넣으니 출력이 삼각파가 되었다.");
+        body("sine파 CH2 pk-pk 652 mV와 화면 입력 계산 0.3755 Vpp의 오차율은 73.6%다.");
+        body("이 652 mV는 엣지 스파이크를 포함한 pk-pk다.");
 
         heading("8. 참고문헌");
         body("[1] 수업 화면, 실험 4 적분기.");
+        body("[2] 수업 화면 (2026.09.29) 적분기.");
     }
 
     private void body(String text) {
