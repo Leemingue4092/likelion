@@ -26,6 +26,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 실험 3 보고서 HWP를 양식으로 열고, 본문만 실험 4 적분기로 바꾼다.
@@ -68,14 +70,13 @@ public class BuildIntegratorReport {
         String[] required = {
                 "회로이론실습설계 2",
                 "실험 4.  적분기",
-                "0.3537 Vpp",
-                "0.3536 Vpp",
-                "0.2778 Vpp",
-                "0.3755 Vpp",
-                "0.5906 Vpp",
+                "0.35 Vpp",
+                "0.28 Vpp",
+                "0.38 Vpp",
+                "0.59 Vpp",
                 "3.72 V",
                 "652 mV",
-                "73.6%",
+                "71.58%",
                 "10.63 V",
                 "10.62 V",
                 "AFG-2012",
@@ -108,6 +109,10 @@ public class BuildIntegratorReport {
             if (text.contains(s)) {
                 problems.add("들어가면 안 되는 값: " + s);
             }
+        }
+        Matcher longDecimal = Pattern.compile("\\d+\\.\\d{3,}").matcher(text);
+        while (longDecimal.find()) {
+            problems.add("소수점 셋째 자리 이상: " + longDecimal.group());
         }
         checkForm(readBack, problems);
         if (!problems.isEmpty()) {
@@ -271,34 +276,32 @@ public class BuildIntegratorReport {
         body("직류 배율은 −33 kΩ / 15 kΩ = −2.2다.");
         body("Vp는 10 Vpp의 절반이라 5 V다.");
         body("ω R C = 2π · 3 kHz · 15 kΩ · 100 nF = 28.27이다.");
-        body("1 / 28.27 = 0.03537이다.");
-        body("sine파 이론 출력은 10 Vpp · 0.03537 = 0.3537 Vpp다.");
+        body("10 Vpp / 28.27 = 0.35 Vpp다.");
+        body("sine파 이론 출력은 0.35 Vpp다.");
         body("이 값은 15 kΩ과 100 nF만 쓴 계산이다.");
         body("2π · 3 kHz · 33 kΩ · 100 nF = 62.20이다.");
         body("1 + 62.20의 제곱의 제곱근은 62.21이다.");
-        body("2.2 / 62.21 = 0.03536이다.");
-        body("33 kΩ을 병렬로 넣은 sine파 출력은 10 Vpp · 0.03536 = 0.3536 Vpp다.");
+        body("33 kΩ을 병렬로 넣은 sine파 출력은 0.35 Vpp다.");
         body("반전 입력의 부호는 180도다.");
         body("arctan(62.20) = 89.08도다.");
         body("180 − 89.08 = 90.92도다.");
         body("33 kΩ을 병렬로 넣은 sine파 출력은 입력보다 90.92도 앞선다.");
         body("화면 CH1의 sine파 pk-pk는 10.62 V다.");
-        body("0.03537 · 10.62 V = 0.3756 Vpp다.");
+        body("10.62 V / 28.27 = 0.38 Vpp다.");
         body("이 값은 15 kΩ과 100 nF만 쓴 화면 입력 계산이다.");
-        body("0.03536 · 10.62 V = 0.3755 Vpp다.");
-        body("이 값은 33 kΩ을 병렬로 넣은 화면 입력 계산이다.");
+        body("33 kΩ을 병렬로 넣은 화면 입력 계산도 0.38 Vpp다.");
         body("구형파 화면 CH1 pk-pk는 10.63 V다.");
-        body("10.63 V의 절반은 5.315 V다.");
-        body("5.315 V / (2 · 3.00000 kHz) = 8.858×10⁻⁴ V·s다.");
-        body("666.7 · 8.858×10⁻⁴ = 0.5906 Vpp다.");
-        body("구형파 이론 pk-pk는 0.5906 Vpp다.");
+        body("10.63 V의 절반은 5.32 V다.");
+        body("5.32 V / (2 · 3.00 kHz) = 8.87×10⁻⁴ V·s다.");
+        body("666.7 · 8.87×10⁻⁴ = 0.59 Vpp다.");
+        body("구형파 이론 pk-pk는 0.59 Vpp다.");
         body("이 값은 화면 입력 10.63 V와 15 kΩ, 100 nF로 계산했다.");
         body("칠판 10 Vpp와 화면 10.63 V를 한 숫자로 합치지 않았다.");
         body("삼각파도 칠판의 전원 표시 10 Vpp로 계산했다.");
-        body("5 V / (4 · 3 kHz) = 4.167×10⁻⁴ V·s다.");
+        body("5 V / (4 · 3 kHz) = 4.17×10⁻⁴ V·s다.");
         body("1 / (15 kΩ · 100 nF) = 666.7 s⁻¹이다.");
-        body("666.7 · 4.167×10⁻⁴ = 0.2778 Vpp다.");
-        body("삼각파 이론 출력의 pk-pk는 0.2778 Vpp다.");
+        body("666.7 · 4.17×10⁻⁴ = 0.28 Vpp다.");
+        body("삼각파 이론 출력의 pk-pk는 0.28 Vpp다.");
         body("이 값은 15 kΩ과 100 nF만 쓴 계산이다.");
 
         subhead("2-3. 회로도");
@@ -330,7 +333,7 @@ public class BuildIntegratorReport {
                 {"능동소자", "연산증폭기 (모델명 입력 없음)"},
                 {"저항", "15 kΩ (입력), 33 kΩ (피드백)"},
                 {"커패시터 또는 인덕터", "100 nF"},
-                {"입력(함수발생기 설정)", "AFG-2012, 3.00000 kHz, 10.000 Vpp, 오프셋 0.00 V"},
+                {"입력(함수발생기 설정)", "AFG-2012, 3.00 kHz, 10.00 Vpp, 오프셋 0.00 V"},
                 {"측정기", "LeCroy waverunner LT322"}
         });
 
@@ -356,8 +359,8 @@ public class BuildIntegratorReport {
         figureCaption("[그림 4-1] 브레드보드 배선");
         subhead("4-3. 측정 조건");
         body("함수발생기는 GW INSTEK AFG-2012다.");
-        body("함수발생기 주파수는 3.00000 kHz다.");
-        body("진폭은 10.000 Vpp다.");
+        body("함수발생기 주파수는 3.00 kHz다.");
+        body("진폭은 10.00 Vpp다.");
         body("오프셋은 0.00 V다.");
         body("칠판 파형은 sine파와 삼각파다.");
         body("함수발생기 화면은 구형파와 sine파다.");
@@ -378,23 +381,23 @@ public class BuildIntegratorReport {
         body("노란 선은 CH1이다.");
         body("분홍 선은 CH2이다.");
         body("CH1 pk-pk는 10.63 V다.");
-        body("CH1 주파수는 2.99999 kHz다.");
-        body("CH1 rms는 5.113 V다.");
+        body("CH1 주파수는 3.00 kHz다.");
+        body("CH1 rms는 5.11 V다.");
         body("CH2 pk-pk는 3.72 V다.");
-        body("CH2 주파수는 3.00177 kHz다.");
+        body("CH2 주파수는 3.00 kHz다.");
         body("시간축은 0.2 ms/div다.");
         body("CH1 전압축은 2.00 V/div DC다.");
         body("CH2 전압축은 1.00 V/div DC다.");
         body("트리거는 CH1 DC 0.04 V다.");
-        body("비교 이론값은 화면 CH1 10.63 V로 다시 계산한 0.5906 Vpp다.");
+        body("비교 이론값은 화면 CH1 10.63 V로 다시 계산한 0.59 Vpp다.");
         caption("[표 5-1] 구형파");
         table(measureTableProto.clone(), new String[][]{
                 {"항목", "값"},
                 {"CH1 pk-pk", "10.63 V"},
                 {"CH2 pk-pk", "3.72 V"},
-                {"CH2 pk-pk (계산)", "0.5906 Vpp (계산)"},
-                {"CH1 주파수", "2.99999 kHz"},
-                {"CH2 주파수", "3.00177 kHz"},
+                {"CH2 pk-pk (계산)", "0.59 Vpp (계산)"},
+                {"CH1 주파수", "3.00 kHz"},
+                {"CH2 주파수", "3.00 kHz"},
                 {"전압축", "CH1 2.00 V/div, CH2 1.00 V/div DC"}
         });
         photo(docsDir + "/scope_square_173459.jpg");
@@ -405,25 +408,25 @@ public class BuildIntegratorReport {
         body("노란 선은 CH1이다.");
         body("분홍 선은 CH2이다.");
         body("CH1 pk-pk는 10.62 V다.");
-        body("CH1 주파수는 2.99978 kHz다.");
-        body("CH1 rms는 3.625 V다.");
+        body("CH1 주파수는 3.00 kHz다.");
+        body("CH1 rms는 3.63 V다.");
         body("CH2 pk-pk는 652 mV다.");
-        body("CH2 주파수는 2.99959 kHz다.");
+        body("CH2 주파수는 3.00 kHz다.");
         body("시간축은 0.2 ms/div다.");
         body("CH1 전압축은 2.00 V/div DC다.");
         body("CH2 전압축은 0.1 V/div DC다.");
         body("트리거는 CH1 DC −0.04 V다.");
-        body("칠판 10 Vpp로 계산한 출력은 0.3537 Vpp다.");
-        body("33 kΩ 병렬을 넣은 칠판 계산은 0.3536 Vpp다.");
-        body("화면 CH1 10.62 V에 0.03536을 곱한 값은 0.3755 Vpp다.");
+        body("칠판 10 Vpp로 계산한 출력은 0.35 Vpp다.");
+        body("33 kΩ 병렬을 넣은 칠판 계산도 0.35 Vpp다.");
+        body("화면 CH1 10.62 V로 다시 계산한 값은 0.38 Vpp다.");
         caption("[표 5-2] sine파");
         table(measureTableProto.clone(), new String[][]{
                 {"항목", "값"},
                 {"CH1 pk-pk", "10.62 V"},
                 {"CH2 pk-pk", "652 mV"},
-                {"CH2 pk-pk (계산)", "0.3755 Vpp (계산)"},
-                {"CH1 주파수", "2.99978 kHz"},
-                {"CH2 주파수", "2.99959 kHz"},
+                {"CH2 pk-pk (계산)", "0.38 Vpp (계산)"},
+                {"CH1 주파수", "3.00 kHz"},
+                {"CH2 주파수", "3.00 kHz"},
                 {"전압축", "CH1 2.00 V/div, CH2 0.1 V/div DC"}
         });
         photo(docsDir + "/scope_sine_173553.jpg");
@@ -431,14 +434,14 @@ public class BuildIntegratorReport {
 
         subhead("5-3. 정리");
         body("삼각파 입력 화면은 입력 없음.");
-        body("칠판 삼각파 계산 0.2778 Vpp는 2-2에 있다.");
+        body("칠판 삼각파 계산 0.28 Vpp는 2-2에 있다.");
         caption("[표 5-3] 구형파와 sine파");
         table(summaryTableProto, new String[][]{
                 {"구분", "입력", "출력"},
                 {"구형파", "CH1 10.63 V", "CH2 3.72 V"},
-                {"구형파 (계산)", "화면 10.63 V", "0.5906 Vpp (계산)"},
+                {"구형파 (계산)", "화면 10.63 V", "0.59 Vpp (계산)"},
                 {"sine파", "CH1 10.62 V", "CH2 652 mV"},
-                {"sine파 (계산)", "화면 10.62 V", "0.3755 Vpp (계산)"}
+                {"sine파 (계산)", "화면 10.62 V", "0.38 Vpp (계산)"}
         });
 
         heading("6. 결과 분석 및 고찰");
@@ -446,8 +449,8 @@ public class BuildIntegratorReport {
         body("구형파 화면에서 분홍 삼각파 꼭짓점마다 가는 선이 아래로 뻗는다.");
         body("그 선은 노란 구형파 엣지와 같은 시각이다.");
         body("CH2 pk-pk 3.72 V는 그 선 끝까지의 값이다.");
-        body("화면 입력으로 계산한 삼각파 높이는 0.5906 Vpp다.");
-        body("3.72 / 0.5906 = 6.30이다.");
+        body("화면 입력으로 계산한 삼각파 높이는 0.59 Vpp다.");
+        body("3.72 / 0.59 = 6.31이다.");
         body("구형파가 위일 때 분홍 출력은 내려간다.");
         body("그 방향은 핀 2의 음부호와 같다.");
         body("33 kΩ만 남으면 배율은 −2.2다.");
@@ -457,19 +460,19 @@ public class BuildIntegratorReport {
         body("저항 색띠와 커패시터 표기는 사진에서 안 읽힌다.");
         body("sine파 CH2에도 아래로 짧은 선이 있다.");
         body("652 mV는 그 끝을 포함한다.");
-        body("CH1 주파수 sigma는 0.00006 kHz다.");
-        body("CH2 주파수 sigma는 0.03482 kHz다.");
+        body("CH1 주파수 sigma는 0.00 kHz다.");
+        body("CH2 주파수 sigma는 0.03 kHz다.");
         body("출력 주파수 읽기가 흔들린다.");
         body("크기 비교는 자동 pk-pk를 쓰지 않는다.");
         body("삼각파의 기울어진 구간 높이를 눈금으로 읽는다.");
         subhead("6-2. 크기");
         body("오차율은 sine파 CH2 pk-pk 한 번만 계산한다.");
         body("식은 (측정 − 이론) / 이론이다.");
-        body("이론값은 화면 CH1 pk-pk 10.62 V에 0.03536을 곱한 0.3755 Vpp다.");
-        body("칠판 10 Vpp의 0.3536 Vpp와 다른 값이다.");
-        body("652 mV − 375.5 mV = 276.5 mV다.");
-        body("276.5 / 375.5 = 0.736이다.");
-        body("백분율은 73.6%다.");
+        body("이론값은 화면 CH1 pk-pk 10.62 V로 다시 계산한 0.38 Vpp다.");
+        body("칠판 10 Vpp의 0.35 Vpp와 다른 값이다.");
+        body("0.38 Vpp는 380 mV다.");
+        body("652 mV − 380 mV = 272 mV다.");
+        body("272 / 380의 백분율은 71.58%다.");
         body("이 652 mV는 스파이크를 포함한 pk-pk다.");
         body("CH2 rms는 입력 없음이다.");
         body("평탄한 구간 높이도 입력 없음이다.");
@@ -482,8 +485,8 @@ public class BuildIntegratorReport {
         body("그 다음 엣지에 선이 붙었는지 보고 기울기 구간을 읽는다.");
 
         heading("7. 결론");
-        body("15 kΩ, 100 nF, 33 kΩ 적분기에 3.00000 kHz, 10.000 Vpp 구형파를 넣으니 출력이 삼각파가 되었다.");
-        body("sine파 CH2 pk-pk 652 mV와 화면 입력 계산 0.3755 Vpp의 오차율은 73.6%다.");
+        body("15 kΩ, 100 nF, 33 kΩ 적분기에 3.00 kHz, 10.00 Vpp 구형파를 넣으니 출력이 삼각파가 되었다.");
+        body("sine파 CH2 pk-pk 652 mV와 화면 입력 계산 0.38 Vpp의 오차율은 71.58%다.");
         body("이 652 mV는 엣지 스파이크를 포함한 pk-pk다.");
 
         heading("8. 참고문헌");
