@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>제7장 정자계 단권화 노트</title>
+<style>
+  @page {
+    size: A4;
+    margin: 13mm 12mm 14mm 12mm;
+    @bottom-left {
+      content: "제7장 정자계  ·  단권화 노트";
+      font-family: "Noto Sans CJK KR", sans-serif;
+      font-size: 8pt;
+      color: #6b7785;
+    }
+    @bottom-right {
+      content: counter(page);
+      font-family: "Noto Sans CJK KR", sans-serif;
+      font-size: 8pt;
+      color: #6b7785;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: #1c2833;
+    font-family: "Noto Sans CJK KR", sans-serif;
+    font-size: 10.2pt;
+    line-height: 1.62;
+    word-break: keep-all;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .cover {
+    border-top: 6px solid #1a365d;
+    padding: 8px 0 10px;
+    margin-bottom: 12px;
+  }
+  .kicker {
+    color: #1a365d;
+    font-size: 9pt;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    margin: 0 0 4px;
+  }
+  h1 {
+    font-size: 22pt;
+    line-height: 1.25;
+    margin: 0 0 4px;
+    color: #1a365d;
+    font-weight: 700;
+  }
+  .sub {
+    margin: 0;
+    color: #3d4d5c;
+    font-size: 10.5pt;
+  }
+  .meta {
+    margin-top: 8px;
+    padding: 7px 10px;
+    background: #f4f7fb;
+    border: 1px solid #d5dde8;
+    font-size: 8.7pt;
+    color: #3d4d5c;
+    line-height: 1.55;
+  }
+
+  h2 {
+    font-size: 13pt;
+    color: #1a365d;
+    margin: 16px 0 6px;
+    padding: 3px 0 3px 8px;
+    border-left: 5px solid #1a365d;
+    line-height: 1.35;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 11pt;
+    color: #234e70;
+    margin: 11px 0 4px;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  h4 {
+    font-size: 10.2pt;
+    margin: 8px 0 3px;
+    color: #1c2833;
+    break-after: avoid;
+  }
+  p { margin: 0 0 6px; }
+  ul, ol { margin: 2px 0 8px; padding-left: 1.15em; }
+  li { margin: 1px 0 3px; }
+  strong { font-weight: 700; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    margin: 8px 0 2px;
+    font-size: 8.6pt;
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .sw { width: 12px; height: 12px; display: inline-block; border-radius: 2px; vertical-align: -1px; }
+  .sw.main { background: #1a365d; }
+  .sw.detail { background: #d5dde6; border: 1px solid #8aa0b4; }
+  .sw.warn { background: #e39a4a; }
+  .sw.rel { background: #3e8f66; }
+
+  .box {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin: 7px 0 9px;
+    padding: 7px 10px 6px;
+    border: 1px solid #d5dde8;
+    background: #f7f9fc;
+  }
+  .box.main { background: #eef3fa; border-color: #c5d4ea; }
+  .box.warn { background: #fff8f1; border: 1px solid #e7c7a8; }
+  .box.rel { background: #f3faf5; border: 1px solid #c5e0cf; }
+  .box.ex { background: #fafafa; border: 1px solid #e1e4e8; }
+  .box .tag {
+    display: inline-block;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 3px;
+    color: #1a365d;
+  }
+  .box.warn .tag { color: #9a4314; }
+  .box.rel .tag { color: #1f6b4a; }
+  .box.ex .tag { color: #5c4a32; }
+  .pen {
+    display: inline-block;
+    font-size: 8pt;
+    font-weight: 700;
+    color: #1d4e89;
+    background: #e3eefc;
+    border-radius: 2px;
+    padding: 0 4px;
+    margin-right: 3px;
+  }
+
+  .formula {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border-left: 3px solid #1a365d;
+    margin: 5px 0;
+    padding: 5px 8px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .formula .eq {
+    flex: 1;
+    font-size: 10.6pt;
+    line-height: 1.35;
+  }
+  .formula .unit { color: #3d4d5c; white-space: nowrap; font-size: 9.4pt; }
+  .formula .no { color: #6b7785; font-size: 8.6pt; white-space: nowrap; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 1.12;
+    margin: 0 0.12em;
+    font-size: 0.96em;
+  }
+  .frac .n { border-bottom: 1px solid #1c2833; padding: 0 0.28em 1px; }
+  .frac .d { padding: 1px 0.28em 0; }
+  sub, sup { font-size: 0.72em; line-height: 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 6px 0 8px;
+    font-size: 8.7pt;
+    line-height: 1.4;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  table.split { break-inside: auto; page-break-inside: auto; font-size: 8.15pt; line-height: 1.28; }
+  table.split tr { break-inside: avoid; page-break-inside: avoid; }
+  table.split th, table.split td { padding: 2px 5px; }
+  th, td {
+    border: 1px solid #d0d7e2;
+    padding: 4px 6px;
+    vertical-align: top;
+    text-align: left;
+  }
+  th { background: #1a365d; color: #fff; font-weight: 700; }
+  td.lab { background: #f4f7fb; font-weight: 700; width: 18%; white-space: nowrap; }
+  tr.alt td { background: #fafbfd; }
+
+  .flow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 6px 0 8px;
+  }
+  .card {
+    border: 1px solid #d5dde8;
+    background: #fff;
+    padding: 7px 9px 6px;
+    break-inside: avoid;
+  }
+  .card b { color: #1a365d; display: block; margin-bottom: 2px; }
+  .arrowline {
+    text-align: center;
+    color: #1a365d;
+    font-weight: 700;
+    font-size: 9pt;
+    margin: 2px 0 6px;
+  }
+
+  .fig {
+    margin: 6px 0 8px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .fig svg { width: 100%; height: auto; display: block; }
+  .cap { font-size: 8.4pt; color: #526170; margin-top: 2px; }
+
+  .two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .small { font-size: 9pt; color: #3d4d5c; }
+  ol.prob { padding-left: 1.4em; }
+  ol.prob li { margin-bottom: 5px; }
+  .src { font-size: 8.4pt; color: #6b7785; }
+
+  h2.break { break-before: page; page-break-before: always; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <p class="kicker">전자기학  ·  강의자료 재구성</p>
+  <h1>제7장 정자계</h1>
+  <p class="sub">자석에 의한 정자계를, 대응 관계와 혼동 지점 중심으로 묶은 단권화 노트</p>
+  <div class="meta">
+    범위는 강의자료 제7장(205–222쪽)뿐이다. 절 순서를 그대로 베끼지 않고, 서로 닿는 내용을 한곳으로 모았다.
+    자료에 없는 공식과 풀이는 넣지 않았다. 자료 위의 밑줄·동그라미·손글씨는 「자료 표시」로 구분한다.
+  </div>
+  <div class="legend">
+    <span><i class="sw main"></i> 주요</span>
+    <span><i class="sw detail"></i> 세부</span>
+    <span><i class="sw warn"></i> 혼동 구분</span>
+    <span><i class="sw rel"></i> 개념의 관계</span>
+  </div>
+</div>
+
+<h2>1. 이 장이 묶이는 방식</h2>
+
+<div class="box rel">
+  <div class="tag">관계</div>
+  <p>이 장은 전하의 정전계와 자하(자극)의 정자계를 짝으로 놓고 읽는다. 본문이 반복해서 가리키는 축은 다음 한 줄이다.</p>
+  <p style="margin:0"><strong>자하 m → 힘 → 자계 H → 자위 U</strong> 이고, 그와 나란히 <strong>자속 φ = m → 자속밀도 B</strong> 가 있다. 둘을 잇는 식이 <strong>B = μ<sub>0</sub>H</strong> 이다.</p>
+</div>
+
+<div class="flow">
+  <div class="card">
+    <b>양을 만드는 순서</b>
+    점자극의 자하 m [Wb]<br>
+    → 쿨롱의 힘 F, 자계의 세기 H<br>
+    → 자위 U (H의 선적분, 스칼라)<br>
+    → 자기력선 수 N = m/μ<sub>0</sub> (투자율에 따라 변함)<br>
+    → 자속 φ = m (매질과 무관) → B<br>
+    → B = μ<sub>0</sub>H
+  </div>
+  <div class="card">
+    <b>자석의 형태를 키우는 순서</b>
+    점자극 m<br>
+    → 소자석(자기쌍극자) M = ml<br>
+    → 판자석(자기 이중층) M<sub>0</sub> = σt = M/S<br>
+    각 단계의 자위·자계는 정전계의 점전하·전기쌍극자·전기 이중층과 대응한다.
+  </div>
+</div>
+
+<div class="box main">
+  <div class="tag">주요 · 장의 경계</div>
+  <p style="margin:0">정자계는 영구자석에 의한 자계와, 정상 전류에 의해 형성된 자계를 말한다. 이 장은 그중 자석 쪽을 정전계와의 유사성으로 다룬다. 제8장의 전류에 의한 정자계는 자석의 정자계와 대응이 그대로 성립하지 않는다고 적혀 있다. 등가 전류·등가 자기 모멘트를 미리 알고 있어야 그 대응을 쓸 수 있다.</p>
+</div>
+
+<h2>2. 자석에서 먼저 고정할 사실 <span class="src">(7.1)</span></h2>
+
+<p><span class="pen">자료 표시</span> 7.1은 “굳이 설명하지 않고, 슬쩍만 말하고 넘어감”으로 표시되어 있다. 아래 주요만 뒤 절의 전제가 되고, 나머지는 세부다.</p>
+
+<div class="box main">
+  <div class="tag">주요 · 뒤에 계속 쓰는 전제</div>
+  <ul>
+    <li>자극은 N극과 S극 두 종류이고, 항상 서로 반대 극성이 쌍으로 있다. N극과 S극은 단독으로 존재하지 않는다. 고립 자하는 없다.</li>
+    <li>자하(자극의 세기)의 단위는 웨버 [Wb]이다. <span class="pen">자료 표시</span> m = 자극의 세기, 단위 [Wb].</li>
+    <li>같은 극은 반발하고 다른 극은 흡인한다. 이 힘을 전기력과 구분해 자기력이라 한다.</li>
+    <li>자기적 힘이 미치는 공간이 자계(자기장)이다.</li>
+  </ul>
+</div>
+
+<div class="box">
+  <div class="tag">세부</div>
+  <ul>
+    <li>막대자석에 철가루를 뿌리면 중앙에는 거의 붙지 않고 양 끝에 많이 붙는다. 그 양 끝을 자극이라 한다.</li>
+    <li>자침이 북쪽을 가리키는 극이 N극(north pole, 정자극, +), 남쪽을 가리키는 극이 S극(south pole, 부자극, −)이다.</li>
+    <li>이것은 지구가 하나의 자석이기 때문이다. 자석의 N극이 가리키는 지구의 북극은 지구 자석의 S극이고, 자석의 S극이 가리키는 지구의 남극은 지구 자석의 N극이다.</li>
+    <li>막대자석을 둘로 나누어도 N극과 S극은 분리되지 않고, 각각이 다시 막대자석이 된다. 분자까지 나누어도 분자 자석이다. 항상 N극과 S극이 쌍으로 있기 때문이다.</li>
+    <li>전기력선 끝에 전하가 있는 것과 같이, 자기력선 끝에는 자하가 있다. 전하는 양·음을 떼어 단독으로 둘 수 있으나 자극은 그럴 수 없다. 자석을 잘라 양 끝에 반대 극이 나타나 새 자석이 되는 것이, 전기와 자기의 본질적 차이로 적혀 있다.</li>
+  </ul>
+</div>
+
+<div class="box warn">
+  <div class="tag">혼동 · 전하와 자하</div>
+  <p style="margin:0">둘 다 쿨롱 법칙의 자리에 들어가고 단위만 다르다. 차이는 존재 방식이다. 전하 Q는 분리되어 혼자 있을 수 있다. 자하 m은 N극과 S극이 항상 같이 있어서 고립 자하가 없다. 이 차이가 뒤에서 ∇·B = 0으로 이어진다.</p>
+</div>
+
+<h2>3. 힘 <span class="src">(7.2, 7.3)</span></h2>
+
+<h3>3.1 점자극과 쿨롱의 법칙</h3>
+<p>점자극은, 자석을 매우 가늘고 길게 보아 두 극이 서로 영향을 미치지 않는다고 가정한 자극이다. 두 점자극의 자하를 m<sub>1</sub>, m<sub>2</sub> [Wb], 거리를 r [m]이라 하면 일직선상의 자기력은 다음과 같다.</p>
+
+<div class="formula">
+  <div class="eq">F = <span class="frac"><span class="n">m<sub>1</sub> m<sub>2</sub></span><span class="d">4π μ<sub>0</sub> r<sup>2</sup></span></span></div>
+  <div class="unit">[N]</div>
+  <div class="no">(7.1)</div>
+</div>
+<p>μ<sub>0</sub>는 진공의 투자율이고 μ<sub>0</sub> = 4π×10<sup>−7</sup> [H/m]이다. 같은 극이면 반발, 다른 극이면 흡인이고, 힘은 두 자극을 잇는 직선 위에 있다.</p>
+
+<div class="box ex">
+  <div class="tag">예제 7.1 · 식 (7.1)</div>
+  <p>10<sup>−5</sup> [Wb]와 1.2×10<sup>−5</sup> [Wb]를 공기 중에서 2 [cm]에 둘 때 힘.</p>
+  <p style="margin:0">F = (10<sup>−5</sup> × 1.2×10<sup>−5</sup>) / [4π × (4π×10<sup>−7</sup>) × (2×10<sup>−2</sup>)<sup>2</sup>] = 1.9×10<sup>−2</sup> [N]</p>
+</div>
+
+<h3>3.2 자계의 세기 H</h3>
+<div class="box main">
+  <div class="tag">주요 · 정의</div>
+  <p style="margin:0">자계 안의 한 점에 단위 자하 +1 [Wb]를 놓았을 때, 그 단위 자하가 받는 힘의 크기와 방향을 그 점의 자계의 세기 H라 한다. H는 벡터이다. 따라서 H 안에 자하 m을 놓으면 힘은 다음과 같다.</p>
+</div>
+
+<div class="formula">
+  <div class="eq">F = mH</div>
+  <div class="unit">[N]</div>
+  <div class="no">(7.3)</div>
+</div>
+
+<p>점자하 m [Wb]에서 거리 r [m]인 점에서는 식 (7.1)로 단위 자하가 받는 힘을 적어</p>
+<div class="formula">
+  <div class="eq">H = <span class="frac"><span class="n">m</span><span class="d">4π μ<sub>0</sub> r<sup>2</sup></span></span></div>
+  <div class="unit">[N/Wb] = [AT/m]</div>
+  <div class="no">(7.2)</div>
+</div>
+
+<div class="box warn">
+  <div class="tag">혼동 · H의 단위</div>
+  <p style="margin:0">정의에서 나오는 단위는 [N/Wb]이다. 보통은 [AT/m](Ampere·Turn/meter)를 쓴다. T는 권선수를 나타내므로 생략해 [A/m]와 혼용한다. 자위 쪽 식에도 [A]와 [AT]가 함께 나온다. 같은 양을 가리킨다.</p>
+</div>
+
+<div class="two">
+  <div class="box ex">
+    <div class="tag">예제 7.2 · 식 (7.2)</div>
+    <p>m = 4 [Wb], r = 4 [m]</p>
+    <p style="margin:0">H = 4 / [4π × (4π×10<sup>−7</sup>) × 4<sup>2</sup>] = 1.58×10<sup>4</sup> [AT/m]</p>
+  </div>
+  <div class="box ex">
+    <div class="tag">예제 7.3 · 식 (7.3)</div>
+    <p>H = 1000 [AT/m], F = 3×10<sup>2</sup> [N]</p>
+    <p style="margin:0">m = F/H = 3×10<sup>2</sup> / 1000 = 0.3 [Wb]</p>
+  </div>
+</div>
+
+<h2>4. 자위와 자위차 <span class="src">(7.4)</span></h2>
+
+<div class="box main">
+  <div class="tag">주요</div>
+  <p>전위와 같이, 단위 자하를 무한원점에서 한 점까지 옮기는 데 필요한 일을 그 점의 자위 U라 한다. 스칼라이고, 이동 경로와 관계없이 위치만으로 정해지므로 보존장이다.</p>
+</div>
+
+<div class="formula">
+  <div class="eq">U = − ∫<sub>∞</sub><sup>P</sup> H · dl</div>
+  <div class="unit">[A]</div>
+  <div class="no">(7.4)</div>
+</div>
+<div class="formula">
+  <div class="eq">점자극 &nbsp; U = <span class="frac"><span class="n">m</span><span class="d">4π μ<sub>0</sub> r</span></span></div>
+  <div class="unit">[A]</div>
+  <div class="no">(7.5)</div>
+</div>
+<p>여러 점자극의 자위는 각각에 대한 대수합이다.</p>
+<div class="formula">
+  <div class="eq">U<sub>AB</sub> = − ∫<sub>B</sub><sup>A</sup> H · dl &nbsp; = &nbsp; U<sub>A</sub> − U<sub>B</sub></div>
+  <div class="unit">[A]</div>
+  <div class="no">(7.6)</div>
+</div>
+
+<div class="box warn">
+  <div class="tag">혼동 · 자위와 자위차</div>
+  <p style="margin:0"><span class="pen">자료 표시</span> 자위차에서 “Δ를 잘 봐라”라고 적혀 있다. 자위 U는 한 점의 값이다. 자위차 U<sub>AB</sub>는 두 점 사이이고, 적분은 B에서 A로 가며 그 값은 U<sub>A</sub> − U<sub>B</sub>이다. 표 7.2의 자위경도는 H = −grad U 이다. 소자석에서는 이 관계를 H<sub>r</sub> = −∂U/∂r, H<sub>θ</sub> = −(1/r)∂U/∂θ 로 쓴다.</p>
+</div>
+
+<h2>5. 자기력선, 자속, 자속밀도 <span class="src">(7.5, 7.6)</span></h2>
+
+<p><span class="pen">자료 표시</span> 7.6 제목에 “B의 개념 잘 알기”, 식 (7.15)에 동그라미가 있다. 이 절이 장의 중심이다.</p>
+
+<h3>5.1 자기력선의 성질</h3>
+<p>정전계에서 단위 양전하의 경로로 전기력선을 그리듯, 자계에서는 나침반 자침의 N극이 가리키는 방향을 조금씩 이어 그리거나, 단위 자하 +1 [Wb]가 저항 없이 자기력을 따라 움직일 때 그리는 가상선을 자기력선(자력선)이라 한다.</p>
+<ol>
+  <li>자기력선은 자석의 외부나 내부 모두 N극(+m)에서 나와 S극(−m)에서 멈춘다.</li>
+  <li>자기력선은 서로 교차하지 않는다. <span class="pen">자료 표시</span> 서로 꼬이지 않음. 방향이 있다.</li>
+  <li>자기력선 밀도는 자계의 세기와 같다. 밀하면 자계가 크고, 소하면 자계가 약하다. <span class="pen">자료 표시</span> 촘촘하면 세기 큼, 드문드문하면 세기 약함.</li>
+  <li>자계의 방향은 그 점에서의 접선 방향이다.</li>
+  <li>자석의 N극은 자기력선 방향과 같은 방향으로 향한다.</li>
+</ol>
+
+<h3>5.2 자기력선 수 N</h3>
+<p>전계의 세기가 전기력선 밀도와 같듯이, 성질 ③에서 자계의 세기 H도 자기력선 밀도와 같다. 균일 평면에서는 스칼라적, 불균일 곡면에서는 면적분으로 쓴다.</p>
+<div class="formula">
+  <div class="eq">균일 평면, H와 S가 각 θ &nbsp; N = H · S</div>
+  <div class="unit">[lines]</div>
+  <div class="no">(7.7)</div>
+</div>
+<div class="formula">
+  <div class="eq">평면에 수직 관통(θ = 0°) &nbsp; N = HS</div>
+  <div class="unit">[lines]</div>
+  <div class="no">(7.8)</div>
+</div>
+<div class="formula">
+  <div class="eq">불균일 곡면 &nbsp; N = ∫<sub>S</sub> H · dS</div>
+  <div class="unit">[lines]</div>
+  <div class="no">(7.9)</div>
+</div>
+<div class="formula">
+  <div class="eq">진공 중 점자극 &nbsp; N = m / μ<sub>0</sub> &nbsp;&nbsp; (전기: N = Q/ε<sub>0</sub>)</div>
+  <div class="unit">[lines, 선, 개]</div>
+  <div class="no">(7.10)</div>
+</div>
+<p>전기력선 수는 유전율 ε에, 자기력선 수는 투자율 μ에 따라 변한다. 선속의 수와 서로 대응한다.</p>
+
+<h3>5.3 자속 φ와 자속밀도 B</h3>
+<p>같은 가상선을 자속 또는 자기력선이라고도 부른 뒤, 본문은 둘을 가른다. 자기력선 수는 매질(투자율)에 따라 변한다. 자속 수는 매질과 관계없이 일정하다. 그래서 일정한 선속으로 자속 φ를 도입한다.</p>
+<div class="formula">
+  <div class="eq">전속(Q [C]) : φ = Q [C] &nbsp;&nbsp; / &nbsp;&nbsp; 자속(m [Wb]) : φ = m [Wb]</div>
+  <div class="no">(7.11)</div>
+</div>
+<p class="small">전속도 선속이지만 단위는 쿨롱 [C], 자속의 단위는 웨버 [Wb]이다.</p>
+<div class="formula">
+  <div class="eq">균일, B와 S가 각 θ &nbsp; φ = B · S</div>
+  <div class="no">(7.12)</div>
+</div>
+<div class="formula">
+  <div class="eq">평면에 수직 &nbsp; φ = BS</div>
+  <div class="unit">[Wb]</div>
+  <div class="no">(7.13)</div>
+</div>
+<div class="formula">
+  <div class="eq">B = φ / S = m / S</div>
+  <div class="unit">[Wb/m<sup>2</sup>] = [T]</div>
+  <div class="no">(7.14)</div>
+</div>
+<p class="small">B는 단위 면적당 자속이다. 식 (7.14)의 m/S는 φ = m인 관계를 면적으로 나눈 것이다.</p>
+<div class="formula">
+  <div class="eq">B = μ<sub>0</sub> H</div>
+  <div class="unit">[Wb/m<sup>2</sup>]</div>
+  <div class="no">(7.15)</div>
+</div>
+<div class="formula">
+  <div class="eq">불균일 &nbsp; φ = ∫<sub>S</sub> B · dS</div>
+  <div class="unit">[Wb]</div>
+  <div class="no">(7.16)</div>
+</div>
+
+<div class="box warn">
+  <div class="tag">혼동 · 자기력선 수 N과 자속 φ</div>
+  <table>
+    <tr><th></th><th>자기력선 수 N</th><th>자속 φ</th></tr>
+    <tr><td class="lab">점자극에서</td><td>N = m/μ<sub>0</sub></td><td>φ = m</td></tr>
+    <tr><td class="lab">매질</td><td>투자율 μ에 따라 변함</td><td>매질과 관계없이 일정</td></tr>
+    <tr><td class="lab">균일·수직</td><td>N = HS [lines]</td><td>φ = BS [Wb]</td></tr>
+    <tr><td class="lab">곡면</td><td>∫ H·dS</td><td>∫ B·dS</td></tr>
+    <tr><td class="lab">단위</td><td>lines, 선, 개</td><td>Wb</td></tr>
+  </table>
+  <p style="margin:0">같은 점자극이라도 개수를 세면 μ<sub>0</sub>로 나누고, 선속으로 보면 m 그대로다. 둘은 B = μ<sub>0</sub>H로 연결된다. H를 표 7.1은 자력선밀도, B는 자속밀도라 적는다.</p>
+</div>
+
+<div class="box ex">
+  <div class="tag">예제 7.4 · 식 (7.11), (7.10)</div>
+  <p>진공 중 4π [Wb]의 자하에서 나오는 총 자속과 자력선 수.</p>
+  <p style="margin:0">자속 φ = m = 4π [Wb] (매질과 무관).<br>
+  자력선 수 N = m/μ<sub>0</sub> = 4π / (4π×10<sup>−7</sup>) = 10<sup>7</sup> [개].</p>
+</div>
+
+<div class="box warn">
+  <div class="tag">혼동 · 예제 7.5의 각 θ</div>
+  <p>문제의 30°는 자계 H와 코일 <strong>면</strong>이 이루는 각이다. 식 (7.12)의 θ는 B와 <strong>면벡터 S</strong>가 이루는 각이다. 면벡터는 면에 수직이므로, 그림 7.5에서 θ = 60°이다. 자속은 면벡터 방향의 B 성분, 즉 BS cosθ 이다.</p>
+  <div class="fig">
+    <svg viewBox="0 0 520 150" xmlns="http://www.w3.org/2000/svg">
+      <line x1="40" y1="110" x2="250" y2="110" stroke="#1a365d" stroke-width="2"/>
+      <text x="150" y="132" font-size="13" fill="#1a365d" font-family="Noto Sans CJK KR">코일 면</text>
+      <line x1="145" y1="110" x2="145" y2="28" stroke="#1f6b4a" stroke-width="2" marker-end="url(#g)"/>
+      <text x="152" y="42" font-size="14" fill="#1f6b4a" font-family="Noto Sans CJK KR">S</text>
+      <line x1="145" y1="110" x2="250" y2="50" stroke="#c45c26" stroke-width="2" marker-end="url(#o)"/>
+      <text x="230" y="44" font-size="14" fill="#c45c26" font-family="Noto Sans CJK KR">H, B</text>
+      <path d="M145 78 A32 32 0 0 1 168 86" fill="none" stroke="#333" stroke-width="1"/>
+      <text x="172" y="78" font-size="12" fill="#333" font-family="Noto Sans CJK KR">60°</text>
+      <path d="M178 110 A34 34 0 0 0 190 92" fill="none" stroke="#333" stroke-width="1"/>
+      <text x="198" y="108" font-size="12" fill="#333" font-family="Noto Sans CJK KR">30°</text>
+      <text x="280" y="48" font-size="12" fill="#1c2833" font-family="Noto Sans CJK KR">면과 H의 각 = 30°</text>
+      <text x="280" y="72" font-size="12" fill="#1c2833" font-family="Noto Sans CJK KR">S와 H의 각 θ = 60°</text>
+      <text x="280" y="96" font-size="12" fill="#1c2833" font-family="Noto Sans CJK KR">φ = BS cosθ, cos60° = 1/2</text>
+      <defs>
+        <marker id="g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1f6b4a"/></marker>
+        <marker id="o" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c45c26"/></marker>
+      </defs>
+    </svg>
+  </div>
+  <p style="margin:0">H = 1200 [AT/cm], 면적 20×40 [cm<sup>2</sup>], 공기 중.<br>
+  φ = μ<sub>0</sub> H S cosθ = 4π×10<sup>−7</sup> × (1200×10<sup>2</sup>) × (20×40×10<sup>−4</sup>) × cos60° = 6×10<sup>−3</sup> [Wb]</p>
+</div>
+
+<h3>5.4 H의 선과 B의 선, 그리고 가우스의 정리</h3>
+<p>자석을 아무리 잘라도 N극과 S극이 함께 나온다. 그래서 임의의 공간을 둘러싼 폐곡면에서 나가는 자속은 항상 0이다. 이것이 정자계에서 항상 성립한다.</p>
+<div class="formula">
+  <div class="eq">∮<sub>S</sub> B · dS = 0</div>
+  <div class="no">(7.17)</div>
+</div>
+<div class="formula">
+  <div class="eq">∮<sub>S</sub> B · dS = ∫<sub>v</sub> (∇ · B) dv = 0 &nbsp; ∴ &nbsp; ∇ · B = 0</div>
+  <div class="no">(7.18)</div>
+</div>
+<p><span class="pen">자료 표시</span> 나간 만큼 다시 들어오기 때문에, 아무리 적분해도 0.</p>
+<p>∇·B = 0은 자속이 연속인 폐곡선을 이루고, 고립 자극이 없으며 항상 두 자극이 함께 있다는 뜻이다. 본문은 이것을 정전계 전속밀도 D의 관계식 (2.63), (2.110)과 크게 다른 점이라고 적는다. 그 두 식의 내용은 이 자료에 없다.</p>
+
+<div class="two">
+  <div class="box warn">
+    <div class="tag">그림 7.4(a) · 자계 H의 자력선</div>
+    <ul>
+      <li>외부와 내부 모두 N극에서 출발해 S극에서 멈춘다.</li>
+      <li>극에서 끊기므로 불연속이다.</li>
+      <li>자극을 포함하지 않은 폐곡면에서는 ∮ H·dS = 0 (면에 수직으로 통과하는 자기력선 수가 0).</li>
+      <li>자극을 포함한 폐곡면에서는 H의 면적분이 0이 아니다.</li>
+    </ul>
+  </div>
+  <div class="box main">
+    <div class="tag">그림 7.4(b) · 자속밀도 B의 자속선</div>
+    <ul>
+      <li>외부는 N → S, 내부는 S → N.</li>
+      <li>그래서 항상 폐곡선이고 연속이다.</li>
+      <li>자극을 포함하든 하지 않든, 모든 폐곡면에서 B의 면적분은 0이다. 식 (7.17), (7.18).</li>
+    </ul>
+  </div>
+</div>
+
+<div class="fig">
+  <svg viewBox="0 0 640 168" xmlns="http://www.w3.org/2000/svg">
+    <rect x="70" y="58" width="180" height="36" rx="3" fill="#eef3fa" stroke="#1a365d"/>
+    <text x="92" y="81" font-size="14" fill="#1a365d" font-family="Noto Sans CJK KR">N</text>
+    <text x="214" y="81" font-size="14" fill="#1a365d" font-family="Noto Sans CJK KR">S</text>
+    <path d="M78 76 H242" fill="none" stroke="#1a365d" stroke-width="1.6" marker-end="url(#a)"/>
+    <path d="M100 58 C100 22, 220 22, 220 58" fill="none" stroke="#1a365d" stroke-width="1.4" marker-end="url(#a)"/>
+    <path d="M100 94 C100 132, 220 132, 220 94" fill="none" stroke="#1a365d" stroke-width="1.4" marker-end="url(#a)"/>
+    <text x="78" y="156" font-size="12" fill="#1a365d" font-family="Noto Sans CJK KR">H : 내부도 N→S, 극에서 끊김</text>
+
+    <rect x="390" y="58" width="180" height="36" rx="3" fill="#f3faf5" stroke="#1f6b4a"/>
+    <text x="412" y="81" font-size="14" fill="#1f6b4a" font-family="Noto Sans CJK KR">N</text>
+    <text x="534" y="81" font-size="14" fill="#1f6b4a" font-family="Noto Sans CJK KR">S</text>
+    <path d="M548 76 H400" fill="none" stroke="#1f6b4a" stroke-width="1.6" marker-end="url(#b)"/>
+    <path d="M420 58 C420 22, 540 22, 540 58" fill="none" stroke="#1f6b4a" stroke-width="1.4" marker-end="url(#b)"/>
+    <path d="M420 94 C420 132, 540 132, 540 94" fill="none" stroke="#1f6b4a" stroke-width="1.4" marker-end="url(#b)"/>
+    <text x="390" y="156" font-size="12" fill="#1f6b4a" font-family="Noto Sans CJK KR">B : 외부 N→S, 내부 S→N, 폐곡선</text>
+    <defs>
+      <marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1a365d"/></marker>
+      <marker id="b" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1f6b4a"/></marker>
+    </defs>
+  </svg>
+  <div class="cap">그림 7.4를 문장 그대로 줄인 것. 왼쪽 내부 화살표는 N에서 S로, 오른쪽 내부 화살표는 S에서 N으로 향한다.</div>
+</div>
+
+<h3>5.5 선속의 대응 · 표 7.1</h3>
+<table>
+  <tr><th>정전계</th><th>식</th><th>정자계</th><th>식</th></tr>
+  <tr>
+    <td class="lab">전속</td><td>φ = Q [C]</td>
+    <td class="lab">자속</td><td>φ = m [Wb]</td>
+  </tr>
+  <tr>
+    <td class="lab">전속밀도</td><td>D = φ/S = Q/S [C/m<sup>2</sup>]<br>∴ φ = DS [C]</td>
+    <td class="lab">자속밀도</td><td>B = φ/S = m/S [Wb/m<sup>2</sup>]<br>∴ φ = BS [Wb]</td>
+  </tr>
+  <tr>
+    <td class="lab">전기력선</td><td>N = φ/ε<sub>0</sub> = Q/ε<sub>0</sub> [lines]</td>
+    <td class="lab">자력선</td><td>N = φ/μ<sub>0</sub> = m/μ<sub>0</sub> [lines]</td>
+  </tr>
+  <tr>
+    <td class="lab">전계의 세기<br>(전기력선밀도)</td><td>E = D/ε<sub>0</sub> [V/m]<br>∴ D = ε<sub>0</sub> E</td>
+    <td class="lab">자계의 세기<br>(자력선밀도)</td><td>H = B/μ<sub>0</sub> [AT/m]<br>∴ B = μ<sub>0</sub> H</td>
+  </tr>
+</table>
+<p class="small">자료 윗부분 필기에도 φ = BS, N = m/μ<sub>0</sub>, H = B/μ<sub>0</sub> 가 같은 표와 함께 적혀 있다.</p>
+
+<h2>6. 소자석(자기쌍극자)과 회전력 <span class="src">(7.7, 7.8)</span></h2>
+
+<p>아주 작아도 정·부의 두 자극은 분리되지 않으므로 자석은 항상 쌍극자이다. 정전계의 전기쌍극자에 대응하고, 자극 사이 거리가 매우 짧은 소자석으로 본다.</p>
+
+<div class="box main">
+  <div class="tag">주요</div>
+  <p>두 자극 ±m, 간격 l 일 때 자기 모멘트 M = ml [Wb·m]이다. 방향의 양은 −m(S극)에서 +m(N극)으로 향하는 쪽을 정(+)으로 하는 벡터이다.</p>
+</div>
+<div class="formula">
+  <div class="eq">M = ml &nbsp;&nbsp; 크기 ml [Wb·m], &nbsp; 방향 −m → +m</div>
+</div>
+
+<p>쌍극자에서 거리 r만큼 떨어진 점의 자위는 전기쌍극자 식 (2.130)에 대응한다. θ는 거리 r과 M이 이루는 각이다.</p>
+<div class="formula">
+  <div class="eq">U = <span class="frac"><span class="n">M cosθ</span><span class="d">4π μ<sub>0</sub> r<sup>2</sup></span></span></div>
+  <div class="unit">[AT]</div>
+  <div class="no">(7.19)</div>
+</div>
+<p>그 점의 H는 식 (2.132), (2.133)에 대응한다. 대응식 본문은 이 자료에 없다.</p>
+<div class="formula">
+  <div class="eq">H<sub>r</sub> = −∂U/∂r = <span class="frac"><span class="n">M cosθ</span><span class="d">2π μ<sub>0</sub> r<sup>3</sup></span></span></div>
+  <div class="unit">[AT/m]</div>
+  <div class="no">(7.20)</div>
+</div>
+<div class="formula">
+  <div class="eq">H<sub>θ</sub> = −(1/r) ∂U/∂θ = <span class="frac"><span class="n">M sinθ</span><span class="d">4π μ<sub>0</sub> r<sup>3</sup></span></span></div>
+  <div class="unit">[AT/m]</div>
+  <div class="no">(7.20)</div>
+</div>
+<div class="formula">
+  <div class="eq">H = √(H<sub>r</sub><sup>2</sup> + H<sub>θ</sub><sup>2</sup>) = <span class="frac"><span class="n">M √(1 + 3 cos<sup>2</sup>θ)</span><span class="d">4π μ<sub>0</sub> r<sup>3</sup></span></span></div>
+  <div class="unit">[AT/m]</div>
+  <div class="no">(7.21)</div>
+</div>
+
+<div class="box warn">
+  <div class="tag">혼동 · 점자극의 H와 소자석의 H</div>
+  <p style="margin:0">점자극은 거리의 제곱에 반비례한다. H = m/(4πμ<sub>0</sub>r<sup>2</sup>). 소자석은 두 극이 쌍이므로 자위가 1/r<sup>2</sup>, 자계가 1/r<sup>3</sup>이다. H<sub>r</sub>의 분모는 2πμ<sub>0</sub>r<sup>3</sup>이고 H<sub>θ</sub>의 분모는 4πμ<sub>0</sub>r<sup>3</sup>이라 계수가 다르다. 크기만 필요할 때는 식 (7.21)이다.</p>
+</div>
+
+<h3>6.1 평등 자계 속의 회전력</h3>
+<p>평등 자계 H 안에 길이 l, 자극 ±m인 자석이 자계와 각 θ를 이룰 때, 각 자극의 힘 크기는 F = mH이다. N극(+m)은 자계와 같은 방향, S극은 반대 방향이라 크기가 같고 방향이 반대인 짝힘이 된다.</p>
+<div class="formula">
+  <div class="eq">T = F l′ = Fl sinθ = mHl sinθ</div>
+  <div class="unit">[N·m]</div>
+  <div class="no">(7.22)</div>
+</div>
+<div class="formula">
+  <div class="eq">M = ml 를 쓰면 &nbsp; T = MH sinθ &nbsp;&nbsp; 벡터로 &nbsp; T = M × H</div>
+  <div class="unit">[N·m]</div>
+  <div class="no">(7.23)</div>
+</div>
+<p class="small">l′ = l sinθ 는 그림 7.7에서 두 힘의 작용선 사이 간격이다. θ는 자석(M)과 자계 H가 이루는 각이다.</p>
+
+<div class="box ex">
+  <div class="tag">예제 7.6 · 식 (7.22)</div>
+  <p>m = 4×10<sup>−6</sup> [Wb], l = 10 [cm], H = 150 [AT/m], θ = 60°.</p>
+  <p style="margin:0">T = 4×10<sup>−6</sup> × 150 × (10×10<sup>−2</sup>) × sin60° = 3√3 × 10<sup>−5</sup> [N·m]</p>
+</div>
+
+<div class="box warn">
+  <div class="tag">혼동 · 두 종류의 θ</div>
+  <p style="margin:0">예제 7.5의 θ는 B와 면벡터 S의 각이다. 식 (7.22)의 θ는 자석과 자계 H의 각이다. 식 (7.19)의 θ는 위치 벡터 r과 자기 모멘트 M의 각이다. 같은 글자라도 기준이 다르다.</p>
+</div>
+
+<h2>7. 판자석(자기 이중층) <span class="src">(7.9)</span></h2>
+
+<p>정전계의 전기 이중층에 대응한다. 얇은 판 위의 수많은 자기쌍극자를 판상의 자석으로 본 것이 자기 이중층, 즉 판자석이다.</p>
+
+<div class="box main">
+  <div class="tag">주요 · 정의와 자위</div>
+  <p>면자하밀도 ±σ [Wb/m<sup>2</sup>], 두께 t [m], 미소 면적 dS [m<sup>2</sup>]이면 미소 자하 ±σ dS [Wb]를 하나의 자기쌍극자로 본다.</p>
+</div>
+<div class="formula">
+  <div class="eq">dU = <span class="frac"><span class="n">(σ dS) t cosθ</span><span class="d">4π μ<sub>0</sub> r<sup>2</sup></span></span> = <span class="frac"><span class="n">σ t</span><span class="d">4π μ<sub>0</sub></span></span> <span class="frac"><span class="n">dS cosθ</span><span class="d">r<sup>2</sup></span></span></div>
+  <div class="no">(7.24)</div>
+</div>
+<p>식 (2.60)의 입체각 dω를 쓰면 dS cosθ / r<sup>2</sup> 자리가 dω가 된다. 그 식의 내용은 이 자료에 없다.</p>
+<div class="formula">
+  <div class="eq">dU = <span class="frac"><span class="n">σ t</span><span class="d">4π μ<sub>0</sub></span></span> dω</div>
+  <div class="no">(7.25)</div>
+</div>
+<div class="formula">
+  <div class="eq">면 전체에서 σ가 일정할 때 &nbsp; M<sub>0</sub> = σ t</div>
+  <div class="unit">[Wb/m]</div>
+  <div class="no">(7.26)</div>
+</div>
+<div class="formula">
+  <div class="eq">dU = <span class="frac"><span class="n">M<sub>0</sub></span><span class="d">4π μ<sub>0</sub></span></span> dω</div>
+  <div class="no">(7.27)</div>
+</div>
+<div class="formula">
+  <div class="eq">점 P에서 본 입체각이 ω이면 &nbsp; U = <span class="frac"><span class="n">M<sub>0</sub></span><span class="d">4π μ<sub>0</sub></span></span> ω</div>
+  <div class="unit">[AT]</div>
+  <div class="no">(7.28)</div>
+</div>
+
+<div class="box rel">
+  <div class="tag">관계 · M<sub>0</sub>가 가리키는 것</div>
+  <p>M<sub>0</sub>는 판자석의 세기, 또는 자기 이중층의 세기이고, 단위 면적당 자기 모멘트를 뜻한다.</p>
+  <p style="margin:0">M<sub>0</sub> = M/S [Wb/m], &nbsp; M = M<sub>0</sub> S [Wb·m] &nbsp; (7.29)</p>
+</div>
+
+<div class="box warn">
+  <div class="tag">혼동 · 자위의 부호</div>
+  <p>입체각 ω의 부호는 식 (7.24)의 cosθ로 정해진다. N극(+σ) 면을 바라보면 양(+), S극(−σ) 면을 보면 음(−)이다.</p>
+  <p style="margin:0">U = ± (M<sub>0</sub> / 4πμ<sub>0</sub>) ω [AT] &nbsp; (7.30) &nbsp;&nbsp; (+) N극 측, (−) S극 측</p>
+</div>
+
+<p>그림 7.8에서 점 P가 N극 측, 점 Q가 S극 측이면</p>
+<div class="formula">
+  <div class="eq">U<sub>P</sub> = <span class="frac"><span class="n">M<sub>0</sub></span><span class="d">4π μ<sub>0</sub></span></span> ω<sub>1</sub> , &nbsp; U<sub>Q</sub> = − <span class="frac"><span class="n">M<sub>0</sub></span><span class="d">4π μ<sub>0</sub></span></span> ω<sub>2</sub></div>
+  <div class="unit">[AT]</div>
+  <div class="no">(7.31)</div>
+</div>
+<p>양측에서 각 면에 무한히 접근하면 ω<sub>1</sub> = 2π, ω<sub>2</sub> = 2π로 근사된다. 판자석 양면의 자위차는</p>
+<div class="formula">
+  <div class="eq">U<sub>PQ</sub> = U<sub>P</sub> − U<sub>Q</sub> = <span class="frac"><span class="n">M<sub>0</sub></span><span class="d">2 μ<sub>0</sub></span></span> − <span class="frac"><span class="n">(−M<sub>0</sub>)</span><span class="d">2 μ<sub>0</sub></span></span></div>
+  <div class="no">(7.32)</div>
+</div>
+<div class="formula">
+  <div class="eq">U<sub>PQ</sub> = M<sub>0</sub> / μ<sub>0</sub></div>
+  <div class="unit">[AT]</div>
+  <div class="no">(7.33)</div>
+</div>
+
+<div class="box ex">
+  <div class="tag">예제 7.7 · 원형 판자석, 축 위의 H</div>
+  <p>반지름 a [m], 두께 t [m], 면자하밀도 σ [Wb/m<sup>2</sup>]. 중심 축의 N극 측에서 중심으로부터 x [m]인 점.</p>
+  <p>U = (M<sub>0</sub> / 4πμ<sub>0</sub>) ω = (σt / 4πμ<sub>0</sub>) ω</p>
+  <p>입체각과 평면각은 ω = 2π(1 − cosθ)이다. 따라서</p>
+  <p>U = (σt / 2μ<sub>0</sub>) ( 1 − x / √(a<sup>2</sup>+x<sup>2</sup>) ) [AT]</p>
+  <p style="margin:0">H = −∂U/∂x = σ t a<sup>2</sup> / [ 2 μ<sub>0</sub> (a<sup>2</sup>+x<sup>2</sup>)<sup>3/2</sup> ] [AT/m]</p>
+</div>
+
+<h2>8. 정전계와 정자계의 대응 <span class="src">(7.10, 표 7.2)</span></h2>
+
+<p>용어와 공식을 짝으로 두면 자석의 정자계를 정전계와 함께 읽을 수 있다. 표 7.2가 그 목록이다.</p>
+
+<table>
+  <tr><th>정전계</th><th>식</th><th>정자계</th><th>식</th></tr>
+  <tr><td class="lab">전하</td><td>Q [C]</td><td class="lab">자하<br>(자극의 세기)</td><td>m [Wb]</td></tr>
+  <tr><td class="lab">진공의 유전율</td><td>ε<sub>0</sub> = 8.85×10<sup>−12</sup> [F/m]</td><td class="lab">진공의 투자율</td><td>μ<sub>0</sub> = 4π×10<sup>−7</sup> [H/m]</td></tr>
+  <tr><td class="lab">쿨롱의 법칙<br>(전기력)</td><td>F = Q<sub>1</sub>Q<sub>2</sub> / (4πε<sub>0</sub>r<sup>2</sup>) [N]</td><td class="lab">쿨롱의 법칙<br>(자기력)</td><td>F = m<sub>1</sub>m<sub>2</sub> / (4πμ<sub>0</sub>r<sup>2</sup>) [N]</td></tr>
+  <tr><td class="lab">전계의 세기</td><td>E = Q / (4πε<sub>0</sub>r<sup>2</sup>) [V/m]</td><td class="lab">자계의 세기</td><td>H = m / (4πμ<sub>0</sub>r<sup>2</sup>) [AT/m]<br>자료에는 [A/m]도 함께 표시</td></tr>
+  <tr><td class="lab">힘과 전계</td><td>F = QE [N]</td><td class="lab">힘과 자계</td><td>F = mH [N]</td></tr>
+  <tr><td class="lab">전위</td><td>V = Q / (4πε<sub>0</sub>r) [V]</td><td class="lab">자위</td><td>U = m / (4πμ<sub>0</sub>r) [AT]</td></tr>
+  <tr><td class="lab">전기쌍극자</td><td>V = M cosθ / (4πε<sub>0</sub>r<sup>2</sup>) [V]</td><td class="lab">소자석<br>(자기쌍극자)</td><td>U = M cosθ / (4πμ<sub>0</sub>r<sup>2</sup>) [AT]</td></tr>
+  <tr><td class="lab">전기 이중층</td><td>V = M<sub>0</sub> ω / (4πε<sub>0</sub>) [V]</td><td class="lab">판자석<br>(자기 이중층)</td><td>U = M<sub>0</sub> ω / (4πμ<sub>0</sub>) [AT]</td></tr>
+  <tr><td class="lab">전위경도</td><td>E = −grad V</td><td class="lab">자위경도</td><td>H = −grad U</td></tr>
+</table>
+
+<div class="box rel">
+  <div class="tag">관계 · 대응을 읽을 때의 한계</div>
+  <p style="margin:0">이 대응은 자석의 정자계에 대한 것이다. 본문은 제8장에서 배울 전류에 의한 정자계에는 이 대응이 그대로 성립하지 않는다고 적어 둔다.</p>
+</div>
+
+<div class="box warn">
+  <div class="tag">혼동 · 기호가 장 안에서 달라지는 곳</div>
+  <ul>
+    <li>판자석의 세기는 본문에서 M<sub>0</sub> [Wb/m]이다. 연습문제 13은 같은 양을 φ<sub>m</sub> = 0.01 [Wb/m]으로 적는다.</li>
+    <li>자위 단위는 식 (7.4)·(7.5)에서 [A], 식 (7.19) 이후와 표 7.2에서 [AT]이다. 7.3절의 설명대로 권선수를 뺀 표기이다.</li>
+    <li>자기 모멘트 M [Wb·m]과 판자석의 세기 M<sub>0</sub> [Wb/m]는 식 (7.29)로만 오간다. M<sub>0</sub> = M/S.</li>
+  </ul>
+</div>
+
+<h2>9. 혼동만 모아 둔 표</h2>
+<p>앞에서 가른 내용을 복습용으로 한자리에 모았다. 새 공식은 없다.</p>
+<table>
+  <tr><th style="width:22%">헷갈리는 쌍</th><th>구분</th></tr>
+  <tr><td class="lab">Q 와 m</td><td>자리는 같다. Q는 단독으로 있을 수 있고 m은 N·S가 항상 쌍이다.</td></tr>
+  <tr><td class="lab">H 와 B</td><td>H는 +1 Wb가 받는 힘. B는 단위 면적당 자속. B = μ<sub>0</sub>H, H = B/μ<sub>0</sub>.</td></tr>
+  <tr><td class="lab">N 과 φ</td><td>N = m/μ<sub>0</sub>는 매질에 따라 변하고 단위가 개(lines). φ = m은 일정하고 단위가 Wb.</td></tr>
+  <tr><td class="lab">H선 과 B선</td><td>H선은 안팎 모두 N→S, 극에서 불연속. B선은 밖 N→S, 안 S→N, 항상 폐곡선.</td></tr>
+  <tr><td class="lab">∮ H·dS 와 ∮ B·dS</td><td>H의 폐곡면 적분은 자극을 넣지 않을 때만 0. B의 폐곡면 적분은 항상 0. ∇·B = 0.</td></tr>
+  <tr><td class="lab">U 와 U<sub>AB</sub></td><td>U는 한 점. U<sub>AB</sub> = −∫<sub>B</sub><sup>A</sup> H·dl = U<sub>A</sub> − U<sub>B</sub>.</td></tr>
+  <tr><td class="lab">θ 세 가지</td><td>면과 자계의 각(예제 7.5는 여기서 30°, 식의 θ는 60°). 자석과 H의 각(회전력). r과 M의 각(쌍극자 자위).</td></tr>
+  <tr><td class="lab">m, M, M<sub>0</sub></td><td>m [Wb] 자극 하나의 세기. M = ml [Wb·m] 쌍극자. M<sub>0</sub> = σt = M/S [Wb/m] 판자석. 연습 13의 기호는 φ<sub>m</sub>.</td></tr>
+  <tr><td class="lab">[N/Wb], [AT/m], [A/m]</td><td>H의 같은 단위. 자위는 [A]와 [AT]를 함께 쓴다.</td></tr>
+  <tr><td class="lab">점자극 · 소자석</td><td>점자극 H ∝ 1/r<sup>2</sup>. 소자석 U ∝ 1/r<sup>2</sup>, H ∝ 1/r<sup>3</sup>.</td></tr>
+</table>
+
+<h2>10. 연습문제 <span class="src">(221–222쪽)</span></h2>
+<p>풀이는 자료에 없다. 문제만, 본문의 어느 식에 붙는지로 나누어 둔다. 본문에 없는 식으로는 풀이를 만들지 않았다.</p>
+<p><span class="pen">자료 표시</span> 06번과 08번에 동그라미가 있다.</p>
+
+<h3>10.1 쿨롱의 힘 · 식 (7.1)</h3>
+<ol class="prob" start="1">
+  <li>진공 중에서 자극 1.6×10<sup>−4</sup> [Wb]와 2×10<sup>−3</sup> [Wb] 사이에 작용하는 힘이 12.66 [N]이었을 때, 두 자극 사이의 거리 [cm]를 구하라.</li>
+  <li>공기 중에서 5 [cm]의 거리에 있는 두 개의 자극 사이에 작용하는 인력이 100 [N]이다. 한쪽의 자극의 세기가 5×10<sup>−3</sup> [Wb]라 할 때 다른 쪽의 자극의 세기 [Wb]를 구하라. 예제 7.5는 공기 중 계산에 μ<sub>0</sub>를 쓴다.</li>
+</ol>
+
+<h3>10.2 자계 안의 힘 · 식 (7.3)</h3>
+<ol class="prob" start="3">
+  <li>600 [AT/m]의 자계 중에 어떤 자극을 놓았을 때 3×10<sup>3</sup> [N]의 힘을 받았다고 한다. 이때 자극의 세기 [Wb]를 구하라.</li>
+  <li>진공 중의 자계 10 [AT/m]인 점에 5×10<sup>−3</sup> [Wb]의 자극을 놓았을 때, 그 자극에 작용하는 힘 [N]을 구하라.</li>
+  <li>비투자율 μ<sub>s</sub>, 자속밀도 B인 자계 중에 있는 m [Wb]의 자극이 받는 힘 [N]을 구하라.
+    <br><span class="small">이 장 본문에는 진공의 B = μ<sub>0</sub>H와 F = mH만 있고, 비투자율 μ<sub>s</sub>의 정의는 없다.</span></li>
+</ol>
+
+<h3>10.3 B와 μ<sub>0</sub> · 식 (7.15), 표 7.1</h3>
+<ol class="prob" start="6">
+  <li><span class="pen">자료 표시</span> 자계의 세기 1500 [AT/m]되는 점의 자속밀도가 2.8 [Wb/m<sup>2</sup>]이다. 이 공간의 투자율 및 비투자율을 구하라.
+    <br><span class="small">본문이 정의하는 투자율은 진공의 투자율 μ<sub>0</sub> = 4π×10<sup>−7</sup> [H/m]이고, 관계식은 B = μ<sub>0</sub>H이다. 비투자율이라는 말은 연습 05·06의 문제 문장에만 있다.</span></li>
+</ol>
+
+<h3>10.4 자속과 자력선 수 · 식 (7.10), (7.11)</h3>
+<ol class="prob" start="7">
+  <li>진공 중에 10 [cm<sup>2</sup>]의 폐곡면 안에 5 [Wb]의 자하에서 나오는 자속과 자력선수를 구하라.
+    <br><span class="small">예제 7.4와 같이, 나오는 총 자속은 φ = m, 자력선 수는 N = m/μ<sub>0</sub>이다. 폐곡면 안의 자하가 있는 경우이므로, B의 폐곡면 적분(항상 0)과는 묻는 양이 다르다.</span></li>
+</ol>
+
+<h3>10.5 막대자석 자축 위의 H · 식 (7.2)의 대수합</h3>
+<p>여러 점자극의 양은 대수합이다. 자축 위에서 두 극의 H를 각각 구한다.</p>
+<ol class="prob" start="8">
+  <li><span class="pen">자료 표시</span> 그림 7.10과 같이 진공에서 6×10<sup>−3</sup> [Wb]의 자극을 가진 길이 10 [cm]인 막대자석의 정자극으로부터 5 [cm] 떨어진 점 P에서의 자계의 세기 [AT/m]를 구하라.
+    <br><span class="small">배치: 점 P에서 5 [cm] 떨어진 곳이 +m, 그다음 10 [cm]가 −m이다. 따라서 P에서 +m까지 5 cm, P에서 −m까지 15 cm이다.</span></li>
+  <li>길이 10 [cm], 자극의 자하 ±90 [μWb]가 되는 막대자석의 자축 상에 자극에서부터 15 [cm]되는 점의 자계의 세기 [AT/m]를 구하라.</li>
+</ol>
+
+<h3>10.6 소자석 · 식 (7.21), 조건 r ≫ l</h3>
+<ol class="prob" start="10">
+  <li>길이 l = 10 [cm], 자극의 세기 ±8×10<sup>−6</sup> [Wb]인 막대자석이 있다. 자석의 중심 O에서 수직으로 r = 2 [m]만큼 떨어진 점 P의 자계의 세기 [AT/m]를 구하라. 단, r ≫ l 의 관계로 계산한다.
+    <br><span class="small">중심에서 수직이므로 식 (7.21)에서 그 방향의 θ를 읽어 쓴다. M = ml.</span></li>
+</ol>
+
+<h3>10.7 회전력 · 식 (7.22)</h3>
+<ol class="prob" start="11">
+  <li>자극의 세기가 8×10<sup>−6</sup> [Wb], 길이가 30 [cm]인 막대자석을 120 [AT/m]의 평등 자계 내에 30°의 각도로 놓았을 때, 자석이 받는 회전력 [N·m]을 구하라.</li>
+  <li>1×10<sup>−6</sup> [Wb·m]의 자기 모멘트를 가진 봉자석을 자계의 수평성분이 10 [AT/m]인 곳에 자기 자오면으로부터 90° 회전하는데 필요한 일 [J]을 구하라.
+    <br><span class="small">본문은 회전력 T = mHl sinθ = MH sinθ 까지만 있고, 회전에 필요한 일의 식은 없다.</span></li>
+</ol>
+
+<h3>10.8 판자석의 자위 · 식 (7.28)</h3>
+<ol class="prob" start="13">
+  <li>판자석의 세기 φ<sub>m</sub> = 0.01 [Wb/m], 반지름 a = 5 [cm]인 원형 자석판이 있다. 자석의 중심에서 축상 10 [cm]인 점에서의 자위 [AT]를 구하라.
+    <br><span class="small">본문의 판자석 세기는 M<sub>0</sub>이다. 축상 자위의 계산 절차는 예제 7.7과 같다. 예제 7.7은 이어서 H까지 구하고, 이 문제는 자위 U까지만 묻는다.</span></li>
+</ol>
+
+<h2>11. 식만 모아 둔 면</h2>
+<p class="small">조건은 각 식 옆에 있는 짧은 말뿐이다. 번호는 자료의 식 번호이다.</p>
+<table class="split">
+  <tr><th>번호</th><th>식</th><th>언제 쓰는가</th></tr>
+  <tr><td>(7.1)</td><td>F = m<sub>1</sub>m<sub>2</sub> / (4πμ<sub>0</sub>r<sup>2</sup>) [N]</td><td>두 점자극 사이의 힘. μ<sub>0</sub> = 4π×10<sup>−7</sup> [H/m]</td></tr>
+  <tr><td>(7.2)</td><td>H = m / (4πμ<sub>0</sub>r<sup>2</sup>) [AT/m]</td><td>점자극이 만드는 H</td></tr>
+  <tr><td>(7.3)</td><td>F = mH [N]</td><td>자계 H 안의 자극이 받는 힘</td></tr>
+  <tr><td>(7.4)</td><td>U = −∫<sub>∞</sub><sup>P</sup> H·dl [A]</td><td>한 점의 자위. 보존장</td></tr>
+  <tr><td>(7.5)</td><td>U = m / (4πμ<sub>0</sub>r) [A]</td><td>점자극의 자위. 여러 극은 대수합</td></tr>
+  <tr><td>(7.6)</td><td>U<sub>AB</sub> = −∫<sub>B</sub><sup>A</sup> H·dl = U<sub>A</sub> − U<sub>B</sub></td><td>두 점의 자위차</td></tr>
+  <tr><td>(7.7)</td><td>N = H·S [lines]</td><td>균일 평면의 자기력선 수. 수직이면 N = HS</td></tr>
+  <tr><td>(7.9)</td><td>N = ∫ H·dS [lines]</td><td>곡면의 자기력선 수. 점자극이면 N = m/μ<sub>0</sub></td></tr>
+  <tr><td>(7.11)</td><td>φ = m [Wb]</td><td>자속. 매질과 무관. 전속은 φ = Q [C]</td></tr>
+  <tr><td>(7.12)</td><td>φ = B·S, 수직이면 φ = BS [Wb]</td><td>자속. θ는 B와 S의 각</td></tr>
+  <tr><td>(7.14)</td><td>B = φ/S = m/S [Wb/m<sup>2</sup>] = [T]</td><td>단위 면적당 자속</td></tr>
+  <tr><td>(7.15)</td><td>B = μ<sub>0</sub>H</td><td>자속밀도와 자계의 세기. H = B/μ<sub>0</sub></td></tr>
+  <tr><td>(7.16)</td><td>φ = ∫ B·dS [Wb]</td><td>곡면을 지나는 자속</td></tr>
+  <tr><td>(7.17)</td><td>∮ B·dS = 0, ∇·B = 0</td><td>임의의 폐곡면. 고립 자극 없음</td></tr>
+  <tr><td>(7.19)</td><td>U = M cosθ / (4πμ<sub>0</sub>r<sup>2</sup>) [AT]</td><td>소자석. M = ml, θ는 r과 M의 각</td></tr>
+  <tr><td>(7.20)</td><td>H<sub>r</sub> = M cosθ / (2πμ<sub>0</sub>r<sup>3</sup>)<br>H<sub>θ</sub> = M sinθ / (4πμ<sub>0</sub>r<sup>3</sup>)</td><td>소자석의 자계 성분. H = −grad U에서</td></tr>
+  <tr><td>(7.21)</td><td>H = M √(1+3cos<sup>2</sup>θ) / (4πμ<sub>0</sub>r<sup>3</sup>)</td><td>소자석 H의 크기</td></tr>
+  <tr><td>(7.22)</td><td>T = m H l sinθ [N·m]</td><td>평등 자계 속 자석의 회전력. θ는 자석과 H의 각</td></tr>
+  <tr><td>(7.23)</td><td>T = MH sinθ, &nbsp; T = M × H</td><td>같은 회전력의 벡터 표기</td></tr>
+  <tr><td>(7.26)</td><td>M<sub>0</sub> = σt [Wb/m]</td><td>판자석의 세기. M<sub>0</sub> = M/S</td></tr>
+  <tr><td>(7.28)</td><td>U = M<sub>0</sub> ω / (4πμ<sub>0</sub>) [AT]</td><td>입체각 ω로 본 판자석의 자위. N측 +, S측 −</td></tr>
+  <tr><td>(7.33)</td><td>U<sub>PQ</sub> = M<sub>0</sub> / μ<sub>0</sub> [AT]</td><td>양면에 무한히 가까이 간 자위차. ω = 2π</td></tr>
+  <tr><td>예제 7.7</td><td>U = (σt/2μ<sub>0</sub>)(1 − x/√(a<sup>2</sup>+x<sup>2</sup>))<br>H = σta<sup>2</sup> / [2μ<sub>0</sub>(a<sup>2</sup>+x<sup>2</sup>)<sup>3/2</sup>]</td><td>원형 판자석의 축상. ω = 2π(1−cosθ)</td></tr>
+  <tr><td>표 7.2</td><td>H = −grad U</td><td>자위경도. 전계는 E = −grad V</td></tr>
+</table>
+
+
+</body>
+</html>
