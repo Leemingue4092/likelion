@@ -80,9 +80,21 @@ public class BuildAdderReport {
                 "1.00 kHz",
                 "4.15",
                 "24.90 Vpp",
+                "24.86 Vpp",
+                "25.13 V",
+                "5.99 V",
+                "12.03 V",
+                "9.78 V",
+                "3.94 V",
+                "1.09%",
+                "sine파",
+                "AFG-2012",
+                "LT322",
+                "17:40:48",
                 "입력 없음",
                 "[그림 2-1]",
-                "[표 5-2]",
+                "[그림 5-4]",
+                "[표 5-5]",
                 "수업 화면, 실험 5 가산기"
         };
         String[] forbidden = {
@@ -222,17 +234,18 @@ public class BuildAdderReport {
         replaceCover(section.getParagraph(4), "실험 5.  가산기");
         replaceCover(section.getParagraph(5), "과목명 : 회로이론실습설계 2");
         replaceCover(section.getParagraph(9), "제출일 : 입력 없음");
-        replaceCover(section.getParagraph(10), "실험일 : 입력 없음");
+        replaceCover(section.getParagraph(10), "실험일 : 2026. 10. 06.");
         blankGroup(section.getParagraph(11));
 
         while (section.getParagraphCount() > COVER_KEEP) {
             section.deleteParagraph(section.getParagraphCount() - 1);
         }
 
-        body("가산기에 1.00 kHz, 6.00 Vpp를 넣고 출력 크기를 보려 한 실험이다.");
+        body("가산기에 1.00 kHz, 6.00 Vpp sine파를 넣고 출력 크기를 보려 한 실험이다.");
         body("입력은 2.40 kΩ, 3.00 kΩ, 7.50 kΩ을 거쳐 −단자로 들어간다.");
         body("수업 화면에는 6 Vpp, 1 kHz가 적혀 있다.");
-        body("파형 이름은 입력 없음.");
+        body("칠판에는 파형 이름이 없다.");
+        body("함수발생기 표시는 sine파다.");
 
         heading("2. 실험 이론");
         subhead("2-1. 가산기가 하는 일");
@@ -262,7 +275,12 @@ public class BuildAdderReport {
         body("음전원은 −15 V다.");
         body("두 전원의 차는 30 V다.");
         body("24.90 Vpp는 30 V보다 작다.");
-        body("화면에서 읽은 입력으로 다시 계산한 값은 입력 없음.");
+        body("17:32:11 화면 CH1 6.13 V × 1.96 = 12.01 Vpp다.");
+        body("17:36:27 화면 CH1 6.17 V × 1.57 = 9.69 Vpp다.");
+        body("17:37:39 화면 CH1 6.23 V × 0.63 = 3.92 Vpp다.");
+        body("17:40:48 화면 CH1 5.99 V × 4.15 = 24.86 Vpp다.");
+        body("이 네 값은 화면 pk-pk로 다시 계산한 값이다.");
+        body("칠판 6.00 Vpp의 24.90 Vpp와 한 숫자로 합치지 않았다.");
 
         subhead("2-3. 회로도");
         body("6.00 Vpp, 1.00 kHz 입력이 2.40 kΩ, 3.00 kΩ, 7.50 kΩ으로 갈라진다.");
@@ -294,8 +312,8 @@ public class BuildAdderReport {
                 {"능동소자", "연산증폭기 (모델명 입력 없음)"},
                 {"저항", "2.40 kΩ, 3.00 kΩ, 7.50 kΩ, 4.70 kΩ"},
                 {"커패시터 또는 인덕터", "입력 없음"},
-                {"입력(함수발생기 설정)", "1.00 kHz, 6.00 Vpp, 파형 입력 없음"},
-                {"측정기", "입력 없음"}
+                {"입력(함수발생기 설정)", "AFG-2012, 1.00 kHz, 6.00 Vpp, 오프셋 0.00 V, sine파"},
+                {"측정기", "LeCroy waverunner LT322"}
         });
 
         heading("4. 실험 방법");
@@ -306,67 +324,210 @@ public class BuildAdderReport {
         body("입력은 −단자로 넣는다.");
         body("프로브 배율은 입력 없음.");
         subhead("4-2. 회로 구성");
-        body("브레드보드에 꽂은 순서는 입력 없음.");
-        body("스코프 CH1, CH2가 어느 노드인지는 입력 없음.");
+        body("보드는 WOOSUN WST-7ALU다.");
+        body("8핀 연산증폭기가 브레드보드에 꽂혀 있다.");
+        body("모델명과 저항 색띠는 사진에서 안 읽힌다.");
+        body("구멍 순서는 입력 없음.");
+        body("A CH 손잡이는 15 V 눈금이다.");
+        body("B CH 손잡이는 15 V 눈금이다.");
+        body("어느 손잡이가 양전원인지는 입력 없음.");
+        body("회색 프로브와 초록 프로브가 있다.");
+        body("노란 선은 CH1이다.");
+        body("분홍 선은 CH2이다.");
+        body("CH1 pk-pk는 6 V 근처다.");
+        body("CH2 pk-pk는 화면마다 다르다.");
+        body("앞 사진에는 칩 옆 저항이 조금 보인다.");
+        photo(docsDir + "/breadboard_exp5_front.jpg");
+        figureCaption("[그림 4-1] 브레드보드. 앞 사진");
+        body("나중 사진에는 칩 옆에 저항이 여러 개 보인다.");
+        photo(docsDir + "/breadboard_exp5_later.jpg");
+        figureCaption("[그림 4-2] 브레드보드. 나중 사진");
         subhead("4-3. 측정 조건");
-        body("함수발생기 모델은 입력 없음.");
-        body("칠판 주파수는 1.00 kHz다.");
-        body("진폭은 6.00 Vpp다.");
-        body("파형 이름은 입력 없음.");
-        body("오프셋은 입력 없음.");
-        body("스코프 모델은 입력 없음.");
-        body("시간축은 입력 없음.");
-        body("전압축은 입력 없음.");
-        body("커플링은 입력 없음.");
+        body("함수발생기는 GW INSTEK AFG-2012다.");
+        body("17:37:39 함수발생기 화면은 1.00 kHz, 6.00 Vpp, 오프셋 0.00 V, sine파다.");
+        body("17:40:48 함수발생기 숫자는 반사로 안 읽힌다.");
+        body("스코프는 LeCroy waverunner LT322다.");
+        body("커플링은 DC다.");
+        body("17:32:11, 17:36:27, 17:37:39의 시간축은 0.5 ms/div다.");
+        body("그 세 화면의 샘플 속도는 10 MS/s다.");
+        body("17:40:48의 시간축은 1 ms/div다.");
+        body("17:40:48의 샘플 속도는 5 MS/s다.");
         body("프로브 배율은 입력 없음.");
-        body("촬영 시각은 입력 없음.");
 
         heading("5. 실험 결과");
-        subhead("5-1. 1.00 kHz");
-        body("칠판 입력은 6.00 Vpp다.");
-        body("주파수는 1.00 kHz다.");
-        body("파형 이름은 입력 없음.");
-        body("스코프 화면의 색, 채널, pk-pk, 시간축, 전압축, 촬영 시각은 입력 없음.");
-        body("이론 출력 크기는 24.90 Vpp다.");
-        body("부호는 음이다.");
-        caption("[표 5-1] 1.00 kHz");
+        subhead("5-1. 17:32:11");
+        body("2026.10.06 17:32:11에 찍었다.");
+        body("화면은 STOPPED다.");
+        body("스위프는 2번이다.");
+        body("노란 선은 CH1이다.");
+        body("분홍 선은 CH2이다.");
+        body("CH1 pk-pk는 6.13 V다.");
+        body("CH1 주파수는 1.00 kHz다.");
+        body("CH1 rms는 2.11 V다.");
+        body("CH2 pk-pk는 12.03 V다.");
+        body("CH2 주파수는 1.00 kHz다.");
+        body("시간축은 0.5 ms/div다.");
+        body("CH1 전압축은 1.00 V/div DC다.");
+        body("CH2 전압축은 2.00 V/div DC다.");
+        body("트리거는 CH1 DC −0.06 V다.");
+        body("노란 선이 위일 때 분홍 선은 아래다.");
+        body("화면 CH1 6.13 V × 1.96 = 12.01 Vpp다.");
+        caption("[표 5-1] 17:32:11");
         table(measureTableProto.clone(), new String[][]{
                 {"항목", "값"},
-                {"칠판 입력", "6.00 Vpp, 1.00 kHz"},
-                {"파형", "입력 없음"},
-                {"이론 출력 (계산)", "24.90 Vpp (계산)"},
-                {"스코프 pk-pk", "입력 없음"},
-                {"시간축", "입력 없음"},
-                {"전압축", "입력 없음"}
+                {"CH1 pk-pk", "6.13 V"},
+                {"CH2 pk-pk", "12.03 V"},
+                {"CH2 pk-pk (계산)", "12.01 Vpp (계산)"},
+                {"CH1 주파수", "1.00 kHz"},
+                {"CH2 주파수", "1.00 kHz"},
+                {"전압축", "CH1 1.00 V/div, CH2 2.00 V/div DC"}
         });
+        photo(docsDir + "/scope_173211.jpg");
+        figureCaption("[그림 5-1] sine파 (2026.10.06 17:32:11)");
 
-        subhead("5-2. 정리");
-        caption("[표 5-2] 가산기");
+        subhead("5-2. 17:36:27");
+        body("2026.10.06 17:36:27에 찍었다.");
+        body("화면은 STOPPED다.");
+        body("스위프는 76번이다.");
+        body("노란 선은 CH1이다.");
+        body("분홍 선은 CH2이다.");
+        body("CH1 pk-pk는 6.17 V다.");
+        body("CH1 주파수는 1.00 kHz다.");
+        body("CH1 rms는 2.13 V다.");
+        body("CH2 pk-pk는 9.78 V다.");
+        body("CH2 주파수는 1.00 kHz다.");
+        body("시간축은 0.5 ms/div다.");
+        body("CH1 전압축은 1.00 V/div DC다.");
+        body("CH2 전압축은 2.00 V/div DC다.");
+        body("트리거는 CH1 DC −0.08 V다.");
+        body("노란 선이 위일 때 분홍 선은 아래다.");
+        body("화면 CH1 6.17 V × 1.57 = 9.69 Vpp다.");
+        caption("[표 5-2] 17:36:27");
+        table(measureTableProto.clone(), new String[][]{
+                {"항목", "값"},
+                {"CH1 pk-pk", "6.17 V"},
+                {"CH2 pk-pk", "9.78 V"},
+                {"CH2 pk-pk (계산)", "9.69 Vpp (계산)"},
+                {"CH1 주파수", "1.00 kHz"},
+                {"CH2 주파수", "1.00 kHz"},
+                {"전압축", "CH1 1.00 V/div, CH2 2.00 V/div DC"}
+        });
+        photo(docsDir + "/scope_173627.jpg");
+        figureCaption("[그림 5-2] sine파 (2026.10.06 17:36:27)");
+
+        subhead("5-3. 17:37:39");
+        body("2026.10.06 17:37:39에 찍었다.");
+        body("화면은 STOPPED다.");
+        body("스위프는 101번이다.");
+        body("노란 선은 CH1이다.");
+        body("분홍 선은 CH2이다.");
+        body("CH1 pk-pk는 6.23 V다.");
+        body("CH1 주파수는 1.00 kHz다.");
+        body("CH1 rms는 2.15 V다.");
+        body("CH2 pk-pk는 3.94 V다.");
+        body("CH2 주파수는 1.00 kHz다.");
+        body("시간축은 0.5 ms/div다.");
+        body("CH1 전압축은 1.00 V/div DC다.");
+        body("CH2 전압축은 1.00 V/div DC다.");
+        body("트리거는 CH1 DC −0.06 V다.");
+        body("노란 선이 위일 때 분홍 선은 아래다.");
+        body("화면 CH1 6.23 V × 0.63 = 3.92 Vpp다.");
+        caption("[표 5-3] 17:37:39");
+        table(measureTableProto.clone(), new String[][]{
+                {"항목", "값"},
+                {"CH1 pk-pk", "6.23 V"},
+                {"CH2 pk-pk", "3.94 V"},
+                {"CH2 pk-pk (계산)", "3.92 Vpp (계산)"},
+                {"CH1 주파수", "1.00 kHz"},
+                {"CH2 주파수", "1.00 kHz"},
+                {"전압축", "CH1 1.00 V/div, CH2 1.00 V/div DC"}
+        });
+        photo(docsDir + "/scope_173739.jpg");
+        figureCaption("[그림 5-3] sine파 (2026.10.06 17:37:39)");
+
+        subhead("5-4. 17:40:48");
+        body("2026.10.06 17:40:48에 찍었다.");
+        body("화면은 STOPPED다.");
+        body("스위프는 73번이다.");
+        body("노란 선은 CH1이다.");
+        body("분홍 선은 CH2이다.");
+        body("CH1 pk-pk는 5.99 V다.");
+        body("CH1 주파수는 1.00 kHz다.");
+        body("CH1 rms는 2.06 V다.");
+        body("CH2 pk-pk는 25.13 V다.");
+        body("CH2 주파수는 1.00 kHz다.");
+        body("시간축은 1 ms/div다.");
+        body("CH1 전압축은 1.00 V/div DC다.");
+        body("CH2 전압축은 5.0 V/div DC다.");
+        body("트리거는 CH1 DC −0.06 V다.");
+        body("노란 선이 위일 때 분홍 선은 아래다.");
+        body("화면 CH1 5.99 V × 4.15 = 24.86 Vpp다.");
+        body("17:40:37은 AUTO다.");
+        body("그 평균 pk-pk도 CH1 5.99 V, CH2 25.13 V다.");
+        body("17:40:49는 STOPPED이고 그 평균 pk-pk는 같다.");
+        caption("[표 5-4] 17:40:48");
+        table(measureTableProto.clone(), new String[][]{
+                {"항목", "값"},
+                {"CH1 pk-pk", "5.99 V"},
+                {"CH2 pk-pk", "25.13 V"},
+                {"CH2 pk-pk (계산)", "24.86 Vpp (계산)"},
+                {"CH1 주파수", "1.00 kHz"},
+                {"CH2 주파수", "1.00 kHz"},
+                {"전압축", "CH1 1.00 V/div, CH2 5.0 V/div DC"}
+        });
+        photo(docsDir + "/scope_174048.jpg");
+        figureCaption("[그림 5-4] sine파 (2026.10.06 17:40:48)");
+
+        subhead("5-5. 정리");
+        caption("[표 5-5] 가산기");
         table(summaryTableProto, new String[][]{
                 {"구분", "입력", "출력"},
-                {"2.40 kΩ", "6.00 Vpp", "1.96배"},
-                {"3.00 kΩ", "6.00 Vpp", "1.57배"},
-                {"7.50 kΩ", "6.00 Vpp", "0.63배"},
-                {"합 (계산)", "6.00 Vpp", "24.90 Vpp (계산)"}
+                {"17:32:11", "CH1 6.13 V", "CH2 12.03 V"},
+                {"17:36:27", "CH1 6.17 V", "CH2 9.78 V"},
+                {"17:37:39", "CH1 6.23 V", "CH2 3.94 V"},
+                {"17:40:48", "CH1 5.99 V", "CH2 25.13 V"}
         });
 
         heading("6. 결과 분석 및 고찰");
-        subhead("6-1. 입력 없음");
-        body("스코프 화면이 입력에 없다.");
-        body("화면에서 이상해 보인 점은 입력 없음.");
+        subhead("6-1. 화면마다 출력이 다른 이유");
+        body("CH1 pk-pk는 6.13 V, 6.17 V, 6.23 V, 5.99 V다.");
+        body("CH2 pk-pk는 12.03 V, 9.78 V, 3.94 V, 25.13 V다.");
+        body("12.03 / 6.13 = 1.96이다.");
+        body("4.70 / 2.40 = 1.96이다.");
+        body("9.78 / 6.17 = 1.59이다.");
+        body("4.70 / 3.00 = 1.57이다.");
+        body("3.94 / 6.23 = 0.63이다.");
+        body("4.70 / 7.50 = 0.63이다.");
+        body("25.13 / 5.99 = 4.20이다.");
+        body("세 저항을 더하는 배율은 4.15다.");
+        body("앞의 세 화면은 세 저항 합의 24.90 Vpp와 다른 크기다.");
+        body("각 화면의 배율은 저항 하나의 배율과 맞다.");
+        body("17:40:48의 배율은 세 값을 더한 쪽에 가깝다.");
+        body("앞 브레드보드 사진에는 칩 옆 저항이 조금 보인다.");
+        body("나중 사진에는 저항이 여러 개 보인다.");
+        body("노란 선이 위일 때 분홍 선은 아래다.");
+        body("그 부호는 −단자 입력과 같다.");
         subhead("6-2. 크기");
-        body("비교할 측정값이 입력에 없다.");
-        body("오차율은 입력 없음.");
+        body("오차율은 17:40:48 CH2 pk-pk 한 번만 계산한다.");
+        body("식은 (측정 − 이론) / 이론이다.");
+        body("이론값은 화면 CH1 pk-pk 5.99 V로 다시 계산한 24.86 Vpp다.");
+        body("칠판 6.00 Vpp의 24.90 Vpp와 다른 값이다.");
+        body("25.13 − 24.86 = 0.27이다.");
+        body("0.27 / 24.86의 백분율은 1.09%다.");
+        body("이 화면의 pk-pk(2) sigma는 0.10 V다.");
         subhead("6-3. 느낀점");
-        body("입력 없음.");
+        body("나는 17:32:11의 12.03 V를 세 저항 합으로 읽었다.");
+        body("그 배율은 1.96이라 2.40 kΩ 하나와 같다.");
+        body("다음에는 CH2가 6 V의 4배 근처인지 먼저 본다.");
 
         heading("7. 결론");
-        body("2.40 kΩ, 3.00 kΩ, 7.50 kΩ과 4.70 kΩ 가산기의 칠판 입력은 1.00 kHz, 6.00 Vpp다.");
-        body("계산 출력 크기는 24.90 Vpp다.");
-        body("부호는 −단자 입력이라 반대이고, 스코프 측정은 입력 없음.");
+        body("2.40 kΩ, 3.00 kΩ, 7.50 kΩ, 4.70 kΩ 가산기에 1.00 kHz, 6.00 Vpp sine파를 넣었다.");
+        body("17:40:48의 CH1은 5.99 V, CH2는 25.13 V다.");
+        body("화면 입력으로 계산한 24.86 Vpp와 오차율은 1.09%이고, 출력 부호는 반대다.");
 
         heading("8. 참고문헌");
         body("[1] 수업 화면, 실험 5 가산기.");
+        body("[2] 수업 화면 (2026.10.06) 가산기.");
     }
 
     private void body(String text) {
