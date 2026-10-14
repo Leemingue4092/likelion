@@ -18,7 +18,13 @@ import kr.dogfoot.hwplib.tool.textextractor.TextExtractMethod;
 import kr.dogfoot.hwplib.tool.textextractor.TextExtractor;
 import kr.dogfoot.hwplib.writer.HWPWriter;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -643,16 +649,17 @@ public class BuildAdderReport {
     }
 
     private void photo(String path) throws Exception {
-        int binId = embedJpeg(path);
         Paragraph paragraph = pictureProto.clone();
         ControlPicture picture = (ControlPicture) paragraph.getControlList().get(0);
         if (picture.getType() != ControlType.Gso) {
             throw new IllegalStateException("양식 그림이 그림 컨트롤이 아님");
         }
-        BufferedImage img = ImageIO.read(new File(path));
+        BufferedImage img = plainPhoto(ImageIO.read(new File(path)));
+        int binId = embedJpeg(jpegBytes(img));
         int dispH = (int) ((long) PHOTO_W * img.getHeight() / img.getWidth());
         picture.getHeader().setWidth(PHOTO_W);
         picture.getHeader().setHeight(dispH);
+        picture.getHeader().setPreventPageDivide(true);
         ShapeComponent shape = picture.getShapeComponent();
         shape.setWidthAtCreate(PHOTO_W);
         shape.setHeightAtCreate(dispH);
@@ -689,10 +696,45 @@ public class BuildAdderReport {
         append(paragraph);
     }
 
-    private int embedJpeg(String path) throws Exception {
+    private static BufferedImage plainPhoto(BufferedImage img) {
+        int maxSide = 1280;
+        int w = img.getWidth();
+        int h = img.getHeight();
+        int nw = w;
+        int nh = h;
+        if (Math.max(w, h) > maxSide) {
+            double scale = maxSide / (double) Math.max(w, h);
+            nw = Math.max(1, (int) Math.round(w * scale));
+            nh = Math.max(1, (int) Math.round(h * scale));
+        }
+        BufferedImage rgb = new BufferedImage(nw, nh, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = rgb.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g.drawImage(img, 0, 0, nw, nh, null);
+        g.dispose();
+        return rgb;
+    }
+
+    private static byte[] jpegBytes(BufferedImage img) throws Exception {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
+        ImageWriteParam param = writer.getDefaultWriteParam();
+        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+        param.setCompressionQuality(0.85f);
+        ImageOutputStream out = ImageIO.createImageOutputStream(bos);
+        try {
+            writer.setOutput(out);
+            writer.write(null, new IIOImage(img, null, null), param);
+        } finally {
+            writer.dispose();
+            out.close();
+        }
+        return bos.toByteArray();
+    }
+
+    private int embedJpeg(byte[] bytes) throws Exception {
         int next = hwp.getBinData().getEmbeddedBinaryDataList().size() + 1;
         String streamName = String.format("BIN%04d.jpg", next);
-        byte[] bytes = readAll(path);
         hwp.getBinData().addNewEmbeddedBinaryData(streamName, bytes, BinDataCompress.ByStorageDefault);
         BinData data = hwp.getDocInfo().addNewBinData();
         data.getProperty().setType(BinDataType.Embedding);
