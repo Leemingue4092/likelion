@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import { useApp } from '../app-context';
-import { formatCompactDate, formatTimeRange, formatWeekdays } from '../dates';
-import { compareCourses, courseStats, formatPoint } from '../logic';
+import { formatCompactDate } from '../dates';
+import { compareCourses, courseStats, formatPoint, formatSchedule } from '../logic';
 import { CourseDetail } from './CourseDetail';
 import { CourseDot, EmptyState, cx } from './ui';
 
@@ -14,7 +14,7 @@ export function CoursesView() {
     <section className="view">
       <header className="view-head">
         <div>
-          <p className="kicker">{state.settings.semesterName}</p>
+          <p className="kicker">{[state.settings.schoolName, state.settings.semesterName].filter(Boolean).join(' · ')}</p>
           <h1>수업</h1>
         </div>
         <button type="button" className="primary small" onClick={() => openCourseForm(null)}>
@@ -24,7 +24,7 @@ export function CoursesView() {
       {courses.length === 0 ? (
         <EmptyState
           title="수업 목록이 비어 있어요"
-          body="요일을 정해 두면 그 날마다 출석을 체크할 수 있어요."
+          body="요일과 시간을 정해 두면 그 수업마다 출석을 체크할 수 있어요."
           action={
             <button type="button" className="primary" onClick={() => openCourseForm(null)}>
               첫 수업 추가
@@ -36,7 +36,6 @@ export function CoursesView() {
           <div className="course-list">
             {courses.map((course) => {
               const stats = courseStats(course, state.settings, state.attendance, todayISO);
-              const time = formatTimeRange(course.startTime, course.endTime);
               return (
                 <button
                   key={course.id}
@@ -50,7 +49,7 @@ export function CoursesView() {
                     <strong>{course.name}</strong>
                   </span>
                   <span className="meta">
-                    {[formatWeekdays(course.weekdays), time, course.instructor].filter(Boolean).join(' · ')}
+                    {[formatSchedule(course), course.instructor].filter(Boolean).join(' · ')}
                   </span>
                   <span className="meta">
                     출석률 {stats.rate === null ? '—' : `${formatPoint(stats.rate)}%`}

@@ -27,6 +27,16 @@ export function addDays(date: Date, days: number): Date {
   return next;
 }
 
+export function addDaysISO(iso: string, days: number): string {
+  return formatISODate(addDays(parseISODate(iso), days));
+}
+
+export function mondayOf(iso: string): string {
+  const date = parseISODate(iso);
+  const delta = date.getDay() === 0 ? -6 : 1 - date.getDay();
+  return formatISODate(addDays(date, delta));
+}
+
 export function dayDiff(fromISO: string, toISO: string): number {
   const from = parseISODate(fromISO);
   const to = parseISODate(toISO);

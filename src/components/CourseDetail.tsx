@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { CSSProperties } from 'react';
 import { useApp } from '../app-context';
-import { WEEKDAY_LABELS, formatTimeRange, formatWeekdays, groupByMonth, parseISODate } from '../dates';
-import { courseStats, findRecord, formatPoint, regularSessionDates, sessionTimeline } from '../logic';
+import { WEEKDAY_LABELS, formatTimeRange, groupByMonth, parseISODate } from '../dates';
+import { courseStats, findRecord, formatPoint, formatSchedule, meetingOn, regularSessionDates, sessionTimeline } from '../logic';
 import type { Course } from '../types';
 import { BackButton, StatusButtons } from './ui';
 
@@ -13,15 +13,13 @@ export function CourseDetail({ course }: { course: Course }) {
   const regular = new Set(regularSessionDates(course, state.settings));
   const [openDate, setOpenDate] = useState<string | null>(todayISO);
 
-  const time = formatTimeRange(course.startTime, course.endTime);
-
   return (
     <article className="card detail-card" style={{ '--c': course.color } as CSSProperties}>
       <BackButton onClick={() => setDetailId(null)} />
       <header className="detail-head">
-        <p className="kicker">{[course.instructor, course.room].filter(Boolean).join(' · ') || '수업'}</p>
+        <p className="kicker">{course.instructor || '수업'}</p>
         <h2>{course.name}</h2>
-        <p className="meta">{[formatWeekdays(course.weekdays), time].filter(Boolean).join(' · ')}</p>
+        <p className="meta">{formatSchedule(course)}</p>
       </header>
       <div className="rate-block">
         <strong>{stats.rate === null ? '—' : `${formatPoint(stats.rate)}%`}</strong>
@@ -51,11 +49,14 @@ export function CourseDetail({ course }: { course: Course }) {
               {group.dates.map((date) => {
                 const record = findRecord(state.attendance, course.id, date);
                 const open = openDate === date;
+                const meeting = meetingOn(course, parseISODate(date).getDay());
                 return (
                   <li key={date} className={date === todayISO ? 'is-today-row' : ''}>
                     <button type="button" className="session-row" onClick={() => setOpenDate(open ? null : date)}>
                       <span>
                         {parseISODate(date).getDate()}일 ({WEEKDAY_LABELS[parseISODate(date).getDay()]})
+                        {meeting ? ` ${formatTimeRange(meeting.startTime, meeting.endTime)}` : ''}
+                        {meeting?.room ? ` ${meeting.room}` : ''}
                         {!regular.has(date) && <em className="chip">보강</em>}
                       </span>
                       <span className={record ? `pill ${record.status}` : 'pill'}>{record ? label(record.status) : date > todayISO ? '예정' : '미체크'}</span>

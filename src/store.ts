@@ -1,4 +1,5 @@
-import { initialState, normalizeState } from './logic';
+import { initialState, normalizeState, syncCourseSchedule } from './logic';
+import { schCourses, schSettings } from './schedule';
 import type { AppState, AttendanceRecord, AttendanceStatus, Course, Settings } from './types';
 
 export const STORAGE_KEY = 'semester-note.v1';
@@ -12,6 +13,7 @@ export type Action =
   | { type: 'mark'; courseId: string; date: string; status: AttendanceStatus | null; note?: string }
   | { type: 'pin'; pinHash: string | null }
   | { type: 'import'; settings: Settings; courses: Course[]; attendance: AttendanceRecord[] }
+  | { type: 'restore-timetable' }
   | { type: 'reset' };
 
 export function reducer(state: AppState, action: Action): AppState {
@@ -21,10 +23,11 @@ export function reducer(state: AppState, action: Action): AppState {
     case 'settings':
       return { ...state, settings: action.settings };
     case 'save-course': {
-      const exists = state.courses.some((course) => course.id === action.course.id);
+      const course = syncCourseSchedule(action.course);
+      const exists = state.courses.some((item) => item.id === course.id);
       const courses = exists
-        ? state.courses.map((course) => (course.id === action.course.id ? action.course : course))
-        : [...state.courses, action.course];
+        ? state.courses.map((item) => (item.id === course.id ? course : item))
+        : [...state.courses, course];
       return { ...state, courses };
     }
     case 'delete-course':
@@ -59,6 +62,16 @@ export function reducer(state: AppState, action: Action): AppState {
         courses: action.courses,
         attendance: action.attendance,
       };
+    case 'restore-timetable': {
+      const courses = schCourses();
+      const ids = new Set(courses.map((course) => course.id));
+      return {
+        ...state,
+        settings: schSettings(),
+        courses,
+        attendance: state.attendance.filter((record) => ids.has(record.courseId)),
+      };
+    }
     case 'reset':
       return initialState();
     default:
@@ -76,6 +89,15 @@ export function loadState(): { state: AppState; corrupted: boolean } {
     if (!state) {
       localStorage.setItem(CORRUPT_KEY, raw);
       return { state: initialState(), corrupted: true };
+    }
+    if (
+      state.courses.length === 0 &&
+      state.attendance.length === 0 &&
+      state.settings.schoolName === '' &&
+      state.settings.startDate.endsWith('-09-01') &&
+      state.settings.endDate.endsWith('-12-19')
+    ) {
+      return { state: { ...initialState(), pinHash: state.pinHash }, corrupted: false };
     }
     return { state, corrupted: false };
   } catch {

@@ -1,10 +1,13 @@
-import { dayDiff, eachDate, isISODate, parseISODate } from './dates';
+import { WEEKDAY_LABELS, dayDiff, eachDate, formatTimeRange, isISODate, parseISODate } from './dates';
+import { schCourses, schSettings } from './schedule';
 import type {
   AppState,
   AttendanceRecord,
   AttendanceStatus,
   BackupFile,
   Course,
+  Meeting,
+  SemesterMarker,
   Settings,
 } from './types';
 
@@ -29,10 +32,14 @@ export const STATUSES: { id: AttendanceStatus; label: string }[] = [
 
 export function defaultSettings(now = new Date()): Settings {
   const year = now.getMonth() <= 1 ? now.getFullYear() - 1 : now.getFullYear();
+  if (year === 2026) return schSettings();
   return {
     semesterName: `${year}년 2학기`,
     startDate: `${year}-09-01`,
     endDate: `${year}-12-19`,
+    schoolName: '',
+    holidays: [],
+    markers: [],
   };
 }
 
@@ -46,6 +53,7 @@ export function emptyCourse(partial: Partial<Course> = {}): Course {
     weekdays: [],
     startTime: '',
     endTime: '',
+    meetings: [],
     midtermDate: '',
     finalDate: '',
     midtermScore: null,
@@ -95,18 +103,99 @@ export function compareCourses(a: Course, b: Course): number {
   return a.name.localeCompare(b.name, 'ko');
 }
 
+const TIME_PATTERN = /^\d{2}:\d{2}$/;
+
+export function courseMeetings(course: Course): Meeting[] {
+  if (course.meetings.length > 0) return course.meetings;
+  return course.weekdays.map((weekday) => ({
+    weekday,
+    startTime: course.startTime,
+    endTime: course.endTime,
+    room: course.room,
+  }));
+}
+
+export function meetingOn(course: Course, weekday: number): Meeting | null {
+  return courseMeetings(course).find((meeting) => meeting.weekday === weekday) ?? null;
+}
+
+export function formatSchedule(course: Course): string {
+  const order = [1, 2, 3, 4, 5, 6, 0];
+  const meetings = [...courseMeetings(course)].sort(
+    (a, b) => order.indexOf(a.weekday) - order.indexOf(b.weekday) || a.startTime.localeCompare(b.startTime),
+  );
+  if (meetings.length === 0) return '시간 없음';
+  return meetings
+    .map((meeting) => {
+      const time = formatTimeRange(meeting.startTime, meeting.endTime);
+      return `${WEEKDAY_LABELS[meeting.weekday]} ${time}${meeting.room ? ` ${meeting.room}` : ''}`.trim();
+    })
+    .join(' · ');
+}
+
+export function syncCourseSchedule(course: Course): Course {
+  const seen = new Set<number>();
+  const meetings: Meeting[] = [];
+  for (const meeting of course.meetings) {
+    if (!Number.isInteger(meeting.weekday) || meeting.weekday < 0 || meeting.weekday > 6) continue;
+    if (seen.has(meeting.weekday)) continue;
+    const startOk = meeting.startTime === '' || TIME_PATTERN.test(meeting.startTime);
+    const endOk = meeting.endTime === '' || TIME_PATTERN.test(meeting.endTime);
+    if (!startOk || !endOk) continue;
+    if (meeting.startTime && meeting.endTime && meeting.endTime <= meeting.startTime) continue;
+    seen.add(meeting.weekday);
+    meetings.push({
+      weekday: meeting.weekday,
+      startTime: meeting.startTime,
+      endTime: meeting.endTime,
+      room: meeting.room.trim().slice(0, 30),
+    });
+  }
+  const earliest = [...meetings].sort(
+    (a, b) => a.startTime.localeCompare(b.startTime) || a.weekday - b.weekday,
+  )[0];
+  const rooms = [...new Set(meetings.map((meeting) => meeting.room).filter(Boolean))];
+  return {
+    ...course,
+    meetings,
+    weekdays: [...seen].sort((a, b) => a - b),
+    startTime: earliest?.startTime ?? '',
+    endTime: earliest?.endTime ?? '',
+    room: rooms.join(' · '),
+  };
+}
+
 export function classesOnDate(courses: Course[], settings: Settings, iso: string): Course[] {
   if (!isISODate(iso) || semesterError(settings)) return [];
   if (iso < settings.startDate || iso > settings.endDate) return [];
+  if (settings.holidays.includes(iso)) return [];
   const weekday = parseISODate(iso).getDay();
-  return courses.filter((course) => course.weekdays.includes(weekday)).sort(compareCourses);
+  return courses
+    .filter((course) => meetingOn(course, weekday))
+    .sort((a, b) => {
+      const left = meetingOn(a, weekday)?.startTime || '99:99';
+      const right = meetingOn(b, weekday)?.startTime || '99:99';
+      if (left !== right) return left < right ? -1 : 1;
+      return a.name.localeCompare(b.name, 'ko');
+    });
 }
 
 export function regularSessionDates(course: Course, settings: Settings): string[] {
-  if (semesterError(settings) || course.weekdays.length === 0) return [];
-  return eachDate(settings.startDate, settings.endDate).filter((date) =>
-    course.weekdays.includes(parseISODate(date).getDay()),
-  );
+  const weekdays = new Set(courseMeetings(course).map((meeting) => meeting.weekday));
+  if (semesterError(settings) || weekdays.size === 0) return [];
+  const holidays = new Set(settings.holidays);
+  return eachDate(settings.startDate, settings.endDate).filter((date) => {
+    if (holidays.has(date)) return false;
+    return weekdays.has(parseISODate(date).getDay());
+  });
+}
+
+export function markersOnDate(settings: Settings, iso: string): SemesterMarker[] {
+  return settings.markers.filter((marker) => iso >= marker.startDate && iso <= marker.endDate);
+}
+
+export function markersInRange(settings: Settings, start: string, end: string): SemesterMarker[] {
+  return settings.markers.filter((marker) => marker.endDate >= start && marker.startDate <= end);
 }
 
 export type ExamKind = 'midterm' | 'final';
@@ -419,6 +508,50 @@ function asId(value: unknown): string {
   return /^[\w-]{1,80}$/.test(id) ? id : '';
 }
 
+function asTime(value: unknown): string {
+  return typeof value === 'string' && TIME_PATTERN.test(value) ? value : '';
+}
+
+function asMeetings(value: unknown): Meeting[] {
+  if (!Array.isArray(value)) return [];
+  const meetings: Meeting[] = [];
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const raw = item as Record<string, unknown>;
+    const weekday = typeof raw.weekday === 'number' ? raw.weekday : Number(raw.weekday);
+    const startTime = asTime(raw.startTime);
+    const endTime = asTime(raw.endTime);
+    if (!Number.isInteger(weekday) || weekday < 0 || weekday > 6 || !startTime || !endTime) continue;
+    meetings.push({ weekday, startTime, endTime, room: asText(raw.room, 30) });
+  }
+  return meetings;
+}
+
+function asHolidays(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  const dates = new Set<string>();
+  for (const item of value) {
+    if (typeof item === 'string' && isISODate(item)) dates.add(item);
+  }
+  return [...dates].sort().slice(0, 60);
+}
+
+function asMarkers(value: unknown): SemesterMarker[] {
+  if (!Array.isArray(value)) return [];
+  const markers: SemesterMarker[] = [];
+  for (const item of value) {
+    if (!item || typeof item !== 'object') continue;
+    const raw = item as Record<string, unknown>;
+    const startDate = asDate(raw.startDate);
+    const endDate = asDate(raw.endDate);
+    const label = asText(raw.label, 20);
+    const kind = raw.kind === 'holiday' || raw.kind === 'exam' || raw.kind === 'makeup' ? raw.kind : null;
+    if (!startDate || !endDate || endDate < startDate || !label || !kind) continue;
+    markers.push({ startDate, endDate, label, kind });
+  }
+  return markers.slice(0, 20);
+}
+
 const STATUS_SET = new Set<AttendanceStatus>(['present', 'late', 'absent', 'excused', 'cancelled']);
 
 export function normalizeCourse(value: unknown): Course | null {
@@ -427,15 +560,23 @@ export function normalizeCourse(value: unknown): Course | null {
   const id = asId(raw.id);
   const name = asText(raw.name, 40);
   if (!id || !name) return null;
-  return {
+  const weekdays = asWeekdays(raw.weekdays);
+  const startTime = asTime(raw.startTime);
+  const endTime = asTime(raw.endTime);
+  const room = asText(raw.room, 30);
+  const meetings = Array.isArray(raw.meetings)
+    ? asMeetings(raw.meetings)
+    : weekdays.map((weekday) => ({ weekday, startTime, endTime, room }));
+  return syncCourseSchedule({
     id,
     name,
     instructor: asText(raw.instructor, 30),
-    room: asText(raw.room, 30),
+    room,
     color: asColor(raw.color),
-    weekdays: asWeekdays(raw.weekdays),
-    startTime: /^\d{2}:\d{2}$/.test(String(raw.startTime)) ? String(raw.startTime) : '',
-    endTime: /^\d{2}:\d{2}$/.test(String(raw.endTime)) ? String(raw.endTime) : '',
+    weekdays,
+    startTime,
+    endTime,
+    meetings,
     midtermDate: asDate(raw.midtermDate),
     finalDate: asDate(raw.finalDate),
     midtermScore: asScore(raw.midtermScore),
@@ -449,7 +590,7 @@ export function normalizeCourse(value: unknown): Course | null {
     otherMax: asMax(raw.otherMax),
     otherWeight: asWeight(raw.otherWeight, 0),
     note: asText(raw.note, 200),
-  };
+  });
 }
 
 export function normalizeCourses(value: unknown): Course[] {
@@ -491,6 +632,9 @@ export function normalizeSettings(value: unknown): Settings {
     semesterName: asText(raw.semesterName, 30) || fallback.semesterName,
     startDate: asDate(raw.startDate) || fallback.startDate,
     endDate: asDate(raw.endDate) || fallback.endDate,
+    schoolName: asText(raw.schoolName, 30),
+    holidays: asHolidays(raw.holidays),
+    markers: asMarkers(raw.markers),
   };
   return semesterError(settings) ? fallback : settings;
 }
@@ -542,10 +686,11 @@ export function parseBackup(value: unknown): { ok: true; data: BackupFile } | { 
 }
 
 export function initialState(now = new Date()): AppState {
+  const settings = defaultSettings(now);
   return {
     version: 1,
-    settings: defaultSettings(now),
-    courses: [],
+    settings,
+    courses: settings.schoolName === '순천향대학교' ? schCourses() : [],
     attendance: [],
     pinHash: null,
   };

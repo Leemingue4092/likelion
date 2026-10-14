@@ -9,7 +9,7 @@ import {
   monthGrid,
   parseISODate,
 } from '../dates';
-import { dayPlan, examKindLabel, findRecord, semesterWeek } from '../logic';
+import { dayPlan, examKindLabel, findRecord, markersOnDate, semesterWeek } from '../logic';
 import type { ExamKind } from '../logic';
 import type { AttendanceRecord, AttendanceStatus, Course } from '../types';
 import { Dialog, StatusButtons, cx, useWide } from './ui';
@@ -110,6 +110,7 @@ export function CalendarView() {
               const weekday = date.getDay();
               const classes = dayPlan(state.courses, state.settings, state.attendance, iso);
               const examCount = classes.exams.length;
+              const markers = markersOnDate(state.settings, iso);
               const dots = [...classes.regular, ...classes.extra].slice(0, 3);
               return (
                 <button
@@ -123,8 +124,11 @@ export function CalendarView() {
                     iso === todayISO && 'is-today',
                     iso === selected && 'is-selected',
                     examCount > 0 && 'has-exam',
+                    markers.some((marker) => marker.kind === 'holiday') && 'is-off',
+                    markers.some((marker) => marker.kind === 'exam') && 'is-exam-week',
+                    markers.some((marker) => marker.kind === 'makeup') && 'is-makeup-week',
                   )}
-                  aria-label={`${formatKoreanDate(iso)}${dots.length ? `, 수업 ${dots.length}` : ''}${examCount ? `, 시험 ${examCount}` : ''}`}
+                  aria-label={`${formatKoreanDate(iso)}${markers.length ? `, ${markers.map((marker) => marker.label).join(' ')}` : ''}${dots.length ? `, 수업 ${dots.length}` : ''}${examCount ? `, 시험 ${examCount}` : ''}`}
                   aria-pressed={iso === selected}
                   onClick={() => selectDay(iso)}
                 >
@@ -157,6 +161,14 @@ export function CalendarView() {
             </button>
           </header>
           {outside && <p className="fine">{outside}</p>}
+          {markersOnDate(state.settings, selected).map((marker) => (
+            <p key={`${marker.kind}-${marker.label}`} className={`fine marker-note ${marker.kind}`}>
+              {marker.label}
+              {marker.kind === 'holiday' ? ' · 이 날은 정규 수업에서 빼 두었어요.' : ''}
+              {marker.kind === 'exam' ? ' · 학교 시험 주간이에요. 과목별 날짜는 아래에서 정해요.' : ''}
+              {marker.kind === 'makeup' ? ' · 보강 주간이에요. 보강이 있으면 출석으로 남길 수 있어요.' : ''}
+            </p>
+          ))}
 
           {plan.exams.length > 0 && (
             <div className="stack">

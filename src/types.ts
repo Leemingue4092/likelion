@@ -2,10 +2,29 @@ export type AttendanceStatus = 'present' | 'late' | 'absent' | 'excused' | 'canc
 
 export type Tab = 'today' | 'calendar' | 'courses' | 'grades';
 
+export interface Meeting {
+  weekday: number;
+  startTime: string;
+  endTime: string;
+  room: string;
+}
+
+export type MarkerKind = 'holiday' | 'exam' | 'makeup';
+
+export interface SemesterMarker {
+  startDate: string;
+  endDate: string;
+  label: string;
+  kind: MarkerKind;
+}
+
 export interface Settings {
   semesterName: string;
   startDate: string;
   endDate: string;
+  schoolName: string;
+  holidays: string[];
+  markers: SemesterMarker[];
 }
 
 export interface Course {
@@ -17,6 +36,7 @@ export interface Course {
   weekdays: number[];
   startTime: string;
   endTime: string;
+  meetings: Meeting[];
   midtermDate: string;
   finalDate: string;
   midtermScore: number | null;

@@ -15,12 +15,16 @@ import {
   upcomingExams,
 } from './logic';
 import { hashPin, reducer } from './store';
+import { schCourses, schSettings } from './schedule';
 import type { AppState, Course, Settings } from './types';
 
 const settings: Settings = {
   semesterName: '2026년 2학기',
   startDate: '2026-09-01',
   endDate: '2026-09-14',
+  schoolName: '',
+  holidays: [],
+  markers: [],
 };
 
 function course(partial: Partial<Course> = {}): Course {
@@ -52,6 +56,54 @@ describe('달력', () => {
     expect(grid[0][4]).toBe('2026-10-01');
     expect(grid.flat().filter(Boolean)).toHaveLength(31);
     expect(formatISODate(parseISODate('2026-02-31'))).not.toBe('2026-02-31');
+  });
+});
+
+describe('순천향대 시간표', () => {
+  it('개강일부터 수업마다 만들고 공휴일은 뺀다', () => {
+    const timetable = schSettings();
+    const courses = schCourses();
+    const ds = courses.find((item) => item.id === 'ds');
+    const circuit = courses.find((item) => item.id === 'circuit');
+    expect(ds && regularSessionDates(ds, timetable)[0]).toBe('2026-09-04');
+    expect(ds && regularSessionDates(ds, timetable).at(-1)).toBe('2026-12-04');
+    expect(ds && regularSessionDates(ds, timetable)).not.toContain('2026-09-25');
+    expect(ds && regularSessionDates(ds, timetable)).not.toContain('2026-10-09');
+    expect(circuit?.meetings.map((meeting) => [meeting.weekday, meeting.startTime, meeting.endTime])).toEqual([
+      [2, '10:30', '12:00'],
+      [3, '15:00', '16:30'],
+    ]);
+    expect(classesOnDate(courses, timetable, '2026-10-14').map((item) => item.id)).toEqual([
+      'europe',
+      'english',
+      'circuit',
+    ]);
+    expect(classesOnDate(courses, timetable, '2026-09-01').map((item) => item.id)).toEqual(['circuit', 'circuit-lab']);
+    expect(classesOnDate(courses, timetable, '2026-10-09')).toEqual([]);
+    expect(classesOnDate(courses, timetable, '2026-08-30')).toEqual([]);
+  });
+
+  it('예전 수업 기록은 요일과 시간으로 수업 칸을 만든다', () => {
+    const normalized = normalizeState({
+      version: 1,
+      settings,
+      courses: [
+        {
+          id: 'algo',
+          name: '자료구조',
+          weekdays: [1, 3],
+          startTime: '09:00',
+          endTime: '10:30',
+          room: 'M203',
+        },
+      ],
+      attendance: [],
+      pinHash: null,
+    });
+    expect(normalized?.courses[0]?.meetings).toEqual([
+      { weekday: 1, startTime: '09:00', endTime: '10:30', room: 'M203' },
+      { weekday: 3, startTime: '09:00', endTime: '10:30', room: 'M203' },
+    ]);
   });
 });
 
@@ -175,7 +227,12 @@ describe('백업과 잠금', () => {
   });
 
   it('기본 학기는 10월이면 그해 2학기다', () => {
-    expect(defaultSettings(new Date(2026, 9, 14)).semesterName).toBe('2026년 2학기');
+    expect(defaultSettings(new Date(2026, 9, 14))).toMatchObject({
+      semesterName: '2026년 2학기',
+      schoolName: '순천향대학교',
+      startDate: '2026-08-31',
+      endDate: '2026-12-04',
+    });
     expect(defaultSettings(new Date(2027, 0, 10)).semesterName).toBe('2026년 2학기');
   });
 

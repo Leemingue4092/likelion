@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { useApp } from '../app-context';
 import { buildBackup, parseBackup, semesterError } from '../logic';
+import { schSettings } from '../schedule';
 import type { Settings } from '../types';
 import { PinDialog } from './LockScreen';
 import { Dialog, Sheet } from './ui';
@@ -11,6 +12,7 @@ export function SettingsSheet({ onClose }: { onClose: () => void }) {
   const [message, setMessage] = useState('');
   const [pinMode, setPinMode] = useState<'create' | 'change' | 'disable' | null>(null);
   const [resetOpen, setResetOpen] = useState(false);
+  const [restoreOpen, setRestoreOpen] = useState(false);
   const [pendingImport, setPendingImport] = useState<ReturnType<typeof parseBackup> | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
   const error = semesterError(draft);
@@ -86,8 +88,13 @@ export function SettingsSheet({ onClose }: { onClose: () => void }) {
         {error ? (
           <small className="form-error">{error}</small>
         ) : (
-          <small className="fine">출석 칸은 학기 시작과 끝, 수업 요일로 만들어져요. 학교 일정에 맞게 바꿔 주세요.</small>
+          <small className="fine">
+            순천향대학교 2026년 2학기는 8월 31일 개강이고, 수업 출석은 12월 4일까지 잡혀 있어요. 추석 9월 24–25일, 개천절 대체휴일 10월 5일, 한글날 10월 9일은 출석에서 빼 두었어요. 중간고사 주간은 10월 19–23일, 기말고사 주간은 12월 7–11일, 보강 주간은 12월 14–18일이에요.
+          </small>
         )}
+        <button type="button" className="ghost" onClick={() => setRestoreOpen(true)}>
+          순천향대 시간표 다시 넣기
+        </button>
 
         <h2 className="settings-label">잠금</h2>
         <p className="fine">다른 사람이 이 폰을 열 때를 대비한 잠금이에요. 비밀번호는 이 기기에만 있고, 잊으면 찾을 수 없어요.</p>
@@ -147,7 +154,7 @@ export function SettingsSheet({ onClose }: { onClose: () => void }) {
       {resetOpen && (
         <Dialog
           title="수첩을 비울까요?"
-          body="수업, 출석, 성적, 비밀번호가 이 기기에서 지워져요."
+          body="출석, 성적, 비밀번호를 지우고 순천향대 시간표로 되돌려요."
           confirmLabel="비우기"
           danger
           onClose={() => setResetOpen(false)}
@@ -155,6 +162,20 @@ export function SettingsSheet({ onClose }: { onClose: () => void }) {
             dispatch({ type: 'reset' });
             setResetOpen(false);
             onClose();
+          }}
+        />
+      )}
+      {restoreOpen && (
+        <Dialog
+          title="시간표를 다시 넣을까요?"
+          body="순천향대 2026년 2학기 수업과 학사일정으로 바꿔요. 같은 수업의 출석과 점수는 남고, 직접 추가한 수업은 지워져요. 비밀번호는 그대로예요."
+          confirmLabel="시간표 넣기"
+          onClose={() => setRestoreOpen(false)}
+          onConfirm={() => {
+            dispatch({ type: 'restore-timetable' });
+            setDraft(schSettings());
+            setRestoreOpen(false);
+            setMessage('순천향대 시간표를 넣었어요. 출석 기록은 같은 수업에 남아 있어요.');
           }}
         />
       )}

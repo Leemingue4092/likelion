@@ -123,7 +123,7 @@ export function App() {
               <span className="brand-mark">수</span>
               <div>
                 <strong>학기수첩</strong>
-                <p>{state.settings.semesterName}</p>
+                <p>{[state.settings.schoolName, state.settings.semesterName].filter(Boolean).join(' · ')}</p>
               </div>
             </div>
             <nav className="side-nav" aria-label="화면">
