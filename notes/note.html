@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<title>유럽문화산책 단권화 노트 제1–2강</title>
+<style>
+  @page {
+    size: A4;
+    margin: 16mm 14mm 14mm 14mm;
+    @top-left {
+      content: "유럽문화산책  ·  단권화 노트";
+      font-family: "Noto Sans CJK KR", sans-serif;
+      font-size: 8.5pt;
+      color: #16665d;
+    }
+    @top-right {
+      content: "제1강 – 제2강";
+      font-family: "Noto Sans CJK KR", sans-serif;
+      font-size: 8.5pt;
+      color: #16665d;
+    }
+    @bottom-left {
+      content: "슬라이드에 있는 말만 재배열  ·  [필기]는 슬라이드 손글씨";
+      font-family: "Noto Sans CJK KR", sans-serif;
+      font-size: 8pt;
+      color: #16324f;
+    }
+    @bottom-right {
+      content: counter(page);
+      font-family: "Noto Sans CJK KR", sans-serif;
+      font-size: 8.5pt;
+      color: #16324f;
+    }
+  }
+  @page :first {
+    margin: 0;
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-left { content: none; }
+    @bottom-right { content: none; }
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans CJK KR", "Noto Sans CJK JP", sans-serif;
+    color: #1f262d;
+    font-size: 10.4pt;
+    line-height: 1.55;
+    background: #fff;
+  }
+
+  .cover {
+    page-break-after: always;
+    height: 297mm;
+    background: #16324f;
+    color: #fff;
+    padding: 28mm 18mm 16mm 20mm;
+    position: relative;
+  }
+  .cover:before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 8mm;
+    background: #16665d;
+  }
+  .kicker {
+    color: #c4a15a;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    font-size: 12pt;
+    margin-top: 8mm;
+  }
+  .cover h1 {
+    font-size: 32pt;
+    line-height: 1.2;
+    margin: 8mm 0 3mm;
+    font-weight: 700;
+  }
+  .cover .sub {
+    font-size: 13pt;
+    color: #d5dde4;
+    margin-bottom: 8mm;
+  }
+  .goldline {
+    height: 1.5px;
+    background: #c4a15a;
+    border: 0;
+    margin: 6mm 0 8mm;
+  }
+  .cover .lec {
+    font-size: 15pt;
+    font-weight: 700;
+    margin: 0 0 1mm;
+  }
+  .cover .lec-sub {
+    font-size: 12pt;
+    color: #d5dde4;
+    margin: 0 0 7mm;
+  }
+  .rules {
+    position: absolute;
+    left: 20mm;
+    right: 18mm;
+    bottom: 22mm;
+  }
+  .rules h2 {
+    color: #c4a15a;
+    font-size: 11pt;
+    margin: 0 0 3mm;
+  }
+  .rules ol {
+    margin: 0;
+    padding-left: 5mm;
+    color: #d5dde4;
+    font-size: 10.5pt;
+    line-height: 1.7;
+  }
+  .cover-foot {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    background: #c4a15a;
+    color: #16324f;
+    padding: 3.5mm 20mm;
+    font-size: 9.5pt;
+    font-weight: 700;
+  }
+
+  h1.sec {
+    font-size: 16pt;
+    color: #16324f;
+    margin: 2mm 0 2mm;
+    line-height: 1.3;
+    page-break-after: avoid;
+  }
+  h2 {
+    font-size: 12.5pt;
+    color: #16665d;
+    margin: 5.5mm 0 1.5mm;
+    page-break-after: avoid;
+    line-height: 1.35;
+  }
+  h3 {
+    font-size: 11pt;
+    color: #16324f;
+    margin: 4mm 0 1.2mm;
+    page-break-after: avoid;
+  }
+  p { margin: 0 0 2.2mm; }
+  .lead { font-size: 10.8pt; }
+  .small { color: #556068; font-size: 9pt; }
+
+  .banner {
+    display: flex;
+    align-items: stretch;
+    margin: 6mm 0 3mm;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  .banner .no {
+    background: #16665d;
+    color: #fff;
+    font-weight: 700;
+    font-size: 10pt;
+    padding: 2.2mm 3.5mm;
+    display: flex;
+    align-items: center;
+  }
+  .banner .tt {
+    flex: 1;
+    background: #f7f3ea;
+    border-bottom: 2px solid #16665d;
+    color: #16324f;
+    font-weight: 700;
+    font-size: 13.5pt;
+    padding: 2mm 3.5mm;
+    display: flex;
+    align-items: center;
+  }
+
+  .box {
+    page-break-inside: avoid;
+    border-radius: 2px;
+    padding: 2.6mm 3.4mm 2.2mm;
+    margin: 2mm 0 2.6mm;
+  }
+  .box .label {
+    font-weight: 700;
+    font-size: 9.2pt;
+    margin-bottom: 1mm;
+  }
+  .box ul, .plain ul { margin: 0.4mm 0 0; padding-left: 4.5mm; }
+  .box li, .plain li { margin: 0 0 0.8mm; }
+  .main { background: #e7f3ef; border-left: 3px solid #16665d; }
+  .main .label { color: #0f4f48; }
+  .detail { background: #f6f3ec; border-left: 3px solid #c8bfae; }
+  .detail .label { color: #5c5346; }
+  .warn { background: #f8edd9; border-left: 3px solid #a67c2d; }
+  .warn .label { color: #7a5a12; }
+  .link { background: #e7eef6; border-left: 3px solid #16324f; }
+  .link .label { color: #16324f; }
+  .note { background: #f4efe6; border-left: 3px solid #a67c2d; }
+  .note .label { color: #7a5a12; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5mm 0 3mm;
+    font-size: 8.7pt;
+    line-height: 1.4;
+  }
+  th {
+    background: #16324f;
+    color: #fff;
+    font-weight: 700;
+    text-align: left;
+    padding: 1.6mm 2mm;
+  }
+  td {
+    padding: 1.4mm 2mm;
+    vertical-align: top;
+    border-bottom: 0.3pt solid #ddd6c8;
+  }
+  tr { break-inside: avoid; }
+  tbody tr:nth-child(even) td { background: #fbf7f0; }
+  td.y { font-weight: 700; color: #16324f; white-space: nowrap; }
+
+  .flow {
+    background: #e7eef6;
+    border-left: 3px solid #16324f;
+    padding: 2.6mm 3.4mm;
+    margin: 2mm 0 3mm;
+    page-break-inside: avoid;
+  }
+  .flow .label { font-weight: 700; color: #16324f; font-size: 9.2pt; margin-bottom: 1.2mm; }
+  .step { margin: 0; }
+  .arrow { color: #16665d; font-weight: 700; margin: 0.6mm 0; }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="kicker">순천향대학교 교양 · 유럽문화산책</div>
+  <h1>단권화 노트</h1>
+  <div class="sub">강의자료를 핵심과 관계로 다시 묶은 정리</div>
+  <hr class="goldline" />
+  <p class="lec">제1강 &nbsp; 프랑스의 혁명 전통</p>
+  <p class="lec-sub">Tolérence, Solidarité, Engagement</p>
+  <p class="lec">제2강 &nbsp; 가톨릭의 나라, 프랑스</p>
+  <p class="lec-sub">라이시테 (laïcité)</p>
+  <div class="rules">
+    <h2>정리 원칙</h2>
+    <ol>
+      <li>주요 내용과 세부 내용을 구분한다.</li>
+      <li>혼동하기 쉬운 쌍은 따로 모아 둔다.</li>
+      <li>개념의 핵심과 두 강의의 관계로 재구성한다.</li>
+      <li>슬라이드와 그 위의 필기 밖에 내용을 더하지 않는다.</li>
+    </ol>
+  </div>
+  <div class="cover-foot">수록 범위 · 올려 둔 강의자료 제1강, 제2강</div>
+</section>
+
+<h1 class="sec">두 강을 한 줄로</h1>
+<p class="lead">제1강은 프랑스의 거리를 혁명의 전통으로 읽고, 제2강은 같은 역사를 가톨릭과 라이시테의 관계로 읽는다. 두 자료가 겹치는 지점은 대혁명, 루이 14세, 나폴레옹, 제3공화정의 초등학교다.</p>
+
+<div class="flow">
+  <div class="label">관계 · 한 장의 흐름</div>
+  <p class="step">절대왕정과, 왕·교회가 결탁한 가톨릭의 나라</p>
+  <p class="arrow">↓</p>
+  <p class="step">프랑스 대혁명. 정치에서는 구체제가 무너지고, 종교에서는 신앙의 자유와 비기독교화 운동이 시작된다.</p>
+  <p class="arrow">↓</p>
+  <p class="step">체제는 왕정·공화정·제정을 오가고, 교회 세력은 1801년 화친조약 뒤 교권주의로 다시 커진다.</p>
+  <p class="arrow">↓</p>
+  <p class="step">1871년 제3공화정은 혁명과 공화주의를 선전하고, 초등학교를 그 수단으로 쓴다. 제2강의 1880년 쥘 페리 법은 그 교육을 정교분리 교육으로 적는다.</p>
+  <p class="arrow">↓</p>
+  <p class="step">정치의 결론은 “혁명=국가”, 진보·공화주의·사회주의가 건국 이념이 되고 톨레랑스·솔리다리테·앙가주망이 뒤따른다는 문장이다. 종교의 결론은 1905년 정교분리법과 1946년 헌법의 라이시테다.</p>
+</div>
+
+<h2>자료에 나온 가치어</h2>
+<table>
+  <thead><tr><th style="width:24%">갈래</th><th style="width:34%">슬라이드의 말</th><th>어디에 붙어 있나</th></tr></thead>
+  <tbody>
+    <tr><td>혁명 이념</td><td>자유, 평등, 박애</td><td>대혁명의 이념. 상징 선전 장면에 Liberté · Égalité · Fraternité</td></tr>
+    <tr><td>혁명의 결과</td><td>자유주의, 의회주의, 민족주의</td><td>구체제에서 옮겨 간 결과로 적힘</td></tr>
+    <tr><td>이후의 가치</td><td>톨레랑스, 솔리다리테, 앙가주망</td><td>파리의 시위 문화, 그리고 건국 이념 다음의 진보적 가치관</td></tr>
+    <tr><td>공화국의 원칙</td><td>라이시테 (laïcité, laïque)</td><td>헌법 1조, 1905년 법, 1946년 헌법, 초등학교</td></tr>
+    <tr><td>구호의 압축</td><td>혁명 = 국가!</td><td>상징·기념을 묶는 제1강의 문장</td></tr>
+  </tbody>
+</table>
+
+<div class="box note">
+  <div class="label">슬라이드 필기</div>
+  <ul>
+    <li>제2강 표지 필기는 라이시테 아래에 정교분리주의, 정치와 종교, 로마 가톨릭(천주교)을 적는다.</li>
+    <li>제1강 마지막 필기는 진보적 가치관을 “일상화시키는 문화”라고 적는다.</li>
+  </ul>
+</div>
+
+<h2>슬라이드가 먼저 던진 질문</h2>
+<div class="box main">
+  <div class="label">주요 · 질문과, 자료가 바로 적어 둔 답</div>
+  <ul>
+    <li>제1강 말미. “역사적 전통으로서 혁명이 미친 영향은 무엇인가?”</li>
+    <li>자료의 답. 혁명(진보, 공화주의, 사회주의) = 국가의 건국 이념. 이후 진보적 가치관(톨레랑스, 솔리다리테, 앙가주망)을 중시.</li>
+    <li>제2강 앞부분. “프랑스가 라이시테 원칙을 중시하게 된 역사적 배경은 무엇인가?” 이 질문 뒤에 중세의 ‘가톨릭의 장녀’부터 1905년 법까지가 이어진다. 답은 한 문장으로 적혀 있지 않고, 그 역사 서술 전체가 배경이다.</li>
+    <li>제1강 중간의 질문. “19세기 말, 프랑스에서 정통적인 정치체계는 무엇인가?” 슬라이드는 왕정, 공화정, 제정을 하나의 순환 그림으로 보여 준다. 셋 중 하나를 정답으로 지목하는 문장은 없다.</li>
+  </ul>
+</div>
+
+<div class="banner"><div class="no">제1강</div><div class="tt">프랑스의 혁명 전통</div></div>
+<p class="lead">제목 아래의 세 프랑스어는 Tolérence, Solidarité, Engagement다. 강의는 오늘의 파리에서 시작해, 절대왕정과 혁명의 연대기, 체제 반복, 제3공화정의 전통 확립으로 내려간다.</p>
+
+<h2>1. 오늘의 파리는 혁명의 도시로 제시된다</h2>
+<div class="box main">
+  <div class="label">주요 · 파리의 시위와 세 가치</div>
+  <ul>
+    <li>홍세화의 《나는 파리의 택시 운전사》. 파리는 역동적 도시이고, 시위가 많은 도시이며, 톨레랑스, 솔리다리테, 앙가주망을 중시한다.</li>
+    <li>표지 이미지가 세 말을 나눠 보여 준다. 톨레랑스는 “appreciating and respecting differences in people”. 솔리다리테는 “la semaine de la solidarité internationale”. 앙가주망은 거리의 군중 사진과 함께 제목에 놓인다.</li>
+    <li>시위 사진 한복판에 Revolution이 겹친다. 보이는 문구에는 “POUR L’ÉGALITÉ MAINTENANT / CONTRE LES DISCRIMINATIONS TOUT LE TEMPS”, 권리와 자유를 내건 전국 행진이 있다.</li>
+  </ul>
+</div>
+<div class="box detail">
+  <div class="label">세부 · 도입에 깔린 도시 이미지</div>
+  <ul>
+    <li>“2024 파리 올림픽과 프랑스 혁명”. 붉은 궁정 복식의 인물, 올림픽 마스코트, 파리 시내 지도가 나란히 있다.</li>
+    <li>PARIS. 에펠탑이 있는 야경, 흰 돔의 언덕, 파리 구(區) 지도. 흰 돔은 뒤 슬라이드의 Basilique du Sacré-Cœur와 같은 건물이다.</li>
+    <li>방사형으로 뻗은 대로 사진 옆에 오스만 남작.</li>
+    <li>궁정 예법의 장소로 베르사유 궁전 Château de Versailles와 프랑스식 정원 jardin à la française.</li>
+  </ul>
+</div>
+
+<h2>2. 혁명의 원인으로 적힌 절대왕정</h2>
+<div class="box main">
+  <div class="label">주요 · 루이 14세와 “짐이 곧 국가다”</div>
+  <ul>
+    <li>소제목은 “혁명 원인 ; 절대 왕정”이다. 루이 14세 초상 위의 말이 “짐이 곧 국가다”이다.</li>
+    <li>절대 왕정의 구조. 꼭대기는 절대 군주. 그 아래 장치로 관료제와 상비군이 있고, 한쪽 갈래는 강제 정책, 정치 이론의 갈래는 왕권신수설이다.</li>
+    <li>그 아래 문구는 “균형 관계”와 “권력의 집중”이다. 맨 아래 두 칸은 신흥 시민 세력과 봉건 세력이다.</li>
+    <li>같은 절의 항목으로 궁정 예법이 있고, 다음 장이 베르사유와 프랑스식 정원이다.</li>
+  </ul>
+</div>
+<div class="box detail">
+  <div class="label">세부 · 옆에 있는 봉건 관계 도표</div>
+  <ul>
+    <li>등장인물은 국왕, 수도원장·대주교, 제후, 기사, 농노.</li>
+    <li>범례. 붉은 점선은 보호와 봉토 수여. 붉은 실선은 충성과 군역. 푸른 점선은 부역과 여러 세금의 납부. 푸른 실선은 영주의 보호.</li>
+  </ul>
+</div>
+
+<h2>3. 대혁명에서 체제 반복까지</h2>
+<div class="box main">
+  <div class="label">주요 · 1789년 7월 14일 이후, 슬라이드가 짚는 마디</div>
+  <ul>
+    <li>1789년 바스티유 감옥 습격. 1792년 군주제 폐지, 제1공화정 탄생. 1793년 루이 16세 처형.</li>
+    <li>1793–1794년 공포정치, 로베스피에르. 1799년 브뤼메르 19일의 쿠데타, 나폴레옹 보나파르트.</li>
+    <li>상징 인물로 Marianne이 이 장에 처음 나온다.</li>
+  </ul>
+</div>
+<div class="box main">
+  <div class="label">주요 · 결과, 이념, 상징은 서로 다른 목록이다</div>
+  <ul>
+    <li>혁명의 결과. 구체제에서 자유주의, 의회주의, 민족주의로.</li>
+    <li>혁명 이념. 자유, 평등, 박애.</li>
+    <li>혁명의 상징과 기념. 라 마르세예즈, 삼색기, 혁명기념일, 팡테옹. 옆의 큰 글자가 “혁명=국가!”</li>
+    <li>라 마르세예즈 악보의 제목은 MARCHE DES MARSEILLOIS. 가사 슬라이드에는 “Que nos ennemis expirants”와 영어 풀이 “That ennemis enemy expiring”이 삼색기 위에 적혀 있다.</li>
+    <li>팡테옹 외관 다음 장 내부 좌대에는 LA CONVENTION NATIONALE이라고 적혀 있다.</li>
+  </ul>
+</div>
+
+<h3>나폴레옹 이후의 체제 마디</h3>
+<table>
+  <thead><tr><th style="width:42%">슬라이드의 표기</th><th>바로 연결된 말</th></tr></thead>
+  <tbody>
+    <tr><td>1804년 제1제정 선포</td><td>제1제정 선포 항목 아래의 대형 그림</td></tr>
+    <tr><td>1812년</td><td>러시아 원정 실패와 몰락</td></tr>
+    <tr><td>1814년 복고 왕정</td><td>루이 18세</td></tr>
+    <tr><td>Arc de triomphe de l’Étoile</td><td>개선문 사진. 앞 장에는 개선문을 지나는 열병 사진이 있음</td></tr>
+    <tr><td>Invalid</td><td>황금 돔의 건물, 단지 전경, 관이 놓인 내부</td></tr>
+    <tr><td>7월 혁명 (1830)</td><td>입헌군주정 탄생</td></tr>
+    <tr><td>2월 혁명 (1848)</td><td>제2공화정 탄생. 루이 보나파르트 대통령 당선</td></tr>
+    <tr><td>1852년 제2제정 (1852–1870)</td><td>나폴레옹 3세의 국내외 정책 실패. 프랑스-프로이센 전쟁 패배</td></tr>
+    <tr><td>1871년</td><td>독일 제2제국 선포. 프랑스 제2제정 폐지</td></tr>
+    <tr><td>1871년 파리 코뮌</td><td>굴욕적인 독일과의 강화조약 반대. 진압은 ‘피의 일주일’</td></tr>
+    <tr><td>Basilique du Sacré-Cœur</td><td>코뮌 슬라이드 다음에 건물 이름만 제시</td></tr>
+  </tbody>
+</table>
+
+<div class="box warn">
+  <div class="label">혼동 · 19세기 말의 정통</div>
+  <ul>
+    <li>질문은 “정통적인 정치체계는 무엇인가”이고, 그림은 왕정·공화정·제정을 순환으로 그린다.</li>
+    <li>바로 다음 절이 “1871년 제3공화정 출범”이다. 순환 그림이 하나의 이름을 찍어 주지는 않는다.</li>
+  </ul>
+</div>
+
+<h2>4. 혁명의 전통이 확립되는 방식</h2>
+<div class="box main">
+  <div class="label">주요 · 제3공화정이 정통성을 세우는 방법</div>
+  <ul>
+    <li>1871년 제3공화정 출범.</li>
+    <li>공화정의 정통성을 확립하기 위해 혁명과 공화주의 이념을 선전한다.</li>
+    <li>초등학교를 공화주의적 시민 양성으로 연결한다.</li>
+    <li>대대적인 혁명 100주년 기념 행사를 추진한다.</li>
+    <li>다양한 상징을 통해 혁명과 공화주의를 선전한다. 보이는 문구는 RÉPUBLIQUE FRANÇAISE, LIBERTÉ · ÉGALITÉ · FRATERNITÉ, 마리안느 상, 붉은 모자를 쓴 사람들, 광장의 기념 조형이다.</li>
+    <li>“마리안느가 자유의 여신상으로….” 삼색으로 물든 에펠탑 사진이 같은 절에 있다.</li>
+  </ul>
+</div>
+<div class="box note">
+  <div class="label">슬라이드 필기</div>
+  <ul>
+    <li>혁명 100주년 기념 행사 옆에 “에펠탑 건립”.</li>
+    <li>초등학교 항목 옆에 “1. 기본적인 언어, 2. 국가와 시민 양성”.</li>
+    <li>자유의 여신상 옆에 “미국 100주년 기념으로 프랑스가 미국에 선물”.</li>
+    <li>마지막 문장 옆에 “일상화시키는 문화”.</li>
+  </ul>
+</div>
+<div class="box main">
+  <div class="label">주요 · 제1강의 맺음 문장</div>
+  <ul>
+    <li>혁명(진보, 공화주의, 사회주의)은 국가의 건국 이념이다.</li>
+    <li>이후 진보적 가치관, 곧 톨레랑스, 솔리다리테, 앙가주망을 중시한다.</li>
+  </ul>
+</div>
+
+<div class="banner"><div class="no">제2강</div><div class="tt">가톨릭의 나라, 프랑스와 라이시테</div></div>
+<p class="lead">제목은 “가톨릭의 나라, 프랑스 ; 라이시테(laïcité)”이고, 대표 장소로 Mont-Saint-Michel이 나온다. 구성은 현대의 종교적 갈등, 가톨릭의 발전, 가톨릭의 쇠퇴와 라이시테다. 앞의 갈등이 질문을 만들고, 중세부터의 서술이 그 질문의 역사적 배경이다.</p>
+
+<h2>1. 현대의 갈등은 라이시테를 호출한다</h2>
+<div class="box main">
+  <div class="label">주요 · 학교와 공공장소의 종교 표시</div>
+  <ul>
+    <li>1989년 Creil의 히잡 사건.</li>
+    <li>2004년. 공공장소(학교)에서 종교적 상징물이나 의복의 착용 금지. 괄호 안의 예는 히잡, 키파, 큰 십자가.</li>
+    <li>2009년. 스위스의 이슬람 사원 첨탑(minaret) 금지에 대한 프랑스 대통령 사르코지의 옹호. 시각 자료의 캡션은 “스위스의 모스크”.</li>
+    <li>사르코지 말풍선. “기독교 문명이 깊은 흔적을 남긴 프랑스에서, 기독교적 전통과 프랑스의 정체성의 일부인 공화주의적 가치에 도전하는 행위….”</li>
+    <li>화살표 결론. 종교적 자유를 넘어선 “종교적 과시(ostentation), 도발(provocation)”.</li>
+  </ul>
+</div>
+<div class="box main">
+  <div class="label">주요 · 헌법이 라이시테를 두는 자리</div>
+  <ul>
+    <li>“La France est une République indivisible, laïque, démocratique et sociale.”</li>
+    <li>슬라이드는 이 문장을 프랑스 헌법 1조로 적고, 옆에 라이시테(Laicité)를 큰 글자로 둔다. 배경 사진은 ASSEMBLÉE NATIONALE.</li>
+    <li>이어서 질문이 나온다. 프랑스가 라이시테 원칙을 중시하게 된 역사적 배경은 무엇인가.</li>
+  </ul>
+</div>
+<div class="box warn">
+  <div class="label">혼동 · 2004년의 금지와 2010년의 금지는 대상이 다르다</div>
+  <ul>
+    <li>2004년은 공공장소 가운데 학교에서 종교적 상징물·의복(히잡, 키파, 큰 십자가)의 착용 금지.</li>
+    <li>2010년 10월 시행 법의 제목은 Loi interdisant la dissimulation du visage dans l’espace public. 공공장소에서 얼굴을 가리는 행위 금지.</li>
+    <li>2010년의 예외는 종교시설, 카니발, 모터사이클 쇼, 방위 필요성.</li>
+    <li>같은 슬라이드의 도해는 부르카, 니캅, 히잡, 차도르를 나란히 그린다.</li>
+  </ul>
+</div>
+<div class="box detail">
+  <div class="label">세부 · 얼굴 가림 도해에 적힌 설명</div>
+  <ul>
+    <li>부르카. 온몸을 완전히 가림, 눈은 그물로 가림, 대부분 푸른색.</li>
+    <li>니캅. 얼굴을 완전히 가림, 눈만 노출, 주로 사우디·예멘.</li>
+    <li>히잡. 전통 머리 수건, 머리·귀·목·어깨를 가림.</li>
+    <li>차도르. 얼굴만 내놓고 머리끝에서 발끝까지 가림. 특히 이란.</li>
+    <li>집회 현수막의 문구는 LOI CONTRE LE VOILE OU CONTRE L’ISLAM.</li>
+  </ul>
+</div>
+
+<h2>2. 가톨릭이 프랑스의 뼈대로 제시되는 과정</h2>
+<div class="box main">
+  <div class="label">주요 · 프랑크에서 프랑스까지, 기독교의 기여</div>
+  <ul>
+    <li>게르만 족의 이동(3, 4세기)은 로마 제국의 몰락으로 연결된다. 지도 제목은 Invasions of the Roman Empire, 100–500 CE.</li>
+    <li>프랑크 족의 이동, 프랑크 왕국, 프랑스의 탄생.</li>
+    <li>유럽에 기독교를 확립하는 데 프랑스가 가장 많은 기여를 하였다.</li>
+  </ul>
+</div>
+
+<h3>중세, ‘가톨릭의 장녀’</h3>
+<table>
+  <thead><tr><th style="width:22%">왕조</th><th>슬라이드의 사건</th><th style="width:32%">기독교화의 범위</th></tr></thead>
+  <tbody>
+    <tr><td>메로빙거 왕조</td><td>클로비스. 인쇄는 ‘세계’, 필기가 ‘세례’로 고침</td><td>프랑스 전체가 기독교화</td></tr>
+    <tr><td>카롤링거 왕조</td><td>샤를마뉴 대제의 성전</td><td>서유럽 전체가 기독교화</td></tr>
+  </tbody>
+</table>
+<div class="box note">
+  <div class="label">슬라이드 필기</div>
+  <ul>
+    <li>성전 옆 필기. “기독교를 많히는 전쟁”.</li>
+    <li>십자군 문장 위 필기. “십자가의 전쟁”.</li>
+    <li>스콜라 신학 옆 필기. 스콜라 철학 = 신학, 가장 유명한 신학자, 소르본 대학교.</li>
+  </ul>
+</div>
+<div class="box main">
+  <div class="label">주요 · 중세 기독교 사회를 주도한 프랑스</div>
+  <ul>
+    <li>십자군의 주축은 프랑스 기사들.</li>
+    <li>중세를 대표하는 학문인 스콜라 신학은 파리 소르본 대학에서 탄생하고 발전했다.</li>
+    <li>고딕 양식 발명 (French Work).</li>
+  </ul>
+</div>
+<div class="box warn">
+  <div class="label">혼동 · 로마네스크와 고딕</div>
+  <ul>
+    <li>로마네스크. 석조 궁륭. 두꺼운 벽, 벽화.</li>
+    <li>고딕. 교차 궁륭. 얇은 벽과 큰 창문, 스테인드글라스. 첨탑.</li>
+    <li>필기. 석조 궁륭은 “돌로 만든 아치형 건물”. 스테인드글라스 옆은 “영원한 빛이 들어오게 만듦”.</li>
+    <li>비교표 다음에 첨탑과 장미창이 있는 성당 사진이 온다. 이름 캡션은 없다.</li>
+  </ul>
+</div>
+<div class="box detail">
+  <div class="label">세부 · 우리나라와 가톨릭</div>
+  <ul>
+    <li>병인박해와 병인양요.</li>
+    <li>전동 성당(1891), 명동성당(1892).</li>
+    <li>사진에는 고딕 양식과 로마네스크 양식이 각각 표시되어 있다.</li>
+  </ul>
+</div>
+
+<h3>왕과 교회의 맞교환</h3>
+<div class="box main">
+  <div class="label">주요 · 기독교는 왕과 결탁해 막강한 권력을 행사하였다</div>
+  <ul>
+    <li>왕은 교회에 토지를 하사하고 군사적으로 보호한다.</li>
+    <li>교회는 왕권을 정당화하는 이데올로기를 제공한다. 왕권신수설. ‘매우 기독교적인 왕’.</li>
+    <li>그림의 문구는 DIEU EST AMOUR, Le Roi très chrétien.</li>
+  </ul>
+</div>
+<div class="box note">
+  <div class="label">슬라이드 필기</div>
+  <ul><li>“교회는 부패했을 것이다.”</li></ul>
+</div>
+
+<h3>근대, 종교개혁 뒤에도 프랑스 가톨릭이 이긴 과정</h3>
+<div class="box main">
+  <div class="label">주요 · 위그노와 낭트 칙령, 그리고 그 폐기</div>
+  <ul>
+    <li>칼뱅의 종교개혁이 가톨릭에 도전하고, 프랑스에 칼뱅파(위그노)가 확산한다.</li>
+    <li>위그노 전쟁(1562–1598)과 앙리 4세의 낭트 칙령.</li>
+    <li>위그노 전쟁을 격화시킨 사건으로 성 바르톨로메오의 대학살(1572, 파리)이 적혀 있다. 옆에는 신교의 전파 지도가 있다.</li>
+    <li>루이 14세는 가톨릭의 왕권신수설을 기반으로 절대 왕권을 강화하기 위해 낭트 칙령을 폐기하고(1685), 가톨릭을 국교화한다.</li>
+    <li>말풍선. 유럽 대부분 지역에서 가톨릭이 쇠퇴하였지만, 오히려 프랑스에서는 더욱 강력해짐. 가톨릭 종주국의 위상 확립.</li>
+  </ul>
+</div>
+<div class="box note">
+  <div class="label">슬라이드 필기</div>
+  <ul>
+    <li>칼뱅 항목 위. “우리는 교황을 정점으로 삼는다.”</li>
+    <li>전쟁 항목 아래. “가톨릭 vs 위그노.”</li>
+    <li>앙리 4세 필기. 앙리 4세는 원래 위그노였지만 프랑스 왕이 되기 위해 가톨릭으로 개종하고, 위그노를 달래기 위해 낭트 칙령이 생기게 됨.</li>
+  </ul>
+</div>
+<div class="box warn">
+  <div class="label">혼동 · 낭트 칙령은 두 방향으로 나온다</div>
+  <ul>
+    <li>앙리 4세의 낭트 칙령은 위그노 전쟁(1562–1598)과 같은 항목에 있다.</li>
+    <li>루이 14세의 1685년은 그 칙령의 폐기이고, 가톨릭 국교화와 절대 왕권 강화가 같은 문장에 있다.</li>
+    <li>제1강의 루이 14세는 “짐이 곧 국가다”와 절대 왕정의 구조로 나온다. 같은 왕이 제2강에서는 왕권신수설과 국교화의 주체로 나온다.</li>
+  </ul>
+</div>
+
+<h2>3. 가톨릭의 쇠퇴와 라이시테</h2>
+<div class="box main">
+  <div class="label">주요 · 프랑스 대혁명과 비기독교화 운동</div>
+  <ul>
+    <li>1789년 8월 인권 선언이 “신앙의 자유”를 선포하고, 화살표는 가톨릭의 쇠퇴로 간다.</li>
+    <li>비기독교화. 그레고리력 폐지, 성직자 탄압, 교회 파괴.</li>
+    <li>로마 교황청과의 관계 악화.</li>
+    <li>제1강의 1789년 7월 14일(바스티유, 대혁명의 날짜)과 이 8월의 신앙의 자유는 같은 혁명의 다른 항목이다.</li>
+  </ul>
+</div>
+<div class="box note">
+  <div class="label">슬라이드 필기</div>
+  <ul><li>그레고리력 옆 필기. “우리가 현재 사용하는 달력.”</li></ul>
+</div>
+<div class="box main">
+  <div class="label">주요 · 나폴레옹과 교황의 화해, 그리고 교권의 재성장</div>
+  <ul>
+    <li>1801년 화친조약 Concordat.</li>
+    <li>이후 점차 교회 세력(교권주의)이 성장한다.</li>
+    <li>제1강의 나폴레옹은 1799년 브뤼메르 19일의 쿠데타, 1804년 제1제정, 1812년 러시아 원정, 1814년 몰락의 정치사로 나온다. 제2강은 그 사이 1801년의 종교 화해를 넣는다.</li>
+  </ul>
+</div>
+<div class="box note">
+  <div class="label">슬라이드 필기</div>
+  <ul>
+    <li>교권주의 성장 아래. “(성직자 + 왕당파) 높은 계급의 사람들을 살리고자 함.”</li>
+    <li>같은 면. “교권주의 ≠ 반교권주의(공화주의자).”</li>
+    <li>같은 면. “교회와 정가가 같이 일하는 것을 잇기 위함.”</li>
+  </ul>
+</div>
+
+<h3>19세기, 교권주의와 공화주의의 투쟁</h3>
+<p>소제목 아래에 수탉과 성직자가 맞서는 그림, CALOTTE와 BIENFAITS CLÉRICAUX가 보이는 풍자화가 있다. 설명 문장보다 그림이 먼저 투쟁을 보여 주고, 다음 장이 그 투쟁의 수단으로 초등학교를 지정한다.</p>
+<div class="box main">
+  <div class="label">주요 · 초등학교를 교권주의 투쟁의 수단으로 활용</div>
+  <ul>
+    <li>표제 프랑스어는 école primaire laïque.</li>
+    <li>1880년 쥘 페리 법.</li>
+    <li>종교단체의 초등교육 금지.</li>
+    <li>초등교육을 무상 의무교육으로 지정하고, 정교분리 교육을 실시. 신앙이 아니라 시민사회에 필요한 공적 도덕과 애국심을 가르침.</li>
+  </ul>
+</div>
+<div class="box note">
+  <div class="label">슬라이드 필기</div>
+  <ul>
+    <li>“옛날에는 정치와 종교가 하나였기에 (교회) 초등학교를 관리했지만, 교회가 반교권주의 성향을 숨기게 되면서.”</li>
+  </ul>
+</div>
+<div class="box link">
+  <div class="label">관계 · 제1강의 초등학교와 제2강의 초등학교</div>
+  <ul>
+    <li>제1강. 제3공화정이 정통성을 세우려고 초등학교에서 공화주의적 시민을 양성한다. 필기는 기본적인 언어, 국가와 시민 양성을 적는다.</li>
+    <li>제2강. 같은 학교를 교권주의 투쟁의 수단으로 두고, 1880년 쥘 페리 법이 종교단체의 초등교육을 금하며 정교분리 교육을 한다. 가르치는 내용은 공적 도덕과 애국심이다.</li>
+    <li>두 슬라이드를 겹치면 초등학교는 혁명·공화주의의 선전장이자, 교회에서 떼어 낸 교육이다.</li>
+  </ul>
+</div>
+
+<h3>공화주의의 승리, 라이시테의 문장</h3>
+<div class="box main">
+  <div class="label">주요 · 1905년 정교분리법의 두 문장</div>
+  <ul>
+    <li>“공화국은 신앙의 자유를 보장하고 종교 의식을 자유롭게 행할 것을 보장한다.”</li>
+    <li>“공화국은 어떠한 종교 의식도 인정하거나 급여를 주거나 보조금을 지원하지 않는다.”</li>
+    <li>두 문장은 한 법 안에 있다. 앞 문장은 신앙과 의례의 자유, 뒷 문장은 국가의 인정·급여·보조금 거절이다.</li>
+  </ul>
+</div>
+<div class="box main">
+  <div class="label">주요 · 1946년 헌법 제1조</div>
+  <ul>
+    <li>“프랑스는 정교분리적(laïque)이며 민주적이고 사회적 불가분적 공화국이다.”</li>
+    <li>앞부분 헌법 인용문 “indivisible, laïque, démocratique et sociale”과 같은 낱말들이 여기 한국어 조항에 다시 나온다.</li>
+    <li>그림 속 말풍선은 laïcité.</li>
+  </ul>
+</div>
+<div class="box link">
+  <div class="label">관계 · 현대의 갈등으로 되돌아오는 끝</div>
+  <ul>
+    <li>2010년 법이 강의의 맨 앞에 놓인 히잡·학교·첨탑 문제와 같은 주제로 끝을 닫는다.</li>
+    <li>사르코지 슬라이드가 이미 그어 둔 선은, 종교적 자유를 넘어선 종교적 과시와 도발이다.</li>
+    <li>1905년 법의 첫 문장(신앙의 자유)과 둘째 문장(국가가 종교를 인정하거나 급여·보조금을 주지 않음)이 그 선의 법적 표현으로 뒤에 나온다.</li>
+  </ul>
+</div>
+
+<div class="banner"><div class="no">모아 둠</div><div class="tt">혼동하기 쉬운 것</div></div>
+<p class="small">아래는 새 설명이 아니라, 앞에서 나온 쌍을 시험 직전에 다시 보게 모아 둔 것이다.</p>
+
+<div class="box warn">
+  <div class="label">혼동 · 세 개의 ‘주의’와 세 개의 가치</div>
+  <ul>
+    <li>혁명의 결과로 적힌 것. 자유주의, 의회주의, 민족주의.</li>
+    <li>혁명 이념. 자유, 평등, 박애.</li>
+    <li>그 이후 중시한다는 진보적 가치관. 톨레랑스, 솔리다리테, 앙가주망.</li>
+    <li>건국 이념으로 묶인 말. 진보, 공화주의, 사회주의.</li>
+  </ul>
+</div>
+<div class="box warn">
+  <div class="label">혼동 · 공화정과 제정의 번호</div>
+  <ul>
+    <li>제1공화정 1792. 제2공화정은 1848년 2월 혁명, 루이 보나파르트 대통령 당선. 제3공화정 1871.</li>
+    <li>제1제정 1804. 제2제정 1852–1870, 나폴레옹 3세.</li>
+    <li>왕정의 이름으로 나오는 것. 절대왕정(루이 14세), 1814년 복고 왕정(루이 18세), 1830년 7월 혁명 뒤의 입헌군주정.</li>
+    <li>19세기 말 질문은 이 셋을 왕정·공화정·제정으로 한 바퀴에 넣는다.</li>
+  </ul>
+</div>
+<div class="box warn">
+  <div class="label">혼동 · 클로비스와 샤를마뉴의 범위</div>
+  <ul>
+    <li>클로비스, 메로빙거. 필기 수정은 세례. 범위는 프랑스 전체의 기독교화.</li>
+    <li>샤를마뉴, 카롤링거. 성전. 필기는 기독교를 많히는 전쟁. 범위는 서유럽 전체의 기독교화.</li>
+  </ul>
+</div>
+<div class="box warn">
+  <div class="label">혼동 · 낭트 칙령의 두 방향</div>
+  <ul>
+    <li>앙리 4세, 위그노 전쟁(1562–1598)과 함께 낭트 칙령. 필기는 개종과 위그노를 달래기 위한 칙령.</li>
+    <li>루이 14세, 1685년 폐기와 가톨릭 국교화. 목적은 왕권신수설에 기초한 절대 왕권 강화.</li>
+    <li>그래서 유럽에서는 가톨릭이 쇠퇴하는데 프랑스에서는 더 강해지고, 가톨릭 종주국의 위상이 선다는 말풍선이 붙는다.</li>
+  </ul>
+</div>
+<div class="box warn">
+  <div class="label">혼동 · 교권주의와 반교권주의</div>
+  <ul>
+    <li>필기가 등식으로 그어 둔 것. 교권주의 ≠ 반교권주의(공화주의자).</li>
+    <li>교권주의가 커지는 자리는 1801년 화친조약 이후의 교회 세력.</li>
+    <li>반교권주의 쪽 제도는 1880년 쥘 페리 법, 1905년 정교분리법, 정교분리 교육으로 이어진다.</li>
+    <li>성직자 필기. (성직자 + 왕당파) 높은 계급의 사람들을 살리고자 함.</li>
+  </ul>
+</div>
+<div class="box warn">
+  <div class="label">혼동 · 라이시테 문장 두 줄</div>
+  <ul>
+    <li>1905년, 신앙의 자유와 종교 의식을 자유롭게 행할 자유는 보장한다.</li>
+    <li>1905년, 어떠한 종교 의식도 인정하거나 급여를 주거나 보조금을 지원하지는 않는다.</li>
+    <li>1946년 헌법 제1조는 프랑스를 정교분리적(laïque)이며 민주적이고 사회적 불가분적 공화국이라고 한다.</li>
+    <li>2009년 사르코지 슬라이드가 덧붙인 경계어는 종교적 과시(ostentation)와 도발(provocation)이다.</li>
+  </ul>
+</div>
+<div class="box warn">
+  <div class="label">혼동 · 학교의 금지와 얼굴의 금지</div>
+  <ul>
+    <li>1989 Creil은 히잡 사건이라는 이름만 있다.</li>
+    <li>2004는 학교에서의 종교적 상징물·의복. 예로 히잡, 키파, 큰 십자가.</li>
+    <li>2010은 공공장소에서 얼굴을 가리는 행위. 예외가 네 가지다.</li>
+  </ul>
+</div>
+<div class="box warn">
+  <div class="label">혼동 · 그레고리력</div>
+  <ul>
+    <li>비기독교화의 항목 중 하나가 그레고리력 폐지다.</li>
+    <li>필기는 그 달력을 “우리가 현재 사용하는 달력”이라고 적는다.</li>
+  </ul>
+</div>
+<div class="box warn">
+  <div class="label">혼동 · 로마네스크와 고딕, 다시</div>
+  <ul>
+    <li>두꺼운 벽·벽화·석조 궁륭이 로마네스크. 얇은 벽·큰 창문·스테인드글라스·교차 궁륭·첨탑이 고딕.</li>
+    <li>고딕은 French Work, 프랑스의 발명으로 적혀 있다.</li>
+  </ul>
+</div>
+
+<div class="banner"><div class="no">색인</div><div class="tt">장소와 상징</div></div>
+<p class="small">이름만 나와도 어느 주장 옆에 붙어 있는지 보이게 다시 배열했다.</p>
+<table>
+  <thead><tr><th style="width:46%">자료의 이름</th><th>붙어 있는 내용</th></tr></thead>
+  <tbody>
+    <tr><td>베르사유, jardin à la française</td><td>절대왕정의 궁정 예법</td></tr>
+    <tr><td>오스만 남작</td><td>방사형 대로가 있는 파리 사진</td></tr>
+    <tr><td>Marianne</td><td>대혁명 장의 상징. 뒤에 자유의 여신상으로 이어짐</td></tr>
+    <tr><td>라 마르세예즈, 삼색기, 혁명기념일, 팡테옹</td><td>혁명의 상징과 기념. 혁명 = 국가</td></tr>
+    <tr><td>LA CONVENTION NATIONALE</td><td>팡테옹 내부 좌대 문구</td></tr>
+    <tr><td>Arc de triomphe de l’Étoile</td><td>나폴레옹 시대 슬라이드 사이의 개선문</td></tr>
+    <tr><td>Invalid</td><td>황금 돔 건물과 관</td></tr>
+    <tr><td>Basilique du Sacré-Cœur</td><td>파리 코뮌 다음 슬라이드의 건물</td></tr>
+    <tr><td>에펠탑</td><td>파리 이미지, 삼색 조명, 100주년 필기의 에펠탑 건립</td></tr>
+    <tr><td>자유의 여신상</td><td>마리안느가 자유의 여신상으로. 미국 100주년 선물 필기</td></tr>
+    <tr><td>Mont-Saint-Michel</td><td>제2강 표지의 장소</td></tr>
+    <tr><td>ASSEMBLÉE NATIONALE</td><td>헌법 1조와 라이시테</td></tr>
+    <tr><td>스위스의 모스크</td><td>2009년 첨탑 금지와 사르코지</td></tr>
+    <tr><td>전동 성당 1891, 명동성당 1892</td><td>병인박해·병인양요와 함께. 고딕·로마네스크 표시</td></tr>
+    <tr><td>Le Roi très chrétien</td><td>매우 기독교적인 왕. 왕권신수설</td></tr>
+  </tbody>
+</table>
+
+<h1 class="sec">연도로 다시 훑기</h1>
+<p class="small">두 강의의 연도를 시간 순으로 합쳤다. 칸의 말은 슬라이드 표현을 줄인 것이다.</p>
+<table>
+  <thead><tr><th style="width:22%">연도</th><th>슬라이드가 묶는 내용</th></tr></thead>
+  <tbody>
+    <tr><td class="y">3–4세기</td><td>게르만 족의 이동, 로마 제국의 몰락. 이어서 프랑크 족, 프랑크 왕국, 프랑스</td></tr>
+    <tr><td class="y">중세</td><td>가톨릭의 장녀. 클로비스는 프랑스 전체, 샤를마뉴의 성전은 서유럽 전체</td></tr>
+    <tr><td class="y">중세</td><td>십자군의 주축은 프랑스 기사. 스콜라 신학은 파리 소르본. 고딕은 French Work</td></tr>
+    <tr><td class="y">1562–1598</td><td>위그노 전쟁과 앙리 4세의 낭트 칙령</td></tr>
+    <tr><td class="y">1572</td><td>성 바르톨로메오의 대학살, 파리. 전쟁을 격화</td></tr>
+    <tr><td class="y">1685</td><td>루이 14세, 낭트 칙령 폐기, 가톨릭 국교화</td></tr>
+    <tr><td class="y">1789. 7. 14.</td><td>프랑스 대혁명. 바스티유 감옥 습격</td></tr>
+    <tr><td class="y">1789. 8.</td><td>인권 선언, 신앙의 자유. 가톨릭의 쇠퇴</td></tr>
+    <tr><td class="y">1792</td><td>군주제 폐지, 제1공화정</td></tr>
+    <tr><td class="y">1793</td><td>루이 16세 처형</td></tr>
+    <tr><td class="y">1793–1794</td><td>공포정치, 로베스피에르</td></tr>
+    <tr><td class="y">1799</td><td>브뤼메르 19일의 쿠데타, 나폴레옹</td></tr>
+    <tr><td class="y">1801</td><td>화친조약 Concordat. 이후 교권주의 성장</td></tr>
+    <tr><td class="y">1804</td><td>제1제정 선포</td></tr>
+    <tr><td class="y">1812</td><td>러시아 원정 실패와 몰락</td></tr>
+    <tr><td class="y">1814</td><td>복고 왕정, 루이 18세</td></tr>
+    <tr><td class="y">1830</td><td>7월 혁명, 입헌군주정</td></tr>
+    <tr><td class="y">1848</td><td>2월 혁명, 제2공화정, 루이 보나파르트 대통령</td></tr>
+    <tr><td class="y">1852–1870</td><td>제2제정. 나폴레옹 3세의 정책 실패, 프로이센 전쟁 패배</td></tr>
+    <tr><td class="y">1871</td><td>독일 제2제국 선포, 프랑스 제2제정 폐지, 파리 코뮌, 제3공화정 출범</td></tr>
+    <tr><td class="y">1880</td><td>쥘 페리 법. 종교단체 초등교육 금지, 무상 의무·정교분리 교육</td></tr>
+    <tr><td class="y">1891 / 1892</td><td>전동 성당, 명동성당</td></tr>
+    <tr><td class="y">1905</td><td>정교분리법. 신앙의 자유 보장, 종교 인정·급여·보조금은 없음</td></tr>
+    <tr><td class="y">1946</td><td>헌법 제1조. 정교분리적·민주적·사회적·불가분적 공화국</td></tr>
+    <tr><td class="y">1989</td><td>Creil의 히잡 사건</td></tr>
+    <tr><td class="y">2004</td><td>학교의 종교적 상징물·의복 착용 금지</td></tr>
+    <tr><td class="y">2009</td><td>사르코지, 스위스 이슬람 사원 첨탑 금지 옹호</td></tr>
+    <tr><td class="y">2010. 10.</td><td>공공장소에서 얼굴을 가리는 행위 금지</td></tr>
+    <tr><td class="y">2024</td><td>파리 올림픽을 프랑스 혁명과 함께 제시</td></tr>
+  </tbody>
+</table>
+
+<h1 class="sec">시험 전에 닫는 문장</h1>
+<div class="box main">
+  <div class="label">주요 · 자료가 이미 써 둔 결론만</div>
+  <ul>
+    <li>혁명은 진보, 공화주의, 사회주의로서 국가의 건국 이념이고, 그 뒤 톨레랑스·솔리다리테·앙가주망이 중시된다. 필기는 이것을 일상화시키는 문화라고 적는다.</li>
+    <li>상징과 기념을 한 마디로 줄이면 혁명 = 국가이다.</li>
+    <li>프랑스는 중세의 가톨릭의 장녀에서 가톨릭 종주국의 위상까지 갔다가, 대혁명의 비기독교화와 19세기의 투쟁을 거쳐 라이시테를 공화국의 원칙으로 둔다.</li>
+    <li>1905년 법은 신앙과 의례의 자유를 보장하면서, 국가가 종교 의식을 인정하거나 급여·보조금을 주지는 않는다고 적는다.</li>
+    <li>오늘의 학교·히잡·첨탑·얼굴 가림은 그 원칙이 공공장소에서 어떻게 말하는지를 보여 주는 현대의 사례로 강의 앞뒤에 배치되어 있다.</li>
+  </ul>
+</div>
+<p class="small">이 노트는 제1강 《프랑스의 혁명 전통》, 제2강 《가톨릭의 나라, 프랑스》 슬라이드와 그 위에 보이는 손글씨만 재구성한 것이다.</p>
+
+</body>
+</html>
