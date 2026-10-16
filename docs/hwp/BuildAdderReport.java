@@ -70,7 +70,7 @@ public class BuildAdderReport {
         String template = args.length > 2 ? args[2] : docs + "/hwp/template.hwp";
         BuildAdderReport report = new BuildAdderReport(docs, template);
         report.build();
-        HWPWriter.toFile(report.hwp, out);
+        save(report.hwp, out);
         injectSummary(out);
 
         HWPFile readBack = HWPReader.fromFile(out);
@@ -124,6 +124,7 @@ public class BuildAdderReport {
             problems.add("소수점 셋째 자리 이상: " + longDecimal.group());
         }
         checkForm(readBack, problems);
+        checkPictureStreams(out, readBack, problems);
         if (!problems.isEmpty()) {
             System.err.println(text);
             throw new IllegalStateException(String.join("\n", problems));
@@ -623,7 +624,8 @@ public class BuildAdderReport {
 
     private int embedJpeg(byte[] bytes) throws Exception {
         int next = hwp.getBinData().getEmbeddedBinaryDataList().size() + 1;
-        String streamName = String.format("BIN%04d.jpg", next);
+        // 한글은 BinData 스트림 번호를 16진 네 자리로 찾는다. 10은 BIN000A다.
+        String streamName = String.format("BIN%04X.jpg", next);
         hwp.getBinData().addNewEmbeddedBinaryData(streamName, bytes, BinDataCompress.ByStorageDefault);
         BinData data = hwp.getDocInfo().addNewBinData();
         data.getProperty().setType(BinDataType.Embedding);
@@ -674,6 +676,111 @@ public class BuildAdderReport {
             in.close();
         }
         return buffer;
+    }
+
+    private static void save(HWPFile hwpFile, String path) throws Exception {
+        java.lang.reflect.Constructor<HWPWriter> ctor =
+                HWPWriter.class.getDeclaredConstructor(HWPFile.class);
+        ctor.setAccessible(true);
+        HWPWriter writer = ctor.newInstance(hwpFile);
+        call(writer, "autoSet");
+        syncPictureIds(hwpFile);
+        call(writer, "fileHeader");
+        call(writer, "docInfo");
+        call(writer, "bodyText");
+        call(writer, "binData");
+        call(writer, "summaryInformation");
+        call(writer, "scripts");
+        call(writer, "docOptions");
+        call(writer, "writeAndClose", new Class<?>[]{String.class}, new Object[]{path});
+    }
+
+    private static void call(Object target, String name) throws Exception {
+        call(target, name, new Class<?>[0], new Object[0]);
+    }
+
+    private static void call(Object target, String name, Class<?>[] types, Object[] args) throws Exception {
+        java.lang.reflect.Method method = target.getClass().getDeclaredMethod(name, types);
+        method.setAccessible(true);
+        try {
+            method.invoke(target, args);
+        } catch (java.lang.reflect.InvocationTargetException e) {
+            if (e.getCause() instanceof Exception) {
+                throw (Exception) e.getCause();
+            }
+            throw e;
+        }
+    }
+
+    private static void syncPictureIds(HWPFile hwpFile) {
+        Section section = hwpFile.getBodyText().getSectionList().get(0);
+        for (int i = 0; i < section.getParagraphCount(); i++) {
+            Paragraph paragraph = section.getParagraph(i);
+            if (paragraph.getControlList() == null) {
+                continue;
+            }
+            for (int c = 0; c < paragraph.getControlList().size(); c++) {
+                if (paragraph.getControlList().get(c) instanceof ControlPicture) {
+                    ControlPicture picture = (ControlPicture) paragraph.getControlList().get(c);
+                    picture.getShapeComponentPicture().setInstanceId(picture.getHeader().getInstanceId());
+                }
+            }
+        }
+    }
+
+    private static void checkPictureStreams(String path, HWPFile file, List<String> problems) throws Exception {
+        POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(path));
+        kr.dogfoot.hwplib.org.apache.poi.poifs.filesystem.DirectoryNode bin =
+                (kr.dogfoot.hwplib.org.apache.poi.poifs.filesystem.DirectoryNode) fs.getRoot().getEntry("BinData");
+        java.util.HashSet<Long> seen = new java.util.HashSet<Long>();
+        Section section = file.getBodyText().getSectionList().get(0);
+        for (int i = 0; i < section.getParagraphCount(); i++) {
+            Paragraph paragraph = section.getParagraph(i);
+            if (paragraph.getControlList() == null) {
+                continue;
+            }
+            for (int c = 0; c < paragraph.getControlList().size(); c++) {
+                if (!(paragraph.getControlList().get(c) instanceof ControlPicture)) {
+                    continue;
+                }
+                ControlPicture picture = (ControlPicture) paragraph.getControlList().get(c);
+                long inst = picture.getShapeComponentPicture().getInstanceId();
+                if (inst == 0 || seen.add(inst) == false) {
+                    problems.add("그림 고유 번호가 겹침: " + inst);
+                }
+                if (inst != picture.getHeader().getInstanceId()) {
+                    problems.add("그림 고유 번호가 헤더와 다름");
+                }
+                int id = picture.getShapeComponentPicture().getPictureInfo().getBinItemID();
+                String ext = id == 1 ? "png" : "jpg";
+                String name = String.format("BIN%04X.%s", id, ext);
+                if (bin.hasEntry(name) == false) {
+                    problems.add("그림 파일이 없음: " + name);
+                }
+                if (ext.equals("jpg")) {
+                    byte[] data = jpegByName(file, name);
+                    int soi = 0;
+                    for (int p = 0; p + 1 < data.length; p++) {
+                        if ((data[p] & 0xff) == 0xff && (data[p + 1] & 0xff) == 0xd8) {
+                            soi++;
+                        }
+                    }
+                    if (soi != 1 || data.length < 4 || (data[0] & 0xff) != 0xff || (data[1] & 0xff) != 0xd8) {
+                        problems.add("그림이 JPEG 한 장이 아님: " + name);
+                    }
+                }
+            }
+        }
+    }
+
+    private static byte[] jpegByName(HWPFile file, String name) {
+        for (kr.dogfoot.hwplib.object.bindata.EmbeddedBinaryData data
+                : file.getBinData().getEmbeddedBinaryDataList()) {
+            if (name.equals(data.getName())) {
+                return data.getData();
+            }
+        }
+        return new byte[0];
     }
 
     private static void injectSummary(String path) throws Exception {
