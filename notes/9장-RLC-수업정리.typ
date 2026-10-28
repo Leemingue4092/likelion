@@ -132,11 +132,13 @@ $ i = i_h + i_p = A_1 e^(s t) + K e^(alpha t) $
   칠판의 $y'(0) = 3$, $y''(0) = 5$는 $a$, $b$가 없어 여기서 풀지 않았다.
 ]
 
+#pagebreak()
+
 == Ex 9-2 병렬 RLC
 
 $t > 0$ 에서 $i_s (t) = 8 e^(-2 t)$, $i_L (t) = i(t) = ?$
 
-#align(center)[#image("parallel-rlc.png", width: 46%)]
+#align(center)[#image("parallel-rlc.png", width: 40%)]
 
 $R = 6 Omega$, $L = 7 "H"$, $C = frac(1, 42) "F"$.
 병렬이라 $v_R = v_L = v_C$. $i$는 인덕터를 위에서 아래로 흐른다.
@@ -205,12 +207,11 @@ $ A_1 + 6 A_2 = 16 quad (b) $
 
 $ A_2 = frac(4, 5) = 0.8, quad A_1 = 12 - 0.8 = 11.2 $
 
-#v(0.35em)
+#block(breakable: false)[
 #align(center)[
   #box(stroke: (bottom: 0.9pt), inset: (x: 4pt, bottom: 2pt))[
     $ i(t) = 11.2 e^(-t) + 0.8 e^(-6 t) - 12 e^(-2 t) quad [A] $
   ]
 ]
-
-검산. $i(0) = 11.2 + 0.8 - 12 = 0$,
-$i'(0) = -11.2 - 6 times 0.8 + 24 = 8$.
+검산. $i(0) = 11.2 + 0.8 - 12 = 0$, $i'(0) = -11.2 - 6 times 0.8 + 24 = 8$.
+]
